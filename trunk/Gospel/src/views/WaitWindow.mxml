@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:Panel xmlns:fx="http://ns.adobe.com/mxml/2009"
+		 xmlns:s="library://ns.adobe.com/flex/spark" 
+		 xmlns:mx="library://ns.adobe.com/flex/halo" width="400" height="158" title="请等待，有些事情正在处理" xmlns:local="*">
+	<s:layout>
+		<s:VerticalLayout horizontalAlign="center" paddingTop="10"/>
+	</s:layout>
+	<fx:Script>
+		<![CDATA[
+			import flash.display.DisplayObject;
+			
+			import mx.controls.ProgressBar;
+			import mx.managers.PopUpManager;
+			public var progressBars:Object = {};
+			public static var instance:WaitWindow;
+			public static function wait(name:String):void{
+				if(!instance){
+					instance = PopUpManager.createPopUp(sendDexterEvent("getTopApp") as DisplayObject,WaitWindow,true) as WaitWindow;
+					PopUpManager.centerPopUp(instance);
+				}
+				instance.addThing(name);
+			}
+			public function addThing(name:String):void{
+				var p:ProgressBar = new ProgressBar();
+				p.indeterminate = true;
+				p.label = name;
+				addElement(p);
+				progressBars[name] = p;
+			}
+			public static function waitThingDone(name:String):void{
+				instance.removeElement(instance.progressBars[name]);
+				delete instance.progressBars[name];
+				if(!instance.numElements){
+					instance.close();
+				}
+			}
+			public function close():void{
+				PopUpManager.removePopUp(this);
+				instance = null;
+			}
+		]]>
+	</fx:Script>
+</s:Panel>

@@ -1,19 +1,109 @@
 <?xml version="1.0" encoding="utf-8"?>
 <s:WindowedApplication xmlns:fx="http://ns.adobe.com/mxml/2009" creationComplete="windowedapplication1_creationCompleteHandler(event)"
-					   xmlns:s="library://ns.adobe.com/flex/spark" 
-					   xmlns:mx="library://ns.adobe.com/flex/halo" xmlns:local="*">
-	<fx:Declarations>
-		<local:BeanLoader/>
-	</fx:Declarations>
+					   xmlns:s="library://ns.adobe.com/flex/spark" status="{gospelModel.statusBarText}"
+					   xmlns:mx="library://ns.adobe.com/flex/halo" width="800" height="600" xmlns:local="*" xmlns:rtc="AfcsNameSpace" fontFamily="幼圆" fontSize="14" xmlns:views="gospel.views.*">
 	<fx:Script>
 		<![CDATA[
+			import flash.events.MouseEvent;
+			import flash.net.URLRequest;
+			import flash.net.navigateToURL;
+			
+			import models.GospelModel;
+			import models.LocalSetting;
+			
+			import mx.collections.XMLListCollection;
 			import mx.events.FlexEvent;
-
+			
+			import spark.events.IndexChangeEvent;
+			[DexterBinding]
+			[Bindable]
+			public var gospelModel:GospelModel;
+			[DexterBinding]
+			[Bindable]
+			public var localSetting:LocalSetting;
+			[DexterBinding(model="gospelModel",property="roomList")]
+			[Bindable]
+			public var roomList:XMLListCollection;
+			[DexterEvent]
+			public function getTopApp():Gospel{
+				return this;
+			}
 			protected function windowedapplication1_creationCompleteHandler(event:FlexEvent):void
 			{
-				sendDexterEvent("ConnectServer");
+				sendDexterEvent("appStart");
 			}
-
+			
+			protected function list1_changeHandler(event:IndexChangeEvent):void
+			{
+				sendDexterEvent("enterRoom",roomList[event.newIndex].@code,userName.text,pwd.text);
+			}
+			
+			
+			protected function linkbutton1_clickHandler(event:MouseEvent):void
+			{
+				navigateToURL(new URLRequest("http://www.fuyincn.com"));
+			}
 		]]>
 	</fx:Script>
+	<fx:Declarations>
+		<local:BeanLoader/>
+		<local:DexterFramework/>
+	</fx:Declarations>
+	<s:BitmapImage resizeMode="repeat" source="back.jpg" width="100%" height="100%"/>
+	<mx:TabNavigator id="tab" left="0" right="0" top="50" bottom="0" tabOffset="250" tabWidth="80" borderVisible="true" backgroundAlpha="0.5">
+		<s:NavigatorContent width="100%" height="100%" label="入口">
+			<!--<s:Rect width="100%" height="100%">
+			<s:fill>
+			<s:LinearGradient>
+			<s:entries>
+			<s:GradientEntry color="0xCCCCCC" ratio="0.00" alpha="0.5"/>
+			<s:GradientEntry color="0xEEEEEE" ratio="0.33" alpha="0.5"/>
+			<s:GradientEntry color="0xFFFFFF" ratio="0.66" alpha="0.5"/>
+			</s:entries>
+			</s:LinearGradient>
+			</s:fill>
+			</s:Rect>-->
+			<mx:SWFLoader x="233" y="35" source="3.swf">
+				<mx:filters>
+					<mx:DropShadowFilter angle="90" distance="8" quality="3" blurX="4" blurY="4"/>
+				</mx:filters>
+			</mx:SWFLoader>
+			<s:Border width="230" height="292" dropShadowVisible="true" cornerRadius="5" borderWeight="10" borderColor="#FFFFFF" borderVisible="true" backgroundColor="#F5F5F5" borderStyle="solid" x="62" y="47" contentBackgroundAlpha="0.7" backgroundAlpha="0.8" borderAlpha="0.5">
+				<s:TextInput y="36" id="pwd" displayAsPassword="true" width="192" x="10" text="{localSetting.pwd}"/>
+				<s:TextInput y="6" id="userName" focusIn="if(userName.text=='请输入你的用户名')userName.text=''" text="{localSetting.userName?localSetting.userName:'请输入你的用户名'}" enter="if(userName.text == 'dexter-1985@hotmail.com')pwd.visible=true" width="192" x="10"/>
+				<s:List dataProvider="{roomList}" change="list1_changeHandler(event)" labelField="@name" x="10" y="96" width="192" height="132"></s:List>
+				<s:Label x="10" y="73" text="请选择要进入的房间" fontWeight="bold"/>
+				<s:CheckBox x="10" y="240" label="设置为自动进入" selected="{localSetting.autoLogin}" change="localSetting.autoLogin = autoLogin.selected" id="autoLogin"/>
+			</s:Border>
+			<s:Label x="347" y="60" text="圣灵和新妇都说：“来！”听见的人也该说：“来！”{'\r\n'}口渴的人也当来；愿意的，都可以白白取生命的水喝。"/>
+		</s:NavigatorContent>
+		<s:NavigatorContent label="房间" width="100%" height="100%">
+			<!--<rtc:Roster x="566" y="111" displaySelection="false" showMenuButtons="true"/>
+			<rtc:WebCamera/>-->
+		</s:NavigatorContent>
+	</mx:TabNavigator>
+	<s:Label x="44" y="43" text="网络聚会互动平台" fontSize="20" fontWeight="bold" color="#FFFFFF">
+		<s:filters>
+			<s:DropShadowFilter quality="3" blurX="2" blurY="2" distance="2"/>
+		</s:filters>
+	</s:Label>
+	<s:Label x="77" y="13" text="Gospel {gospelModel.getVersion()}" color="#FFFFFF" fontSize="23">
+		<s:filters>
+			<s:DropShadowFilter quality="3" blurX="2" blurY="2" distance="2"/>
+		</s:filters>
+	</s:Label>
+	<mx:Image x="40" y="5" source="{true?'icon3.png':'icon2.png'}" width="32" height="32">
+		<mx:filters>
+			<mx:DropShadowFilter quality="3" blurX="2" blurY="2" distance="2"/>
+		</mx:filters>
+	</mx:Image>
+	<s:HGroup x="416" y="13" width="374" height="29">
+		<mx:LinkButton label="圣经工具" click="linkbutton1_clickHandler(event)"/>
+		<mx:LinkButton label="活水网站" click="navigateToURL(new URLRequest('http://www.livingwater4u.com'));"/>
+		<mx:LinkButton label="生命之光" click="navigateToURL(new URLRequest('http://www.smzg.com'));"/>
+		<mx:LinkButton label="迦南美地"/>
+		<s:filters>
+			<s:GlowFilter color="0xFFFFFF" blurX="2" blurY="2" strength="100"/>
+		</s:filters>
+	</s:HGroup>
 </s:WindowedApplication>
