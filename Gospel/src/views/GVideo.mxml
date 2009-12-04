@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:UIComponent xmlns:fx="http://ns.adobe.com/mxml/2009" 
+					  xmlns:s="library://ns.adobe.com/flex/spark" 
+					  xmlns:mx="library://ns.adobe.com/flex/halo" width="320" height="240">
+	<fx:Declarations>
+	</fx:Declarations>
+	<fx:Script>
+		<![CDATA[
+			import flash.media.Video;
+			import flash.net.NetStream;
+			public var video:Video = new Video();
+			override protected function updateDisplayList(unscaledWidth:Number, unscaledHeight:Number):void{
+				video.width = unscaledWidth;
+				video.height = unscaledHeight;
+			}
+			[DexterEvent]
+			public function playVideo():void{
+				var stream:NetStream = sendDexterEvent("getInStream");
+				video.attachNetStream(stream);
+				stream.play("media");
+			}
+			[DexterEvent]
+			public function stopVideo():void{
+				var stream:NetStream = sendDexterEvent("getInStream");
+				stream.close();
+				video.clear();
+			}
+		]]>
+	</fx:Script>
+</mx:UIComponent>
