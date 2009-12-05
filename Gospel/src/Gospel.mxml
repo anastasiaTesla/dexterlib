@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <s:WindowedApplication xmlns:fx="http://ns.adobe.com/mxml/2009" creationComplete="windowedapplication1_creationCompleteHandler(event)"
 					   xmlns:s="library://ns.adobe.com/flex/spark" status="{gospelModel.statusBarText}"
-					   xmlns:mx="library://ns.adobe.com/flex/halo" width="800" height="600" xmlns:local="*" xmlns:rtc="AfcsNameSpace" fontFamily="幼圆" fontSize="14" xmlns:views="gospel.views.*">
+					   xmlns:mx="library://ns.adobe.com/flex/halo" width="800" height="600" xmlns:local="*" xmlns:rtc="AfcsNameSpace" fontFamily="幼圆" fontSize="14" xmlns:views="gospel.views.*" xmlns:views1="views.*">
 	<fx:Script>
 		<![CDATA[
-			import flash.events.MouseEvent;
 			import flash.net.URLRequest;
 			import flash.net.navigateToURL;
 			
 			import models.GospelModel;
 			import models.LocalSetting;
 			
+			import mx.collections.ArrayCollection;
 			import mx.collections.XMLListCollection;
 			import mx.events.FlexEvent;
 			
@@ -35,14 +35,9 @@
 			
 			protected function list1_changeHandler(event:IndexChangeEvent):void
 			{
-				sendDexterEvent("enterRoom",roomList[event.newIndex].@code,userName.text,pwd.text);
+				sendDexterEvent("enterRoom",roomList[event.newIndex],userName.text,pwd.text);
 			}
 			
-			
-			protected function linkbutton1_clickHandler(event:MouseEvent):void
-			{
-				navigateToURL(new URLRequest("http://www.fuyincn.com"));
-			}
 		]]>
 	</fx:Script>
 	<fx:Declarations>
@@ -78,8 +73,11 @@
 			<s:Label x="347" y="60" text="圣灵和新妇都说：“来！”听见的人也该说：“来！”{'\r\n'}口渴的人也当来；愿意的，都可以白白取生命的水喝。"/>
 		</s:NavigatorContent>
 		<s:NavigatorContent label="房间" width="100%" height="100%">
-			<!--<rtc:Roster x="566" y="111" displaySelection="false" showMenuButtons="true"/>
-			<rtc:WebCamera/>-->
+		</s:NavigatorContent>
+		<s:NavigatorContent label="设置" width="100%" height="100%">
+			<views1:GVideo x="10" y="37" width="320" height="240" borderStyle="solid" backgroundColor="#A5A5A5"/>
+			<s:Label x="10" y="10" text="我的摄像头"/>
+			<s:DropDownList x="95" y="10" dataProvider="{new ArrayCollection(Camera.names)}" width="235"></s:DropDownList>
 		</s:NavigatorContent>
 	</mx:TabNavigator>
 	<s:Label x="44" y="43" text="网络聚会互动平台" fontSize="20" fontWeight="bold" color="#FFFFFF">
@@ -87,7 +85,7 @@
 			<s:DropShadowFilter quality="3" blurX="2" blurY="2" distance="2"/>
 		</s:filters>
 	</s:Label>
-	<s:Label x="77" y="13" text="Gospel {gospelModel.getVersion()}" color="#FFFFFF" fontSize="23">
+	<s:Label x="77" y="13" text="Gospel {gospelModel.getVersion()}" color="#FFFFFF" fontSize="23" fontWeight="bold">
 		<s:filters>
 			<s:DropShadowFilter quality="3" blurX="2" blurY="2" distance="2"/>
 		</s:filters>
@@ -98,10 +96,10 @@
 		</mx:filters>
 	</mx:Image>
 	<s:HGroup x="416" y="13" width="374" height="29">
-		<mx:LinkButton label="圣经工具" click="linkbutton1_clickHandler(event)"/>
-		<mx:LinkButton label="活水网站" click="navigateToURL(new URLRequest('http://www.livingwater4u.com'));"/>
-		<mx:LinkButton label="生命之光" click="navigateToURL(new URLRequest('http://www.smzg.com'));"/>
-		<mx:LinkButton label="迦南美地"/>
+		<mx:LinkButton label="圣经工具" click="navigateToURL(new URLRequest('http://www.fuyincn.com'))"/>
+		<mx:LinkButton label="活水网站" click="navigateToURL(new URLRequest('http://www.livingwater4u.com'))"/>
+		<mx:LinkButton label="生命之光" click="navigateToURL(new URLRequest('http://www.smzg.com'))"/>
+		<mx:LinkButton label="迦南美地" click="navigateToURL(new URLRequest('http://b569164.xici.net'))"/>
 		<s:filters>
 			<s:GlowFilter color="0xFFFFFF" blurX="2" blurY="2" strength="100"/>
 		</s:filters>

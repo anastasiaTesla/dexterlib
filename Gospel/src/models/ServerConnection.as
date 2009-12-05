@@ -16,13 +16,17 @@ package models
 		private var userListSO:SharedObject;
 		private var userListMap:Object = {};
 		public var userList:ArrayCollection = new ArrayCollection();
+		[DexterBinding]
+		public var localSetting:LocalSetting;
+		[DexterBinding]
+		public var gospelModel:GospelModel;
 		public function ServerConnection()
 		{
 			super();
 			addEventListener(NetStatusEvent.NET_STATUS,onNetStatus);
 		}
-		public function Connect(id:String):void{
-			connect("rtmp://www.finosstudio.com/mylive/room",id,{name:"dexter"});
+		public function Connect(user:UserVO):void{
+			connect("rtmp://"+gospelModel.serverAddr+"/mylive/"+localSetting.room,user);
 			initSO = SharedObject.getRemote("initObject",uri,true);
 			userListSO = SharedObject.getRemote("userList",uri,false);
 			initSO.addEventListener(SyncEvent.SYNC,onSync);
@@ -34,6 +38,7 @@ package models
 			trace("Server:"+event.info.code);
 			switch(event.info.code){
 				case "NetConnection.Connect.Success":
+					sendDexterEvent("ServerConnectSuccess");
 					break;
 			}
 		}

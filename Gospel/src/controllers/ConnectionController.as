@@ -1,24 +1,33 @@
 package controllers
 {
+	import models.GospelModel;
+	import models.LocalSetting;
 	import models.ServerConnection;
 	import models.StratusConnection;
+	import models.vo.UserVO;
 
 	public class ConnectionController
 	{
 		[DexterBinding]
+		public var localSetting:LocalSetting;
+		[DexterBinding]
+		public var gospelModel:GospelModel;
+		[DexterBinding]
 		public var server:ServerConnection;
 		[DexterBinding]
 		public var stratus:StratusConnection;
-		public function ConnectionController()
-		{
-		}
+		[Bindable]
+		public var self:UserVO = new UserVO();
 		[DexterEvent]
 		public function ConnectServer():void{
-			stratus.Connect();
+			self.name = localSetting.userName;
+			self.role = localSetting.role;
+			stratus.connect(gospelModel.connectUrl+"/"+gospelModel.developerKey+"/"+localSetting.room);
 		}
 		[DexterEvent]
 		public function StratusConnectSuccess():void{
-			server.Connect(stratus.nearID);
+			self.id = stratus.nearID;
+			server.Connect(self);
 		}
 	}
 }

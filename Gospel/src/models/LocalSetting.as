@@ -29,5 +29,11 @@ package models
 		public function get autoLogin():Boolean{
 			return so.data["autoLogin"];
 		}
+		public function get role():int{
+			return so.data["role"];
+		}
+		public function set role(v:int):void{
+			so.data["role"]=v;
+		}
 	}
 }
