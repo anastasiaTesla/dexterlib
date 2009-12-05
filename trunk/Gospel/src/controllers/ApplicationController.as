@@ -1,10 +1,12 @@
-package gospel.controllers
+package controllers
 {
-	import com.adobe.rtc.session.ConnectSession;
 	
-	import gospel.models.GospelModel;
-	import gospel.models.LocalSetting;
-	import gospel.views.WaitWindow;
+	import models.GospelModel;
+	import models.LocalSetting;
+	
+	import mx.controls.Alert;
+	
+	import views.WaitWindow;
 
 	public class ApplicationController
 	{
@@ -12,8 +14,6 @@ package gospel.controllers
 		public var gospelModel:GospelModel;
 		[DexterBinding]
 		public var localSetting:LocalSetting;
-		[DexterBinding]
-		public var connectSession:ConnectSession;
 		[DexterEvent]
 		public function appStart():void{
 			gospelModel.loadConfig();
@@ -27,17 +27,23 @@ package gospel.controllers
 			}
 		}
 		[DexterEvent]
-		public function enterRoom(room:String,userName:String,pwd:String):void{
+		public function enterRoom(room:XML,userName:String,pwd:String):void{
 			localSetting.userName = userName;
 			localSetting.pwd = pwd;
-			localSetting.room = room;
-			if(connectSession.isSynchronized)connectSession.logout();
-			login();
+			localSetting.room = room.@code;
+			if(pwd == room.@pwd){
+				localSetting.role = 100;
+				login();
+			}else if(!pwd){
+				localSetting.role = 0;
+				login();
+			}else{
+				Alert.show("密码错误！");
+			}
 		}
 		private function login():void{
 			WaitWindow.wait("进入房间");
-			connectSession.roomURL = gospelModel.roomURL + localSetting.room;
-			connectSession.login();
+			sendDexterEvent("ConnectServer");
 		}
 	}
 }

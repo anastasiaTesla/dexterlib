@@ -21,6 +21,7 @@
 			public var statusBarText:String;
 			[Bindable]
 			public var roomList:XMLListCollection;
+			public var serverAddr:String;
 			public var version:String;
 			public function getVersion():String{
 				return appDesc.children()[3];
@@ -32,6 +33,7 @@
 				var config:XML = new XML(event.target.data);
 				roomList = new XMLListCollection(config.roomList[0].children());
 				version = config.version;
+				serverAddr = config.server;
 				sendDexterEvent("configComplete");
 			}
 		]]>
