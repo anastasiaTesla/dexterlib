@@ -8,9 +8,20 @@
 	<fx:Script>
 		<![CDATA[
 			import models.LocalSetting;
+			
+			import mx.collections.XMLListCollection;
+			
+			import spark.events.IndexChangeEvent;
 			[DexterBinding]
 			[Bindable]
 			public var localSetting:LocalSetting;
+			[DexterBinding(model="gospelModel",property="roomList")]
+			[Bindable]
+			public var roomList:XMLListCollection;
+			protected function list1_changeHandler(event:IndexChangeEvent):void
+			{
+				sendDexterEvent("enterRoom",roomList[event.newIndex],userName.text,pwd.text);
+			}
 		]]>
 	</fx:Script>
 	<!--<s:Rect width="100%" height="100%">

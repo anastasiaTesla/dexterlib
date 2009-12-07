@@ -19,9 +19,7 @@
 			[Bindable]
 			public var gospelModel:GospelModel;
 			
-			[DexterBinding(model="gospelModel",property="roomList")]
-			[Bindable]
-			public var roomList:XMLListCollection;
+			
 			[DexterEvent]
 			public function getTopApp():Gospel{
 				return this;
@@ -31,10 +29,6 @@
 				sendDexterEvent("appStart");
 			}
 			
-			protected function list1_changeHandler(event:IndexChangeEvent):void
-			{
-				sendDexterEvent("enterRoom",roomList[event.newIndex],userName.text,pwd.text);
-			}
 			[DexterEvent]
 			public function ServerConnectSuccess():void{
 				WaitWindow.waitThingDone("进入房间");
