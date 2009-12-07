@@ -1,9 +1,13 @@
 package models
 {
 	
+	import flash.desktop.NativeApplication;
 	import flash.events.Event;
+	import flash.net.URLLoader;
+	import flash.net.URLRequest;
 	
 	import mx.collections.XMLListCollection;
+
 	public class GospelModel
 	{
 		public const connectUrl:String = "rtmfp://stratus.adobe.com";

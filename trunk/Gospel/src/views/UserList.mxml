@@ -1,7 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<s:List xmlns:fx="http://ns.adobe.com/mxml/2009" dataProvider="{userList}" labelField="name"
+<s:Scroller xmlns:fx="http://ns.adobe.com/mxml/2009"
 		xmlns:s="library://ns.adobe.com/flex/spark" 
-		xmlns:mx="library://ns.adobe.com/flex/halo" width="400" height="300" xmlns:local="*">
+		xmlns:mx="library://ns.adobe.com/flex/halo" width="400" height="300" xmlns:local="*" skinClass="views.ScrollerSkin1">
+	<s:DataGroup dataProvider="{userList}" itemRenderer="{new ClassFactory(UserListItem)}">
+		<s:layout><s:VerticalLayout/></s:layout>
+	</s:DataGroup>
 	<fx:Declarations>
 		<local:DexterFramework/>
 	</fx:Declarations>
@@ -13,4 +16,4 @@
 			public var userList:ArrayCollection;
 		]]>
 	</fx:Script>
-</s:List>
+</s:Scroller>
