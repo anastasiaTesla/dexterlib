@@ -1,5 +1,6 @@
 package models.vo
 {
+	[Bindable]
 	public class UserVO
 	{
 		public var id:String;
