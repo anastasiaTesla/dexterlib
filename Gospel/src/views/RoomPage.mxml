@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:NavigatorContent xmlns:fx="http://ns.adobe.com/mxml/2009" 
+					xmlns:s="library://ns.adobe.com/flex/spark" 
+					xmlns:mx="library://ns.adobe.com/flex/halo" width="400" height="300">
+	<fx:Declarations>
+		<!-- Place non-visual elements (e.g., services, value objects) here -->
+	</fx:Declarations>
+	<views1:UserList x="10" y="263" width="314" height="242"/>
+	<s:RichText x="337" y="6" text="RichText" width="451" height="407" backgroundColor="#D0CECE"/>
+	<s:Border x="334" y="418" width="454" height="87" borderWeight="10" cornerRadius="5" borderColor="#FFFFFF" dropShadowVisible="true">
+		<s:RichEditableText text="RichEditableText" left="0" right="80" top="0" bottom="0" backgroundColor="#FFFFFF">
+			<s:filters>
+				<s:GlowFilter inner="true" color="0" blurX="8" blurY="8"/>
+			</s:filters>
+		</s:RichEditableText>
+		<s:Button label="发送" top="0" bottom="0" right="0"/>
+	</s:Border>
+	<views1:GVideo x="6" y="10" width="320" height="240" backgroundColor="#000000" dropShadowVisible="true"/>
+</s:NavigatorContent>

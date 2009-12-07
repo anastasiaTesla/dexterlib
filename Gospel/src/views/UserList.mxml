@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:List xmlns:fx="http://ns.adobe.com/mxml/2009" dataProvider="{userList}" labelField="name"
+		xmlns:s="library://ns.adobe.com/flex/spark" 
+		xmlns:mx="library://ns.adobe.com/flex/halo" width="400" height="300" xmlns:local="*">
+	<fx:Declarations>
+		<local:DexterFramework/>
+	</fx:Declarations>
+	<fx:Script>
+		<![CDATA[
+			import mx.collections.ArrayCollection;
+			[DexterBinding(model="server",property="userList")]
+			[Bindable]
+			public var userList:ArrayCollection;
+		]]>
+	</fx:Script>
+</s:List>

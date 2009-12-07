@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:NavigatorContent xmlns:fx="http://ns.adobe.com/mxml/2009" 
+					xmlns:s="library://ns.adobe.com/flex/spark" 
+					xmlns:mx="library://ns.adobe.com/flex/halo" width="400" height="300" xmlns:local="*">
+	<fx:Declarations>
+		<local:DexterFramework/>
+	</fx:Declarations>
+	<fx:Script>
+		<![CDATA[
+			import models.LocalSetting;
+			[DexterBinding]
+			[Bindable]
+			public var localSetting:LocalSetting;
+		]]>
+	</fx:Script>
+	<!--<s:Rect width="100%" height="100%">
+	<s:fill>
+	<s:LinearGradient>
+	<s:entries>
+	<s:GradientEntry color="0xCCCCCC" ratio="0.00" alpha="0.5"/>
+	<s:GradientEntry color="0xEEEEEE" ratio="0.33" alpha="0.5"/>
+	<s:GradientEntry color="0xFFFFFF" ratio="0.66" alpha="0.5"/>
+	</s:entries>
+	</s:LinearGradient>
+	</s:fill>
+	</s:Rect>-->
+	<mx:SWFLoader x="233" y="35" source="3.swf">
+		<mx:filters>
+			<mx:DropShadowFilter angle="90" distance="8" quality="3" blurX="4" blurY="4"/>
+		</mx:filters>
+	</mx:SWFLoader>
+	<s:Border width="230" height="292" dropShadowVisible="true" cornerRadius="5" borderWeight="10" borderColor="#FFFFFF" borderVisible="true" backgroundColor="#F5F5F5" borderStyle="solid" x="62" y="47" contentBackgroundAlpha="0.7" backgroundAlpha="0.8" borderAlpha="0.5">
+		<s:TextInput y="36" id="pwd" displayAsPassword="true" width="192" x="10" text="{localSetting.pwd}"/>
+		<s:TextInput y="6" id="userName" focusIn="if(userName.text=='请输入你的用户名')userName.text=''" text="{localSetting.userName?localSetting.userName:'请输入你的用户名'}" enter="pwd.visible=true" width="192" x="10"/>
+		<s:List dataProvider="{roomList}" change="list1_changeHandler(event)" labelField="@name" x="10" y="96" width="192" height="132"></s:List>
+		<s:Label x="10" y="73" text="请选择要进入的房间" fontWeight="bold"/>
+		<s:CheckBox x="10" y="240" label="设置为自动进入" selected="{localSetting.autoLogin}" change="localSetting.autoLogin = autoLogin.selected" id="autoLogin"/>
+	</s:Border>
+	<s:Label x="347" y="60" text="圣灵和新妇都说：“来！”听见的人也该说：“来！”{'\r\n'}口渴的人也当来；愿意的，都可以白白取生命的水喝。"/>
+	<mx:DateChooser x="600" y="154" alpha=".5" dayNames="['日','一','二','三','四','五','六']" monthNames="['一月','二月','三月','四月','五月','六月','七月','八月','九月','十月','十一月','十二月']"/>
+</s:NavigatorContent>
