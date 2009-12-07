@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:NavigatorContent xmlns:fx="http://ns.adobe.com/mxml/2009" 
+					xmlns:s="library://ns.adobe.com/flex/spark" 
+					xmlns:mx="library://ns.adobe.com/flex/halo" width="400" height="300">
+	<fx:Declarations>
+		<!-- Place non-visual elements (e.g., services, value objects) here -->
+	</fx:Declarations>
+	<views1:GVideo x="10" y="37" width="320" height="240" borderStyle="solid" backgroundColor="#A5A5A5"/>
+	<s:Label x="10" y="10" text="我的摄像头"/>
+	<s:DropDownList x="95" y="10" dataProvider="{new ArrayCollection(Camera.names)}" width="235"></s:DropDownList>
+</s:NavigatorContent>
