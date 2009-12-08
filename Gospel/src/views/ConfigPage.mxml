@@ -10,7 +10,7 @@
 	<fx:Declarations>
 		<!-- Place non-visual elements (e.g., services, value objects) here -->
 	</fx:Declarations>
-	<views:GVideo x="10" y="37" width="320" height="240" borderStyle="solid" backgroundColor="#A5A5A5"/>
+	<views:VideoWindow x="10" y="37"/>
 	<s:Label x="10" y="10" text="我的摄像头"/>
 	<s:DropDownList x="95" y="10" dataProvider="{new ArrayCollection(Camera.names)}" width="235"></s:DropDownList>
 </s:NavigatorContent>

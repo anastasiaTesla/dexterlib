@@ -4,10 +4,15 @@
 		 xmlns:mx="library://ns.adobe.com/flex/halo" xmlns:controllers="controllers.*" xmlns:models="models.*">
 	<fx:Declarations>
 		<models:GospelModel id="gospelModel"/>
-		<controllers:ApplicationController id="applicationController"/>
 		<models:LocalSetting id="localSetting"/>
-		<controllers:ConnectionController id="connectionController"/>
 		<models:StratusConnection id="stratus"/>
 		<models:ServerConnection id="server"/>
+		<models:SOProxy id="proxy"/>
+		<models:InStreamProxy id="inStreamProxy"/>
+		<models:OutStreamProxy id="outStreamProxy"/>
+		<controllers:ApplicationController id="applicationController"/>
+		<controllers:ConnectionController id="connectionController"/>
+		<controllers:ChatController id="chatController"/>
+		<controllers:VideoController id="videoController"/>
 	</fx:Declarations>
 </DexterBeanLoader>

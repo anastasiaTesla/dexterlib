@@ -2,9 +2,9 @@ package views
 {
 	import flash.media.Video;
 	
-	import mx.containers.Canvas;
+	import mx.core.UIComponent;
 
-	public class GVideo extends Canvas
+	public class GVideo extends UIComponent
 	{
 		
 		public var video:Video = new Video();
@@ -16,7 +16,7 @@ package views
 		public function GVideo()
 		{
 			super();
-			rawChildren.addChild(video);
+			addChild(video);
 		}
 	}
 }

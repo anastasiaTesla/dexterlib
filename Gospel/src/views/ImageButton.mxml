@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<s:Group xmlns:fx="http://ns.adobe.com/mxml/2009" mouseOver="group1_mouseOverHandler(event)"
+			   xmlns:s="library://ns.adobe.com/flex/spark" mouseOut="group1_mouseOutHandler(event)" mouseUp="group1_mouseUpHandler(event)"
+			   mouseDown="group1_mouseDownHandler(event)" useHandCursor="true" buttonMode="true"
+			   xmlns:mx="library://ns.adobe.com/flex/halo">
+	<fx:Script>
+		<![CDATA[
+			import flash.events.MouseEvent;
+
+			protected function group1_mouseOverHandler(event:MouseEvent):void
+			{
+				icon.y = -1;
+			}
+
+
+			protected function group1_mouseOutHandler(event:MouseEvent):void
+			{
+				icon.y = 0;
+			}
+
+
+			protected function group1_mouseDownHandler(event:MouseEvent):void
+			{
+				icon.y = 1;
+			}
+			
+			public function set source(v:Object):void{
+				icon.source = v;
+			}
+
+			protected function group1_mouseUpHandler(event:MouseEvent):void
+			{
+				icon.y = 0;
+			}
+
+		]]>
+	</fx:Script>
+	<fx:Declarations>
+		<!-- Place non-visual elements (e.g., services, value objects) here -->
+	</fx:Declarations>
+	<s:BitmapImage id="icon">
+		<s:filters>
+			<s:DropShadowFilter/>
+		</s:filters>
+	</s:BitmapImage>
+</s:Group>

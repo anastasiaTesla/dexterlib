@@ -15,7 +15,7 @@ package models
 			return stream;
 		}
 		private function onStatus(event:NetStatusEvent):void{
-			
+			trace(event.info.code);
 		}
 		[DexterEvent]
 		public function getInStream():NetStream{
