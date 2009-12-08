@@ -12,14 +12,16 @@ package models
 	[Bindable]
 	public class ServerConnection extends NetConnection
 	{
-		private var initSO:SharedObject;
-		private var userListSO:SharedObject;
+		public var initSO:SharedObject;
+		public var userListSO:SharedObject;
 		private var userListMap:Object = {};
 		public var userList:ArrayCollection = new ArrayCollection();
 		[DexterBinding]
 		public var localSetting:LocalSetting;
 		[DexterBinding]
 		public var gospelModel:GospelModel;
+		[DexterBinding]
+		public var proxy:SOProxy;
 		public function ServerConnection()
 		{
 			super();
@@ -31,6 +33,7 @@ package models
 			userListSO = SharedObject.getRemote("userList",uri,false);
 			initSO.addEventListener(SyncEvent.SYNC,onSync);
 			userListSO.addEventListener(SyncEvent.SYNC,onUserListSync);
+			userListSO.client = proxy;
 			userListSO.connect(this);
 			initSO.connect(this);
 		}
@@ -44,7 +47,14 @@ package models
 		}
 		private function onSync(event:SyncEvent):void{
 			for each(var o:Object in event.changeList){
-				trace(o.code);
+				switch(o.code){
+					case "change":
+						sendDexterEvent("initSOchange_"+o.name,initSO.data[o.name]);
+						break;
+					case "delete":
+						sendDexterEvent("initSOdelete_"+o.name);
+						break;
+				}
 			}
 		}
 		private function onUserListSync(event:SyncEvent):void{

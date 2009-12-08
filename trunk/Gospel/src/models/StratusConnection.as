@@ -7,7 +7,6 @@ package models
 	[Bindable]
 	public class StratusConnection extends NetConnection
 	{
-		private var so:SharedObject;
 		public function StratusConnection()
 		{
 			super();
