@@ -39,11 +39,11 @@
 	</fx:Declarations>
 	<s:BitmapImage resizeMode="repeat" source="back2.jpg" width="100%" height="100%"/>
 	<views:UserList x="10" y="297" width="314" height="208"/>
-	<s:TextArea x="337" y="6" id="chatOutput" text="" width="451" height="446"/>
-	<s:Border x="334" y="456" width="454" height="49" borderWeight="10" cornerRadius="5" dropShadowVisible="true" borderColor="#D03B00" backgroundColor="#B5B5B5">
-		<s:TextInput id="chatInput" enter="chatInput_enterHandler(event)" left="0" right="65" top="0" bottom="0">
+	<s:TextArea x="337" y="6" id="chatOutput" text="" width="451" height="446" contentBackgroundAlpha="0.5"/>
+	<s:Border x="334" y="456" width="454" height="49" borderWeight="10" cornerRadius="5" borderColor="#D03B00" backgroundColor="#B5B5B5">
+		<s:TextInput focusEnabled="false" id="chatInput" enter="chatInput_enterHandler(event)" left="0" right="65" top="0" bottom="0" contentBackgroundAlpha="0.5" contentBackgroundColor="0" color="#FFFFFF">
 			<s:filters>
-				<s:BevelFilter angle="-90" type="inner" distance="1"/>
+				<s:BevelFilter angle="-135" distance="1" blurX="4" blurY="4"/>
 			</s:filters>
 		</s:TextInput>
 		<s:Button label="发送" top="2" bottom="2" right="2" color="#000000" width="60" click="chatInput_enterHandler(null);"/>
