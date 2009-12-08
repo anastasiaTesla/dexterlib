@@ -1,0 +1,18 @@
+/* CSS file */
+@namespace s "library://ns.adobe.com/flex/spark";
+@namespace mx "library://ns.adobe.com/flex/halo";
+
+
+global
+{
+	rollOverColor: #FF5858;
+	selectionColor: #B70000;
+	focusColor: #FFFFFF;
+}
+mx|TabNavigator
+{
+	backgroundAlpha: 0;
+	borderVisible: true;
+	tabOffset: 250;
+	tabWidth: 80;
+}

@@ -31,12 +31,15 @@
 			<mx:DropShadowFilter angle="90" distance="8" quality="3" blurX="4" blurY="4"/>
 		</mx:filters>
 	</mx:SWFLoader>
-	<s:Border width="230" height="292" dropShadowVisible="true" cornerRadius="5" borderWeight="10" borderColor="#FFFFFF" borderVisible="true" backgroundColor="#F5F5F5" borderStyle="solid" x="62" y="47" contentBackgroundAlpha="0.7" backgroundAlpha="0.8" borderAlpha="0.5">
+	<s:Border width="230" height="292" dropShadowVisible="true" cornerRadius="5" borderWeight="10" borderColor="#FFFFFF" borderVisible="true" backgroundColor="#940000" borderStyle="solid" x="62" y="47" contentBackgroundAlpha="1.0" backgroundAlpha="0.8" borderAlpha="1.0" contentBackgroundColor="#3B3B3B" color="#FFFFFF">
 		<s:TextInput y="36" id="pwd" displayAsPassword="true" width="192" x="10" text="{localSetting.pwd}"/>
 		<s:TextInput y="6" id="userName" focusIn="if(userName.text=='请输入你的用户名')userName.text=''" text="{localSetting.userName?localSetting.userName:'请输入你的用户名'}" enter="pwd.visible=true" width="192" x="10"/>
 		<s:List dataProvider="{roomList}" change="list1_changeHandler(event)" labelField="@name" x="10" y="96" width="192" height="132"></s:List>
-		<s:Label x="10" y="73" text="请选择要进入的房间" fontWeight="bold"/>
+		<s:Label x="10" y="73" text="请选择要进入的房间" fontWeight="bold" color="#FFFFFF"/>
 		<s:CheckBox x="10" y="240" label="设置为自动进入" selected="{localSetting.autoLogin}" change="localSetting.autoLogin = autoLogin.selected" id="autoLogin"/>
+		<s:filters>
+			<s:GlowFilter inner="true" color="0" blurX="16" blurY="16"/>
+		</s:filters>
 	</s:Border>
 	<s:Label x="347" y="60" text="圣灵和新妇都说：“来！”听见的人也该说：“来！”{'\r\n'}口渴的人也当来；愿意的，都可以白白取生命的水喝。"/>
 	<mx:DateChooser blendMode="{BlendMode.OVERLAY}" x="580" y="109"/>
