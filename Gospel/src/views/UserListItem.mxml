@@ -1,17 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
 <s:DataRenderer xmlns:fx="http://ns.adobe.com/mxml/2009"
-		 xmlns:s="library://ns.adobe.com/flex/spark" 
+		 xmlns:s="library://ns.adobe.com/flex/spark" creationComplete="datarenderer1_creationCompleteHandler(event)"
 		 xmlns:mx="library://ns.adobe.com/flex/halo" width="274" height="56" xmlns:views="views.*">
 	<fx:Declarations>
-		<!-- Place non-visual elements (e.g., services, value objects) here -->
 	</fx:Declarations>
 	<fx:Script>
 		<![CDATA[
+			import flash.display.NativeMenu;
+			import flash.display.NativeMenuItem;
 			import flash.events.MouseEvent;
+			
+			import mx.events.FlexEvent;
 
 			protected function imagebutton1_clickHandler(event:MouseEvent):void
 			{
 				sendDexterEvent("publishUserVideo",data);
+			}
+
+
+			protected function datarenderer1_creationCompleteHandler(event:FlexEvent):void
+			{
+				var menu:NativeMenu = new NativeMenu();
+				var menuItem:NativeMenuItem = new NativeMenuItem("上视频");
+				menu.addItem(menuItem);
+				contextMenu = menu;
 			}
 
 		]]>

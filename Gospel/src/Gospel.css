@@ -1,13 +1,17 @@
-/* CSS file */
+/*B9121B,4C1B1B,F6E497,FCFAE1,BD8D46 */
 @namespace s "library://ns.adobe.com/flex/spark";
 @namespace mx "library://ns.adobe.com/flex/halo";
 
 
 global
 {
-	rollOverColor: #FF5858;
-	selectionColor: #B70000;
-	focusColor: #FFFFFF;
+	rollOverColor: #BD8D46;
+	selectionColor: #B9121B;
+	focusColor: #FCFAE1;
+	color: #fcfae1;
+	baseColor: #B9121B;
+	symbolColor: #4C1B1B;
+	contentBackgroundColor: #F6E497;
 }
 mx|TabNavigator
 {

@@ -45,12 +45,12 @@
 		<views1:RoomPage label="房间" width="100%" height="100%"/>
 		<views1:ConfigPage label="设置" width="100%" height="100%"/>
 	</mx:TabNavigator>
-	<s:Label x="44" y="43" text="网络聚会互动平台" fontSize="20" fontWeight="bold" color="#FFFFFF">
+	<s:Label x="44" y="43" text="网络聚会互动平台" fontSize="20" fontWeight="bold">
 		<s:filters>
 			<s:DropShadowFilter quality="3" blurX="2" blurY="2" distance="2"/>
 		</s:filters>
 	</s:Label>
-	<s:Label x="77" y="13" text="Gospel {gospelModel.getVersion()}" color="#FFFFFF" fontSize="23" fontWeight="bold">
+	<s:Label x="77" y="13" text="Gospel {gospelModel.getVersion()}" fontSize="23" fontWeight="bold">
 		<s:filters>
 			<s:DropShadowFilter quality="3" blurX="2" blurY="2" distance="2"/>
 		</s:filters>
@@ -60,7 +60,7 @@
 			<mx:DropShadowFilter quality="3" blurX="2" blurY="2" distance="2"/>
 		</mx:filters>
 	</mx:Image>
-	<s:HGroup x="348" y="14" width="442" height="29" fontWeight="bold" color="#FF0303" fontSize="20">
+	<s:HGroup x="348" y="14" width="442" height="29" fontWeight="bold" color="#BD8D46" fontSize="20">
 		<mx:LinkButton label="圣经工具" click="navigateToURL(new URLRequest('http://www.fuyincn.com'))"/>
 		<mx:LinkButton label="活水网站" click="navigateToURL(new URLRequest('http://www.livingwater4u.com'))"/>
 		<mx:LinkButton label="生命之光" click="navigateToURL(new URLRequest('http://www.smzg.com'))"/>
