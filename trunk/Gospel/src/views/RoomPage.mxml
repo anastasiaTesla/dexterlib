@@ -51,5 +51,5 @@
 			<s:GlowFilter inner="true" color="0xFFFFFF" blurX="4" blurY="4"/>
 		</s:filters>
 	</s:Border>
-	<views:VideoWindow x="6" y="10" id="videoWindow"/>
+	<views:VideoWindow x="6" y="10" id="videoWindow" backgroundColor="#F6E497" cornerRadius="20"/>
 </s:NavigatorContent>
