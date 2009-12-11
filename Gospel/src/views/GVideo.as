@@ -13,9 +13,8 @@ package views
 			video.width = unscaledWidth;
 			video.height = unscaledHeight;
 		}
-		public function GVideo()
+		override protected function createChildren():void
 		{
-			super();
 			addChild(video);
 		}
 	}

@@ -8,6 +8,7 @@
 		<![CDATA[
 			import flash.display.NativeMenu;
 			import flash.display.NativeMenuItem;
+			import flash.events.Event;
 			import flash.events.MouseEvent;
 			
 			import mx.events.FlexEvent;
@@ -22,10 +23,13 @@
 			{
 				var menu:NativeMenu = new NativeMenu();
 				var menuItem:NativeMenuItem = new NativeMenuItem("上视频");
+				menuItem.addEventListener(Event.SELECT,onMenu);
 				menu.addItem(menuItem);
 				contextMenu = menu;
 			}
-
+			private function onMenu(event:Event):void{
+				sendDexterEvent("publishUserVideo",data);
+			}
 		]]>
 	</fx:Script>
 	<s:Rect width="100%" height="100%" radiusX="5" radiusY="5">

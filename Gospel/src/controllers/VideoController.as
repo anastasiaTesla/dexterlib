@@ -5,6 +5,7 @@ package controllers
 	import flash.net.NetStream;
 	import flash.net.SharedObject;
 	
+	import models.LocalSetting;
 	import models.vo.UserVO;
 
 	public class VideoController
@@ -13,6 +14,8 @@ package controllers
 		public var initSO:SharedObject;
 		[DexterBinding(model="connectionController",property="self")]
 		public var self:UserVO;
+		[DexterBinding]
+		public var localSetting:LocalSetting;
 		[DexterEvent]
 		public function publishUserVideo(user:UserVO):void{
 			if(user.id == initSO.data["publisher"]){
@@ -28,7 +31,7 @@ package controllers
 			if(inStream)inStream.close();
 			if(id == self.id){
 				var outStream:NetStream = sendDexterEvent("initOutStream") as NetStream;
-				outStream.attachCamera(Camera.getCamera());
+				outStream.attachCamera(localSetting.cam);
 				outStream.attachAudio(Microphone.getMicrophone());
 				outStream.publish("media");
 				sendDexterEvent("playMediaCamera");
