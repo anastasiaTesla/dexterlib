@@ -6,10 +6,12 @@
 		<![CDATA[
 			import flash.media.Camera;
 			
+			import models.LocalSetting;
 			import models.vo.UserVO;
 			
 			import mx.events.FlexEvent;
-
+			[DexterBinding]
+			public var localSetting:LocalSetting;
 			protected function chatInput_enterHandler(event:FlexEvent):void
 			{
 				sendDexterEvent("sendChat",chatInput.text);
@@ -30,7 +32,7 @@
 			}
 			[DexterEvent]
 			public function playMediaCamera():void{
-				videoWindow.video.video.attachCamera(Camera.getCamera());
+				videoWindow.video.video.attachCamera(localSetting.cam);
 			}
 		]]>
 	</fx:Script>

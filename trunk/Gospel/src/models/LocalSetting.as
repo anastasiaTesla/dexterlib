@@ -1,6 +1,8 @@
 package models
 {
+	import flash.media.Camera;
 	import flash.net.SharedObject;
+
 	[Bindable]
 	public class LocalSetting
 	{
@@ -34,6 +36,19 @@ package models
 		}
 		public function set role(v:int):void{
 			so.data["role"]=v;
+		}
+		public function get camera():int{
+			return so.data["camera"];
+		}
+		public function set camera(v:int):void{
+			so.data["camera"]=v;
+		}
+		public function get cam():Camera{
+			if(camera < Camera.names.length){
+				return Camera.getCamera(camera.toString());
+			}else{
+				return Camera.getCamera();
+			}
 		}
 	}
 }
