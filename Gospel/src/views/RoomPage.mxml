@@ -4,8 +4,6 @@
 					xmlns:mx="library://ns.adobe.com/flex/halo" width="818" height="518" xmlns:views="views.*" xmlns:local="*">
 	<fx:Script>
 		<![CDATA[
-			import flash.media.Camera;
-			
 			import models.LocalSetting;
 			import models.vo.UserVO;
 			
@@ -27,12 +25,8 @@
 				chatOutput.scrollToRange(int.MAX_VALUE);
 			}
 			[DexterEvent]
-			public function playMedidaStream():void{
-				videoWindow.video.video.attachNetStream(sendDexterEvent("getInStream") as NetStream);
-			}
-			[DexterEvent]
-			public function playMediaCamera():void{
-				videoWindow.video.video.attachCamera(localSetting.cam);
+			public function setVideo(userId:String):void{
+				videoWindow.setUser(userId);
 			}
 		]]>
 	</fx:Script>
@@ -53,5 +47,5 @@
 			<s:GlowFilter inner="true" color="0xFFFFFF" blurX="4" blurY="4"/>
 		</s:filters>
 	</s:Border>
-	<views:VideoWindow x="6" y="10" id="videoWindow" backgroundColor="#F6E497" cornerRadius="20"/>
+	<views:VideoWindow x="6" y="10" id="videoWindow" backgroundColor="#F6E497" cornerRadius="5"/>
 </s:NavigatorContent>

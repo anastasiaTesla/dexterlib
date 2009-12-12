@@ -2,6 +2,12 @@
 <s:Panel xmlns:fx="http://ns.adobe.com/mxml/2009"
 		 xmlns:s="library://ns.adobe.com/flex/spark" 
 		 xmlns:mx="library://ns.adobe.com/flex/halo" width="400" height="158" title="请等待，有些事情正在处理" xmlns:local="*" backgroundColor="#F6E497">
+	<s:creationCompleteEffect>
+		<mx:Zoom easingFunction="{Back.easeOut}"/>
+	</s:creationCompleteEffect>
+	<s:removedEffect>
+		<mx:Zoom easingFunction="{Back.easeIn}"/>
+	</s:removedEffect>
 	<s:layout>
 		<s:VerticalLayout horizontalAlign="center" paddingTop="10"/>
 	</s:layout>
@@ -10,6 +16,7 @@
 			import flash.display.DisplayObject;
 			
 			import mx.controls.ProgressBar;
+			import mx.effects.easing.Back;
 			import mx.managers.PopUpManager;
 			public var progressBars:Object = {};
 			public static var instance:WaitWindow;
