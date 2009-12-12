@@ -47,14 +47,10 @@ package models
 		}
 		private function onSync(event:SyncEvent):void{
 			for each(var o:Object in event.changeList){
-				switch(o.code){
-					case "change":
-						sendDexterEvent("initSOchange_"+o.name,initSO.data[o.name]);
-						break;
-					case "delete":
-						sendDexterEvent("initSOdelete_"+o.name);
-						break;
-				}
+				if(o.name)
+					sendDexterEvent("initSO"+o.code+'_'+o.name,initSO.data[o.name]);
+				else
+					sendDexterEvent("initSO"+o.code);
 			}
 		}
 		private function onUserListSync(event:SyncEvent):void{
