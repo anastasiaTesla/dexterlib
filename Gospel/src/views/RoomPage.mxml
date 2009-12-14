@@ -34,7 +34,37 @@
 		<local:DexterFramework/>
 	</fx:Declarations>
 	<s:BitmapImage resizeMode="repeat" source="back2.jpg" width="100%" height="100%"/>
-	<views:UserList x="10" y="297" width="314" height="208"/>
+	<s:Group x="10" y="297" width="314" height="208" >
+		<s:Rect left="0" right="0" top="0" bottom="0" radiusX="5">
+			<s:stroke>
+				<s:SolidColorStroke color="#cccccc" caps="none" joints="miter" miterLimit="4" weight="1"/>
+			</s:stroke>
+			<s:fill>
+				<s:LinearGradient rotation="90">
+					<s:GradientEntry color="#b9121b" alpha="1.0" ratio="0"/>
+					<s:GradientEntry color="#fcfae1" alpha="1.0" ratio="1"/>
+				</s:LinearGradient>
+			</s:fill>
+			<s:filters>
+				<s:GlowFilter blurX="6.0" blurY="6.0" inner="false" color="0xFFFF00" strength="1" alpha="1.0" quality="2" knockout="false"/>
+			</s:filters>
+		</s:Rect>
+		<s:Rect left="5" right="5" top="5" bottom="5" radiusX="5">
+			<s:stroke>
+				<s:SolidColorStroke color="0x5380D0" caps="none" joints="miter" miterLimit="4" weight="1"/>
+			</s:stroke>
+			<s:filters>
+				<s:GlowFilter blurX="6.0" blurY="6.0" inner="true" color="0xFFFF00" strength="1" alpha="1.0" quality="2" knockout="false"/>
+			</s:filters>
+			<s:fill>
+				<s:LinearGradient rotation="90">
+					<s:GradientEntry color="#4c1b1b" alpha="1.0" ratio="0"/>
+					<s:GradientEntry color="#7f4242" alpha="1.0" ratio="1"/>
+				</s:LinearGradient>
+			</s:fill>
+		</s:Rect>
+		<views:UserList left="10" right="10" top="10" bottom="10"/>
+	</s:Group>
 	<s:TextArea x="337" y="6" id="chatOutput" text="" width="451" height="446" contentBackgroundAlpha="1.0" contentBackgroundColor="#BD8D46"/>
 	<s:Border x="334" y="456" width="454" height="49" borderWeight="10" cornerRadius="5" borderColor="#B9121B" backgroundColor="#F6E497">
 		<s:TextInput focusEnabled="false" id="chatInput" enter="chatInput_enterHandler(event)" left="0" right="65" top="0" bottom="0" color="#000000">
