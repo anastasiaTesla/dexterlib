@@ -1,11 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
-<s:DataRenderer xmlns:fx="http://ns.adobe.com/mxml/2009"
-		 xmlns:s="library://ns.adobe.com/flex/spark" creationComplete="datarenderer1_creationCompleteHandler(event)"
-		 xmlns:mx="library://ns.adobe.com/flex/halo" width="274" height="56" xmlns:views="views.*" color="#4C1B1B">
+<s:DataRenderer xmlns:fx="http://ns.adobe.com/mxml/2009" rollOut="datarenderer1_rollOutHandler(event)" rollOver="datarenderer1_rollOverHandler(event)"
+		 xmlns:s="library://ns.adobe.com/flex/spark"
+		 xmlns:mx="library://ns.adobe.com/flex/halo" width="274" height="30" xmlns:views="views.*" color="#4C1B1B">
 	<fx:Declarations>
+		<!--<s:GlowFilter blurX="16" blurY="16" inner="true" id="glowFilter" color="0xFFFFFF"/>-->
 	</fx:Declarations>
 	<fx:Script>
 		<![CDATA[
+			import flash.display.BlendMode;
 			import flash.display.NativeMenu;
 			import flash.display.NativeMenuItem;
 			import flash.events.Event;
@@ -13,29 +15,21 @@
 			
 			import mx.events.FlexEvent;
 
-			protected function imagebutton1_clickHandler(event:MouseEvent):void
+			protected function datarenderer1_rollOverHandler(event:MouseEvent):void
 			{
-				sendDexterEvent("publishUserVideo",data);
+				blendMode = BlendMode.SCREEN;
 			}
 
-
-			protected function datarenderer1_creationCompleteHandler(event:FlexEvent):void
+			protected function datarenderer1_rollOutHandler(event:MouseEvent):void
 			{
-				var menu:NativeMenu = new NativeMenu();
-				var menuItem:NativeMenuItem = new NativeMenuItem("上视频");
-				menuItem.addEventListener(Event.SELECT,onMenu);
-				menu.addItem(menuItem);
-				contextMenu = menu;
+				blendMode = BlendMode.NORMAL;
 			}
-			private function onMenu(event:Event):void{
-				sendDexterEvent("publishUserVideo",data);
-			}
+
 		]]>
 	</fx:Script>
 	<s:Rect width="100%" height="100%" radiusX="5">
 		<s:fill>
 			<s:LinearGradient rotation="90">
-			<s:SolidColor color="0xf6e497"/>
 				<s:GradientEntry color="#c63239" alpha="1.0" ratio="0"/>
 				<s:GradientEntry color="#b9121b" alpha="1.0" ratio="1"/>
 			</s:LinearGradient>
@@ -47,6 +41,13 @@
 			</s:LinearGradientStroke>
 		</s:stroke>
 	</s:Rect>
-	<s:Label x="10" y="10" text="{data.name}"/>
-	<views:ImageButton x="208" y="10" source="assets/webcam.png" click="imagebutton1_clickHandler(event)"/>
+	<s:Rect width="100%" height="50%"  alpha="0.27" radiusX="5">
+		<s:fill>
+			<s:LinearGradient rotation="90">
+				<s:GradientEntry color="#ffffff" alpha="1.0" ratio="0"/>
+				<s:GradientEntry color="#ffffff" alpha="0.5" ratio="1"/>
+			</s:LinearGradient>
+		</s:fill>
+	</s:Rect>
+	<s:Label x="10" verticalCenter="0" text="{data.name}"/>
 </s:DataRenderer>
