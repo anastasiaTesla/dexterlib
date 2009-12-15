@@ -28,7 +28,7 @@ package models
 			addEventListener(NetStatusEvent.NET_STATUS,onNetStatus);
 		}
 		public function Connect(user:UserVO):void{
-			connect("rtmp://"+gospelModel.serverAddr+"/mylive/"+localSetting.room,user);
+			connect("rtmp://"+gospelModel.serverAddr+"/gospel/"+localSetting.room,user);
 			initSO = SharedObject.getRemote("initObject",uri,true);
 			userListSO = SharedObject.getRemote("userList",uri,false);
 			initSO.addEventListener(SyncEvent.SYNC,onSync);

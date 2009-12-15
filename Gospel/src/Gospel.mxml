@@ -9,13 +9,8 @@
 			import flash.net.navigateToURL;
 			
 			import models.GospelModel;
-			import models.LocalSetting;
 			import views.WaitWindow;
-			import mx.collections.ArrayCollection;
-			import mx.collections.XMLListCollection;
 			import mx.events.FlexEvent;
-			
-			import spark.events.IndexChangeEvent;
 			[DexterBinding]
 			[Bindable]
 			public var gospelModel:GospelModel;
