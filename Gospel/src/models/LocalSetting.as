@@ -7,6 +7,8 @@ package models
 	public class LocalSetting
 	{
 		public var so:SharedObject = SharedObject.getLocal("localSetting");
+		public static const ADMIN:int = 100;
+		public static const GUEST:int = 0;
 		public function set userName(v:String):void{
 			so.data["userName"] = v;
 		}

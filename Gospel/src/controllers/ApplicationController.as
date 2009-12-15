@@ -32,10 +32,10 @@ package controllers
 			localSetting.pwd = pwd;
 			localSetting.room = room.@code;
 			if(pwd == room.@pwd){
-				localSetting.role = 100;
+				localSetting.role = LocalSetting.ADMIN;
 				login();
 			}else if(!pwd){
-				localSetting.role = 0;
+				localSetting.role = LocalSetting.GUEST;
 				login();
 			}else{
 				Alert.show("密码错误！");
