@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <s:Panel xmlns:fx="http://ns.adobe.com/mxml/2009"
 		 xmlns:s="library://ns.adobe.com/flex/spark" 
-		 xmlns:mx="library://ns.adobe.com/flex/halo" width="256" height="102" title="请等待，有些事情正在处理" xmlns:local="*" backgroundColor="#BA9B65" cornerRadius="5">
+		 xmlns:mx="library://ns.adobe.com/flex/halo" width="256" height="102" title="请等待，有些事情正在处理" xmlns:local="*" backgroundColor="#799AE0" cornerRadius="5">
 	<s:layout>
 		<s:VerticalLayout horizontalAlign="center" paddingTop="10"/>
 	</s:layout>

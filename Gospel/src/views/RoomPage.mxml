@@ -55,11 +55,11 @@
 	<fx:Declarations>
 		<local:DexterFramework/>
 	</fx:Declarations>
-	<s:BitmapImage resizeMode="repeat" source="back2.jpg" width="100%" height="100%"/>
+	<!--<s:BitmapImage resizeMode="repeat" source="back2.jpg" width="100%" height="100%"/>-->
 	<views:UserList x="10" y="297" width="314" height="208"/>
-	<s:TextArea x="337" y="6" id="chatOutput" text="" width="451" height="446" contentBackgroundAlpha="1.0" contentBackgroundColor="#BA9B65" editable="false" color="#000000"/>
+	<s:TextArea x="337" y="6" id="chatOutput" text="" width="451" height="446" contentBackgroundAlpha="1.0" editable="false" color="#000000" borderColor="#799AE0"/>
 	<s:Border x="334" y="456" width="454" height="49" borderWeight="6" cornerRadius="5" borderColor="#365FB7" backgroundColor="#F6E497">
-		<s:TextInput  id="chatInput" enter="chatInput_enterHandler(event)" left="0" right="65" top="0" bottom="0" color="#000000" fontSize="20">
+		<s:TextInput  id="chatInput" enter="chatInput_enterHandler(event)" left="0" right="65" top="0" bottom="0" color="#000000" fontSize="24">
 			<s:filters>
 				<s:BevelFilter angle="-135" distance="1" blurX="4" blurY="4"/>
 			</s:filters>

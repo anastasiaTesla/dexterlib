@@ -22,4 +22,7 @@
 			public var localSetting:LocalSetting;
 		]]>
 	</fx:Script>
+	<s:filters>
+		<s:DropShadowFilter blurX="16" blurY="16"/>
+	</s:filters>
 </s:Scroller>

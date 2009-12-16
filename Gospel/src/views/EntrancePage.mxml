@@ -50,6 +50,6 @@
 			<s:DropShadowFilter angle="90" blurX="32" blurY="32" distance="10"/>
 		</s:filters>
 	</s:Border>
-	<s:Label x="347" y="60" text="圣灵和新妇都说：“来！”听见的人也该说：“来！”{'\r\n'}口渴的人也当来；愿意的，都可以白白取生命的水喝。" color="#4C1B1B"/>
+	<s:Label x="347" y="60" text="圣灵和新妇都说：“来！”听见的人也该说：“来！”{'\r\n'}口渴的人也当来；愿意的，都可以白白取生命的水喝。" color="#000000"/>
 	<mx:DateChooser blendMode="{BlendMode.OVERLAY}" x="580" y="109" contentBackgroundColor="#BA9B65"/>
 </s:NavigatorContent>
