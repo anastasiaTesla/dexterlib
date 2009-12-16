@@ -11,4 +11,7 @@
 		</fx:XML>
 	</fx:Declarations>
 	<mx:Image source="{model.thing.(@name==data).@icon.toString()}"/>
+	<s:filters>
+		<s:DropShadowFilter distance="1"/>
+	</s:filters>
 </s:DataRenderer>

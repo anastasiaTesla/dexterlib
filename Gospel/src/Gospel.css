@@ -5,13 +5,13 @@
 
 global
 {
-	rollOverColor: #BD8D46;
-	selectionColor: #B9121B;
+	rollOverColor: #799AE0;
+	selectionColor: #133463;
 	focusColor: #FCFAE1;
 	color: #fcfae1;
-	baseColor: #B9121B;
-	symbolColor: #4C1B1B;
-	contentBackgroundColor: #F6E497;
+	baseColor: #365FB7;
+	symbolColor: #F4EFDC;
+	contentBackgroundColor: #F4EFDC;
 }
 mx|TabNavigator
 {

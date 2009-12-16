@@ -27,8 +27,8 @@
 	<s:Rect width="100%" height="100%" radiusX="5">
 		<s:fill>
 			<s:LinearGradient rotation="90">
-				<s:GradientEntry color="#c63239" alpha="1.0" ratio="0"/>
-				<s:GradientEntry color="#b9121b" alpha="1.0" ratio="1"/>
+				<s:GradientEntry color="#4677e0" alpha="1.0" ratio="0"/>
+				<s:GradientEntry color="#799ae0" alpha="1.0" ratio="1"/>
 			</s:LinearGradient>
 		</s:fill>
 		<s:stroke>
@@ -38,7 +38,7 @@
 			</s:LinearGradientStroke>
 		</s:stroke>
 	</s:Rect>
-	<s:Rect width="100%" height="50%"  alpha="0.27" radiusX="5">
+	<s:Rect width="100%" height="50%" alpha="0.27" radiusX="5">
 		<s:fill>
 			<s:LinearGradient rotation="90">
 				<s:GradientEntry color="#ffffff" alpha="1.0" ratio="0"/>

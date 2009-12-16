@@ -9,23 +9,18 @@ package views
 		public function UserListItemAdmin()
 		{
 			super();
-			var menu:ContextMenu = new ContextMenu();
-			
-			var menuItem:ContextMenuItem = new ContextMenuItem("上视频");
-			menuItem.addEventListener(Event.SELECT,onDockVideo,false,0,true);
-			menu.addItem(menuItem);
-			
-			menuItem = new ContextMenuItem("踢出此人");
-			menuItem.addEventListener(Event.SELECT,onKick,false,0,true);
-			menu.addItem(menuItem);
-			
-			contextMenu = menu;
+			contextMenu = new ContextMenu();;
+			addItem("上视频","publishUserVideo");
+			addItem("修改其昵称","changeNick");
+			addItem("踢出此人","kickUser");
 		}
-		private function onDockVideo(event:Event):void{
-			sendDexterEvent("publishUserVideo",data);
-		}
-		private function onKick(event:Event):void{
-			sendDexterEvent("kickUser",data);
+		private function addItem(a:String,b:String):void{
+			var menuItem:ContextMenuItem = new ContextMenuItem(a);
+			var f:Function = function(event:Event):void{
+				sendDexterEvent(b,data);
+			};
+			menuItem.addEventListener(Event.SELECT,f,false,0,true);
+			contextMenu.addItem(menuItem);
 		}
 	}
 }
