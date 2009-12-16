@@ -12,6 +12,7 @@
 			import models.LocalSetting;
 			
 			import mx.collections.XMLListCollection;
+			import mx.controls.Alert;
 			
 			import spark.events.IndexChangeEvent;
 			[DexterBinding]
@@ -22,7 +23,11 @@
 			public var roomList:XMLListCollection;
 			protected function list1_changeHandler(event:IndexChangeEvent):void
 			{
-				sendDexterEvent("enterRoom",roomList[event.newIndex],userName.text,pwd.text);
+				if(userName.text == '请输入你的用户名'){
+					Alert.show("请输入你的用户名");
+				}else{
+					sendDexterEvent("enterRoom",roomList[event.newIndex],userName.text,pwd.text);
+				}
 			}
 		]]>
 	</fx:Script>
@@ -31,18 +36,20 @@
 			<mx:DropShadowFilter angle="90" distance="8" quality="3" blurX="4" blurY="4"/>
 		</mx:filters>
 	</mx:SWFLoader>
-	<s:Border width="230" height="292" cornerRadius="5" borderWeight="10" borderColor="#B9121B" borderVisible="true" borderStyle="solid" x="62" y="47" contentBackgroundAlpha="1.0" backgroundAlpha="1.0" borderAlpha="1.0" contentBackgroundColor="#F6E497" color="#000000" backgroundColor="#B9121B">
-		<s:TextInput y="36" id="pwd" displayAsPassword="true" width="192" x="10" text="{localSetting.pwd}"/>
-		<s:TextInput y="6" id="userName" focusIn="if(userName.text=='请输入你的用户名')userName.text=''" text="{localSetting.userName?localSetting.userName:'请输入你的用户名'}" enter="pwd.visible=true" width="192" x="10"/>
+	<s:Border width="230" height="292" cornerRadius="5" borderWeight="2" borderColor="#799AE0" borderVisible="true" borderStyle="solid" x="62" y="47" contentBackgroundAlpha="1.0" backgroundAlpha="1.0" borderAlpha="1.0" contentBackgroundColor="#F4EFDC" color="#000000" backgroundColor="#365FB7">
+		<s:layout>
+			<s:VerticalLayout horizontalAlign="center" paddingTop="20"/>
+		</s:layout>
+		<s:TextInput id="userName" focusIn="if(userName.text=='请输入你的用户名')userName.text=''" text="{localSetting.userName?localSetting.userName:'请输入你的用户名'}" enter="pwd.visible=true" width="192" horizontalCenter="0"/>
+		<s:TextInput y="36" id="pwd" displayAsPassword="true" width="192" text="{localSetting.pwd}" horizontalCenter="0" visible="false"/>
+		<s:Label text="请选择要进入的房间" fontWeight="bold" color="#FFFFFF"/>
 		<s:List dataProvider="{roomList}" change="list1_changeHandler(event)" labelField="@name" x="10" y="96" width="192" height="132"></s:List>
-		<s:Label x="10" y="73" text="请选择要进入的房间" fontWeight="bold" color="#FFFFFF"/>
 		<s:CheckBox x="10" y="240" label="设置为自动进入" selected="{localSetting.autoLogin}" change="localSetting.autoLogin = autoLogin.selected" id="autoLogin" color="#FFFFFF"/>
-		<!--<s:filters>
-			<!--<s:GlowFilter inner="true" color="0" blurX="16" blurY="16"/>-->
-			<s:BevelFilter blurX="16" blurY="16"/>
+		<s:filters>
+			<!--<s:BevelFilter blurX="16" blurY="16"/>-->
 			<s:DropShadowFilter angle="90" blurX="32" blurY="32" distance="10"/>
-		</s:filters>-->
+		</s:filters>
 	</s:Border>
 	<s:Label x="347" y="60" text="圣灵和新妇都说：“来！”听见的人也该说：“来！”{'\r\n'}口渴的人也当来；愿意的，都可以白白取生命的水喝。" color="#4C1B1B"/>
-	<mx:DateChooser blendMode="{BlendMode.OVERLAY}" x="580" y="109" contentBackgroundColor="#F6E497"/>
+	<mx:DateChooser blendMode="{BlendMode.OVERLAY}" x="580" y="109" contentBackgroundColor="#BA9B65"/>
 </s:NavigatorContent>

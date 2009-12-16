@@ -55,7 +55,7 @@
 			<mx:DropShadowFilter quality="3" blurX="2" blurY="2" distance="2"/>
 		</mx:filters>
 	</mx:Image>
-	<s:HGroup x="251" y="13" width="540" height="29" fontWeight="bold" color="#BD8D46" fontSize="20">
+	<s:HGroup x="251" y="13" width="540" height="29" fontWeight="bold" color="#BA9B65" fontSize="20">
 		<mx:LinkButton label="圣经工具" click="navigateToURL(new URLRequest('http://www.fuyincn.com'))"/>
 		<mx:LinkButton label="活水网站" click="navigateToURL(new URLRequest('http://www.livingwater4u.com'))"/>
 		<mx:LinkButton label="生命之光" click="navigateToURL(new URLRequest('http://www.smzg.com'))"/>
