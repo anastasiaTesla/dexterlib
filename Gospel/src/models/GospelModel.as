@@ -40,6 +40,7 @@ package models
 			appUpdater.updateURL = config.updateURL;
 			appUpdater.isCheckForUpdateVisible = false;
 			appUpdater.isDownloadUpdateVisible = false;
+			appUpdater.isInstallUpdateVisible = false;
 			appUpdater.addEventListener(UpdateEvent.INITIALIZED, onUpdate);
 			appUpdater.addEventListener(UpdateEvent.CHECK_FOR_UPDATE,onUpdate);
 			appUpdater.addEventListener(ErrorEvent.ERROR, onError);

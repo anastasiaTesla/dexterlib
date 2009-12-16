@@ -36,7 +36,7 @@
 	</fx:Declarations>
 	<s:Rect width="100%" height="100%">
 		<s:fill>
-			<s:LinearGradient>
+			<s:LinearGradient rotation="90">
 				<s:entries>
 					<s:GradientEntry color="0xCCCCCC" ratio="0.00" alpha="0.5"/>
 					<s:GradientEntry color="0xEEEEEE" ratio="0.33" alpha="0.5"/>
@@ -51,7 +51,7 @@
 		<views1:RoomPage label="房间" width="100%" height="100%"/>
 		<views1:ConfigPage label="设置" width="100%" height="100%"/>
 	</mx:TabNavigator>
-	<s:Label x="44" y="43" text="网络聚会互动平台" fontSize="20" fontWeight="bold">
+	<s:Label x="66" y="45" text="网络聚会互动平台" fontSize="20" fontWeight="bold">
 		<s:filters>
 			<s:DropShadowFilter quality="3" blurX="2" blurY="2" distance="2"/>
 		</s:filters>
@@ -61,7 +61,7 @@
 			<s:DropShadowFilter quality="3" blurX="2" blurY="2" distance="2"/>
 		</s:filters>
 	</s:Label>
-	<mx:Image x="40" y="5" source="{true?'icon3.png':'icon2.png'}" width="32" height="32">
+	<mx:Image x="10" y="10" source="assets/698dove.png" width="63" height="63">
 		<mx:filters>
 			<mx:DropShadowFilter quality="3" blurX="2" blurY="2" distance="2"/>
 		</mx:filters>
