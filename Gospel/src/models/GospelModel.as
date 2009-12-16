@@ -54,7 +54,7 @@ package models
 			serverAddr = config.server;
 		}
 		private function onError(event:ErrorEvent):void {  
-			Alert.show(event.toString());
+			Alert.show("",event.text);
 		}  
 		private function onUpdate(event:UpdateEvent):void {
 			switch(event.type){
