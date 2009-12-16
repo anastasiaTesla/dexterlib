@@ -2,7 +2,7 @@
 <s:Scroller xmlns:fx="http://ns.adobe.com/mxml/2009"
 		xmlns:s="library://ns.adobe.com/flex/spark" 
 		xmlns:mx="library://ns.adobe.com/flex/halo" width="400" height="300" xmlns:local="*">
-	<s:DataGroup dataProvider="{userList}" itemRenderer="{new ClassFactory(localSetting.role > LocalSetting.GUEST? UserListItemAdmin:UserListItem)}">
+	<s:DataGroup dataProvider="{userList}" itemRenderer="{new ClassFactory(localSetting.role > UserVO.GUEST? UserListItemAdmin:UserListItem)}">
 		<s:layout><s:VerticalLayout/></s:layout>
 	</s:DataGroup>
 	<fx:Declarations>
@@ -11,6 +11,7 @@
 	<fx:Script>
 		<![CDATA[
 			import models.LocalSetting;
+			import models.vo.UserVO;
 			
 			import mx.collections.ArrayCollection;
 			[DexterBinding(model="server",property="userList")]

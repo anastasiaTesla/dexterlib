@@ -3,6 +3,7 @@ package controllers
 	
 	import models.GospelModel;
 	import models.LocalSetting;
+	import models.vo.UserVO;
 	
 	import mx.controls.Alert;
 	
@@ -32,10 +33,10 @@ package controllers
 			localSetting.pwd = pwd;
 			localSetting.room = room.@code;
 			if(pwd == room.@pwd){
-				localSetting.role = LocalSetting.ADMIN;
+				localSetting.role = UserVO.ADMIN;
 				login();
 			}else if(!pwd){
-				localSetting.role = LocalSetting.GUEST;
+				localSetting.role = UserVO.GUEST;
 				login();
 			}else{
 				Alert.show("密码错误！");

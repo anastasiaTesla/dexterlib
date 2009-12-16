@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:DataRenderer xmlns:fx="http://ns.adobe.com/mxml/2009" toolTip="{data}"
+			   xmlns:s="library://ns.adobe.com/flex/spark" 
+			   xmlns:mx="library://ns.adobe.com/flex/halo">
+	<fx:Declarations>
+		<fx:XML id="model">
+			<root>
+				<thing name="加载配置文件" icon="assets/database_gear.png"/>
+				<thing name="进入房间" icon="assets/door.png"/>
+			</root>
+		</fx:XML>
+	</fx:Declarations>
+	<mx:Image source="{model.thing.(@name==data).@icon.toString()}"/>
+</s:DataRenderer>

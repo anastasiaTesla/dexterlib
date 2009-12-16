@@ -12,8 +12,6 @@ package controllers
 	{
 		[DexterBinding(model="server",property="initSO")]
 		public var initSO:SharedObject;
-		[DexterBinding(model="connectionController",property="self")]
-		public var self:UserVO;
 		[DexterBinding]
 		public var localSetting:LocalSetting;
 		[DexterEvent]
