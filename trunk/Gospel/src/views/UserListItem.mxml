@@ -8,21 +8,18 @@
 	<fx:Script>
 		<![CDATA[
 			import flash.display.BlendMode;
-			import flash.display.NativeMenu;
-			import flash.display.NativeMenuItem;
-			import flash.events.Event;
 			import flash.events.MouseEvent;
 			
-			import mx.events.FlexEvent;
+			import models.vo.UserVO;
 
 			protected function datarenderer1_rollOverHandler(event:MouseEvent):void
 			{
-				blendMode = BlendMode.SCREEN;
+				userName.setStyle("color",0xFFFFFF);
 			}
 
 			protected function datarenderer1_rollOutHandler(event:MouseEvent):void
 			{
-				blendMode = BlendMode.NORMAL;
+				userName.setStyle("color",0);
 			}
 
 		]]>
@@ -49,5 +46,11 @@
 			</s:LinearGradient>
 		</s:fill>
 	</s:Rect>
-	<s:Label x="10" verticalCenter="0" text="{data.name}"/>
+	<s:HGroup verticalCenter="0" x="10">
+		<mx:Image source="{data.role == UserVO.ADMIN?'assets/user_suit.png':'assets/user.png'}"
+				  toolTip="{data.role == UserVO.ADMIN?'管理员':'普通访客'}"
+				  scaleContent="false" verticalCenter="0"/>
+		<mx:Image source="{data.isSelf?'assets/user_green.png':null}" toolTip="自己"/>
+		<s:Label verticalCenter="0" text="{data.name} {data.ip}" id="userName"/>
+	</s:HGroup>
 </s:DataRenderer>

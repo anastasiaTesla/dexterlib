@@ -20,3 +20,8 @@ mx|TabNavigator
 	tabOffset: 250;
 	tabWidth: 80;
 }
+mx|ToolTip
+{
+	color:#000000;
+	font-size:12;
+}

@@ -63,6 +63,6 @@ package models
 				case UpdateEvent.CHECK_FOR_UPDATE:
 					break;
 			}
-		} 
+		}
 	}
 }

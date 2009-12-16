@@ -9,14 +9,12 @@
 		<![CDATA[
 			import models.LocalSetting;
 			import models.vo.UserVO;
-			[DexterBinding(model="connectionController",property="self")]
-			public var self:UserVO;
 			[DexterBinding]
 			public var localSetting:LocalSetting;
 			public function setUser(userId:String):void{
 				var user:UserVO = sendDexterEvent("getUserByID",userId);
-				if(self.id == userId){
-					user = self;
+				if(UserVO.self.id == userId){
+					user = UserVO.self;
 					video.video.attachCamera(localSetting.cam);
 				}else{
 					video.video.attachNetStream(sendDexterEvent("getInStream") as NetStream);

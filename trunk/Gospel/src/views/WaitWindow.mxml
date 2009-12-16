@@ -1,24 +1,26 @@
 <?xml version="1.0" encoding="utf-8"?>
 <s:Panel xmlns:fx="http://ns.adobe.com/mxml/2009"
 		 xmlns:s="library://ns.adobe.com/flex/spark" 
-		 xmlns:mx="library://ns.adobe.com/flex/halo" width="400" height="158" title="请等待，有些事情正在处理" xmlns:local="*" backgroundColor="#F6E497">
+		 xmlns:mx="library://ns.adobe.com/flex/halo" width="256" height="102" title="请等待，有些事情正在处理" xmlns:local="*" backgroundColor="#F6E497" cornerRadius="5">
+	<s:layout>
+		<s:VerticalLayout horizontalAlign="center" paddingTop="10"/>
+	</s:layout>
 	<s:creationCompleteEffect>
 		<mx:Zoom easingFunction="{Back.easeOut}"/>
 	</s:creationCompleteEffect>
 	<s:removedEffect>
 		<mx:Zoom easingFunction="{Back.easeIn}"/>
 	</s:removedEffect>
-	<s:layout>
-		<s:VerticalLayout horizontalAlign="center" paddingTop="10"/>
-	</s:layout>
 	<fx:Script>
 		<![CDATA[
 			import flash.display.DisplayObject;
 			
+			import mx.collections.ArrayCollection;
 			import mx.controls.ProgressBar;
 			import mx.effects.easing.Back;
 			import mx.managers.PopUpManager;
-			public var progressBars:Object = {};
+			[Bindable]
+			public var things:ArrayCollection = new ArrayCollection();
 			public static var instance:WaitWindow;
 			public static function wait(name:String):void{
 				if(!instance){
@@ -28,16 +30,11 @@
 				instance.addThing(name);
 			}
 			public function addThing(name:String):void{
-				var p:ProgressBar = new ProgressBar();
-				p.indeterminate = true;
-				p.label = name;
-				addElement(p);
-				progressBars[name] = p;
+				things.addItem(name);
 			}
 			public static function waitThingDone(name:String):void{
-				instance.removeElement(instance.progressBars[name]);
-				delete instance.progressBars[name];
-				if(!instance.numElements){
+				instance.things.removeItemAt(instance.things.getItemIndex(name));
+				if(!instance.things.length){
 					instance.close();
 				}
 			}
@@ -47,4 +44,8 @@
 			}
 		]]>
 	</fx:Script>
+	<s:DataGroup id="thingsContainer" dataProvider="{things}" itemRenderer="{new ClassFactory(WaitThing)}">
+		<s:layout><s:HorizontalLayout/></s:layout>
+	</s:DataGroup>
+	<mx:ProgressBar id="progressBar" color="#000000" indeterminate="true" labelPlacement="center" baseColor="#FFFFFF" label="" height="13"/>
 </s:Panel>

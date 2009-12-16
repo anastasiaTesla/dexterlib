@@ -59,7 +59,7 @@
 		<mx:LinkButton label="圣经工具" click="navigateToURL(new URLRequest('http://www.fuyincn.com'))"/>
 		<mx:LinkButton label="活水网站" click="navigateToURL(new URLRequest('http://www.livingwater4u.com'))"/>
 		<mx:LinkButton label="生命之光" click="navigateToURL(new URLRequest('http://www.smzg.com'))"/>
-		<mx:LinkButton label="迦南美地" click="navigateToURL(new URLRequest('http://b569164.xici.net'))"/>
+		<mx:LinkButton label="迦南美地" click="navigateToURL(new URLRequest('http://www.xici.net/b569164/board.asp'))"/>
 		<mx:LinkButton label="喜信网站" click="navigateToURL(new URLRequest('http://www.joy.org.tw'))"/>
 		<s:filters>
 			<s:DropShadowFilter quality="3" blurX="2" blurY="2" distance="2"/>

@@ -17,7 +17,9 @@ package
 		public function detach():void{
 			DexterEvent.DetachDexterEvent(_document);
 			if(bindings[_document]){
-				bindings[_document].unwatch();
+				while(bindings[_document].length){
+					bindings[_document].pop().unwatch();
+				}
 				delete 	bindings[_document];
 			}
 			_document = null;
@@ -86,10 +88,11 @@ class WaitBinding{
 		}catch(e:Error){
 		}
 		if(chain){
+			DexterFramework.bindings[site] ||= [];
 			if(isFunction){
-				DexterFramework.bindings[site] = BindingUtils.bindSetter(site[prop],target,chain.split("."));
+				DexterFramework.bindings[site].push(BindingUtils.bindSetter(site[prop],target,chain.split(".")));
 			}else{
-				DexterFramework.bindings[site] = BindingUtils.bindProperty(site,prop,target,chain.split("."));
+				DexterFramework.bindings[site].push(BindingUtils.bindProperty(site,prop,target,chain.split(".")));
 			}
 		}else{
 			if(isFunction){

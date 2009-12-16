@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <s:NavigatorContent xmlns:fx="http://ns.adobe.com/mxml/2009" 
 					xmlns:s="library://ns.adobe.com/flex/spark" 
-					xmlns:mx="library://ns.adobe.com/flex/halo" width="400" height="300" xmlns:views="views.*" xmlns:local="*">
+					xmlns:mx="library://ns.adobe.com/flex/halo" width="624" height="492" xmlns:views="views.*" xmlns:local="*">
 	<fx:Script>
 		<![CDATA[
 			import flash.media.Camera;
@@ -27,6 +27,6 @@
 	<fx:Declarations>
 		<local:DexterFramework/>
 	</fx:Declarations>
-	<views:VideoWindow x="10" y="5" id="video" title="我的摄像头" cornerRadius="5"/>
+	<views:VideoWindow x="10" y="5" id="video" title="选择摄像头" cornerRadius="5"/>
 	<s:DropDownList x="98" y="10" selectedIndex="{localSetting.camera}" change="dropdownlist1_changeHandler(event)" dataProvider="{cameras}" width="227"></s:DropDownList>
 </s:NavigatorContent>

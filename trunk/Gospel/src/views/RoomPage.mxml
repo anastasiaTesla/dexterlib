@@ -4,12 +4,19 @@
 					xmlns:mx="library://ns.adobe.com/flex/halo" width="818" height="518" xmlns:views="views.*" xmlns:local="*">
 	<fx:Script>
 		<![CDATA[
+			import flash.display.StageDisplayState;
+			import flash.events.FullScreenEvent;
+			import flash.events.MouseEvent;
+			import flash.geom.Rectangle;
+			import flash.media.Video;
+			
 			import models.LocalSetting;
 			import models.vo.UserVO;
 			
 			import mx.events.FlexEvent;
 			[DexterBinding]
 			public var localSetting:LocalSetting;
+			private var video:Video;
 			protected function chatInput_enterHandler(event:FlexEvent):void
 			{
 				sendDexterEvent("sendChat",chatInput.text);
@@ -28,44 +35,29 @@
 			public function setVideo(userId:String):void{
 				videoWindow.setUser(userId);
 			}
+
+			protected function button1_clickHandler(event:MouseEvent):void
+			{
+				stage.addEventListener(FullScreenEvent.FULL_SCREEN,onFullScreen);
+				stage.displayState = StageDisplayState.FULL_SCREEN;
+			}
+			private function onFullScreen(event:FullScreenEvent):void{
+				if(event.fullScreen){
+					video = videoWindow.video.video;
+					stage.fullScreenSourceRect = new Rectangle(0,0,video.width,video.height);
+					stage.addChild(video);
+				}else{
+					videoWindow.video.addChild(video);
+				}
+			}
 		]]>
 	</fx:Script>
 	<fx:Declarations>
 		<local:DexterFramework/>
 	</fx:Declarations>
 	<s:BitmapImage resizeMode="repeat" source="back2.jpg" width="100%" height="100%"/>
-	<s:Group x="10" y="297" width="314" height="208" >
-		<s:Rect left="0" right="0" top="0" bottom="0" radiusX="5">
-			<s:stroke>
-				<s:SolidColorStroke color="#cccccc" caps="none" joints="miter" miterLimit="4" weight="1"/>
-			</s:stroke>
-			<s:fill>
-				<s:LinearGradient rotation="90">
-					<s:GradientEntry color="#b9121b" alpha="1.0" ratio="0"/>
-					<s:GradientEntry color="#fcfae1" alpha="1.0" ratio="1"/>
-				</s:LinearGradient>
-			</s:fill>
-			<s:filters>
-				<s:GlowFilter blurX="6.0" blurY="6.0" inner="false" color="0xFFFF00" strength="1" alpha="1.0" quality="2" knockout="false"/>
-			</s:filters>
-		</s:Rect>
-		<s:Rect left="5" right="5" top="5" bottom="5" radiusX="5">
-			<s:stroke>
-				<s:SolidColorStroke color="0x5380D0" caps="none" joints="miter" miterLimit="4" weight="1"/>
-			</s:stroke>
-			<s:filters>
-				<s:GlowFilter blurX="6.0" blurY="6.0" inner="true" color="0xFFFF00" strength="1" alpha="1.0" quality="2" knockout="false"/>
-			</s:filters>
-			<s:fill>
-				<s:LinearGradient rotation="90">
-					<s:GradientEntry color="#4c1b1b" alpha="1.0" ratio="0"/>
-					<s:GradientEntry color="#7f4242" alpha="1.0" ratio="1"/>
-				</s:LinearGradient>
-			</s:fill>
-		</s:Rect>
-		<views:UserList left="10" right="10" top="10" bottom="10"/>
-	</s:Group>
-	<s:TextArea x="337" y="6" id="chatOutput" text="" width="451" height="446" contentBackgroundAlpha="1.0" contentBackgroundColor="#BD8D46"/>
+	<views:UserList x="10" y="297" width="314" height="208"/>
+	<s:TextArea x="337" y="6" id="chatOutput" text="" width="451" height="446" contentBackgroundAlpha="1.0" contentBackgroundColor="#BD8D46" editable="false"/>
 	<s:Border x="334" y="456" width="454" height="49" borderWeight="10" cornerRadius="5" borderColor="#B9121B" backgroundColor="#F6E497">
 		<s:TextInput focusEnabled="false" id="chatInput" enter="chatInput_enterHandler(event)" left="0" right="65" top="0" bottom="0" color="#000000">
 			<s:filters>
@@ -77,5 +69,6 @@
 			<s:GlowFilter inner="true" color="0xFFFFFF" blurX="4" blurY="4"/>
 		</s:filters>
 	</s:Border>
-	<views:VideoWindow x="6" y="10" id="videoWindow" backgroundColor="#F6E497" cornerRadius="5"/>
+	<views:VideoWindow x="6" y="10" id="videoWindow" backgroundColor="#F6E497" cornerRadius="5" rollOver="fullscreenbn.visible = true" rollOut="fullscreenbn.visible = false"/>
+	<s:Button x="130" y="138" buttonMode="true" alpha=".5" color="0" id="fullscreenbn" rollOver="fullscreenbn.visible = true" rollOut="fullscreenbn.visible=false" label="全屏显示" visible="false" baseColor="#999999" height="31" click="button1_clickHandler(event)" fontWeight="bold"/>
 </s:NavigatorContent>
