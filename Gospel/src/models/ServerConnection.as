@@ -57,8 +57,10 @@ package models
 			for each(var o:Object in event.changeList){
 				switch(o.code){
 					case "change":
-						userListMap[o.name] = new UserVO(userListSO.data[o.name]);
-						userList.addItem(userListMap[o.name]);
+						if(!userListMap[o.name]){
+							userListMap[o.name] = new UserVO(userListSO.data[o.name]);
+							userList.addItem(userListMap[o.name]);
+						}
 						break;
 					case "delete":
 						userList.removeItemAt(userList.getItemIndex(userListMap[o.name]));
