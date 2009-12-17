@@ -11,7 +11,6 @@ package models
 	import flash.net.URLRequest;
 	
 	import mx.collections.XMLListCollection;
-	import mx.controls.Alert;
 
 	public class GospelModel
 	{
@@ -26,7 +25,6 @@ package models
 		[Bindable]
 		public var roomList:XMLListCollection;
 		public var serverAddr:String;
-//		public var version:String;
 		public function getVersion():String{
 			return appDesc.children()[3];
 		}
@@ -36,34 +34,8 @@ package models
 		private function onConfigLoaded(event:Event):void{
 			var config:XML = new XML(event.target.data);
 			roomList = new XMLListCollection(config.roomList[0].children());
-//			version = config.version;
-			appUpdater.updateURL = config.updateURL;
-			appUpdater.isCheckForUpdateVisible = false;
-			appUpdater.isDownloadUpdateVisible = false;
-			appUpdater.isInstallUpdateVisible = false;
-			appUpdater.addEventListener(UpdateEvent.INITIALIZED, onUpdate);
-			appUpdater.addEventListener(UpdateEvent.CHECK_FOR_UPDATE,onUpdate);
-			appUpdater.addEventListener(ErrorEvent.ERROR, onError);
-			appUpdater.isNewerVersionFunction = function(currentVersion:String, updateVersion:String):Boolean{
-				if(currentVersion == updateVersion){
-					sendDexterEvent("configComplete");
-				}
-				return currentVersion != updateVersion;
-			};
-			appUpdater.initialize();
+			new GospelUpdater(config.updateURL,getVersion());
 			serverAddr = config.server;
-		}
-		private function onError(event:ErrorEvent):void {  
-			Alert.show("",event.text);
-		}  
-		private function onUpdate(event:UpdateEvent):void {
-			switch(event.type){
-				case UpdateEvent.INITIALIZED:
-					appUpdater.checkNow();
-					break;
-				case UpdateEvent.CHECK_FOR_UPDATE:
-					break;
-			}
 		}
 	}
 }
