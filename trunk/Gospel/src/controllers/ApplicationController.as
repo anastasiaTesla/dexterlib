@@ -7,6 +7,7 @@ package controllers
 	
 	import mx.controls.Alert;
 	
+	import views.ChangeNickWindow;
 	import views.WaitWindow;
 
 	public class ApplicationController
@@ -45,6 +46,10 @@ package controllers
 		private function login():void{
 			WaitWindow.wait("进入房间");
 			sendDexterEvent("ConnectServer");
+		}
+		[DexterEvent]
+		public function changeNick(user:UserVO):void{
+			ChangeNickWindow.show(user);
 		}
 	}
 }
