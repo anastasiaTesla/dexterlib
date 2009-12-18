@@ -5,6 +5,10 @@
 	<fx:Declarations>
 		<!--<s:GlowFilter blurX="16" blurY="16" inner="true" id="glowFilter" color="0xFFFFFF"/>-->
 	</fx:Declarations>
+	<s:states>
+		<s:State name="normal"/>
+		<s:State name="over"/>
+	</s:states>
 	<fx:Script>
 		<![CDATA[
 			import flash.display.BlendMode;
@@ -14,12 +18,12 @@
 
 			protected function datarenderer1_rollOverHandler(event:MouseEvent):void
 			{
-				userName.setStyle("color",0xFFFFFF);
+				currentState = "over";
 			}
 
 			protected function datarenderer1_rollOutHandler(event:MouseEvent):void
 			{
-				userName.setStyle("color",0);
+				currentState = "normal";
 			}
 
 		]]>
@@ -28,7 +32,7 @@
 		<s:fill>
 			<s:LinearGradient rotation="90">
 				<s:GradientEntry color="#4677e0" alpha="1.0" ratio="0"/>
-				<s:GradientEntry color="#799ae0" alpha="1.0" ratio="1"/>
+				<s:GradientEntry color="#5378C9" color.over="#799ae0" alpha="1.0" ratio="1"/>
 			</s:LinearGradient>
 		</s:fill>
 		<s:stroke>
@@ -51,6 +55,6 @@
 				  toolTip="{data.role == UserVO.ADMIN?'管理员':'普通访客'}"
 				  scaleContent="false" verticalCenter="0"/>
 		<mx:Image source="{data.isSelf?'assets/user_green.png':null}" toolTip="自己"/>
-		<s:Label verticalCenter="0" text="{data.name} {data.ip}" id="userName"/>
+		<s:Label verticalCenter="0" text="{data.name} {data.ip}" id="userName" color.normal="0" color.over="0xFFFFFF"/>
 	</s:HGroup>
 </s:DataRenderer>
