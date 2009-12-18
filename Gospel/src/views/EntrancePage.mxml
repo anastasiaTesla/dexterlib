@@ -21,6 +21,7 @@
 			[DexterBinding(model="gospelModel",property="roomList")]
 			[Bindable]
 			public var roomList:XMLListCollection;
+			
 			protected function list1_changeHandler(event:IndexChangeEvent):void
 			{
 				if(userName.text == '请输入你的用户名'){

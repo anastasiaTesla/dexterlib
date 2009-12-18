@@ -63,6 +63,7 @@ package models
 						}
 						break;
 					case "delete":
+						sendDexterEvent("receiveChat","“"+userListMap[o.name].name+"”已经下线","系统提示");
 						userList.removeItemAt(userList.getItemIndex(userListMap[o.name]));
 						delete userListMap[o.name];
 						break;

@@ -2,16 +2,14 @@ package models
 {
 	
 	import air.update.ApplicationUpdaterUI;
-	import air.update.events.UpdateEvent;
 	
 	import flash.desktop.NativeApplication;
-	import flash.events.ErrorEvent;
 	import flash.events.Event;
 	import flash.net.URLLoader;
 	import flash.net.URLRequest;
 	
 	import mx.collections.XMLListCollection;
-
+	[Bindable]
 	public class GospelModel
 	{
 		public const connectUrl:String = "rtmfp://stratus.adobe.com";
@@ -20,11 +18,11 @@ package models
 		public const roomURL:String = "https://connectnow.acrobat.com/langhuihui/";
 		public const appDesc:XML = NativeApplication.nativeApplication.applicationDescriptor;
 		public const appUpdater:ApplicationUpdaterUI = new ApplicationUpdaterUI();
-		[Bindable]
 		public var statusBarText:String;
-		[Bindable]
 		public var roomList:XMLListCollection;
+		public var selectedRoom:XML;
 		public var serverAddr:String;
+		public var helpURL:String;
 		public function getVersion():String{
 			return appDesc.children()[3];
 		}
@@ -36,6 +34,7 @@ package models
 			roomList = new XMLListCollection(config.roomList[0].children());
 			new GospelUpdater(config.updateURL,getVersion());
 			serverAddr = config.server;
+			helpURL = config.helpURL;
 		}
 	}
 }
