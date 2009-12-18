@@ -1,6 +1,8 @@
 package controllers
 {
 	
+	import flash.net.SharedObject;
+	
 	import models.GospelModel;
 	import models.LocalSetting;
 	import models.vo.UserVO;
@@ -16,6 +18,8 @@ package controllers
 		public var gospelModel:GospelModel;
 		[DexterBinding]
 		public var localSetting:LocalSetting;
+		[DexterBinding(model="server",property="userListSO")]
+		public var userListSO:SharedObject;
 		[DexterEvent]
 		public function appStart():void{
 			gospelModel.loadConfig();
@@ -30,6 +34,7 @@ package controllers
 		}
 		[DexterEvent]
 		public function enterRoom(room:XML,userName:String,pwd:String):void{
+			gospelModel.selectedRoom = room;
 			localSetting.userName = userName;
 			localSetting.pwd = pwd;
 			localSetting.room = room.@code;
@@ -50,6 +55,26 @@ package controllers
 		[DexterEvent]
 		public function changeNick(user:UserVO):void{
 			ChangeNickWindow.show(user);
+		}
+		[DexterEvent]
+		public function sendChangeNick(id:String,newName:String):void{
+			var user:UserVO = sendDexterEvent("getUserByID",id) as UserVO;
+			user.name = newName;
+			userListSO.setProperty(id,user);
+			broadcast("receiveChangeNick",id,newName);
+		}
+		[DexterEvent]
+		public function receiveChangeNick(id:String,newName:String):void{
+			var user:UserVO = sendDexterEvent("getUserByID",id) as UserVO;
+			user.name = newName;
+			if(user.isSelf){
+				localSetting.userName = newName;
+				sendDexterEvent("receiveChat","你的昵称已经被管理员修改，新昵称："+newName,"系统消息");
+			}
+		}
+		[DexterEvent]
+		public function broadcast(...arg):void{
+			userListSO.send.apply(userListSO,arg);
 		}
 	}
 }

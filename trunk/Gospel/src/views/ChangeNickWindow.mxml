@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<s:Panel xmlns:fx="http://ns.adobe.com/mxml/2009" 
+<s:Panel xmlns:fx="http://ns.adobe.com/mxml/2009" cornerRadius="5" 
 		 xmlns:s="library://ns.adobe.com/flex/spark" 
-		 xmlns:mx="library://ns.adobe.com/flex/halo" width="230" height="90" title="修改用户昵称" xmlns:views="views.*">
+		 xmlns:mx="library://ns.adobe.com/flex/halo" width="230" height="90" title="修改用户昵称" xmlns:views="views.*" backgroundColor="#799AE0">
 	<s:layout>
 		<s:HorizontalLayout  paddingTop="15" paddingLeft="10"/>
 	</s:layout>
@@ -12,17 +12,21 @@
 			
 			import models.vo.UserVO;
 			
-			import mx.core.Application;
 			import mx.core.FlexGlobals;
 			import mx.managers.PopUpManager;
-
+			private var userId:String;
 			protected function textinput1_enterHandler(event:Event):void
 			{
-				
+				if(newName.text){
+					sendDexterEvent("sendChangeNick",userId,newName.text);
+					PopUpManager.removePopUp(this);
+				}
 			}
 			public static function show(user:UserVO):void{
 				var app:DisplayObject = FlexGlobals.topLevelApplication as DisplayObject;
-				PopUpManager.createPopUp(app,ChangeNickWindow,true).move(app.mouseX,app.mouseY);
+				var instance:ChangeNickWindow = PopUpManager.createPopUp(app,ChangeNickWindow,true) as ChangeNickWindow;
+				instance.move(app.mouseX,app.mouseY);
+				instance.userId = user.id;
 			}
 			protected function imagebutton1_clickHandler(event:MouseEvent):void
 			{
@@ -34,7 +38,7 @@
 	<fx:Declarations>
 		<!-- Place non-visual elements (e.g., services, value objects) here -->
 	</fx:Declarations>
-	<s:TextInput x="6" y="11" enter="textinput1_enterHandler(event)"/>
+	<s:TextInput x="6" y="11" id="newName" enter="textinput1_enterHandler(event)" color="#000000"/>
 	<views:ImageButton source="assets/accept.png" click="textinput1_enterHandler(event)"/>
 	<views:ImageButton source="assets/cancel.png" click="imagebutton1_clickHandler(event)"/>
 </s:Panel>

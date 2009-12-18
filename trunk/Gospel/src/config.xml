@@ -1,8 +1,11 @@
 ﻿<root>
-<updateURL>http://dexterlib.googlecode.com/files/update.xml</updateURL>
-<server>114.80.209.178</server>
-<roomList>
-<room name="南京教会直播室" code="njtjc" pwd="dexter"/>
-<room name="临时房间" code="temp" pwd="dexter"/>
-</roomList>
-</root>
+	<updateURL>http://dexterlib.googlecode.com/files/update.xml</updateURL>
+	<server>114.80.209.178</server>
+	<helpURL>http://dexterlib.googlecode.com/files/help.html</helpURL>
+	<roomList>
+		<room name="南京教会直播室" code="njtjc" pwd="dexter">
+			<extendTab name="公告">http://dexterlib.googlecode.com/files/njtjc.html</extendTab>
+		</room>
+		<room name="临时房间" code="temp" pwd="dexter"/>
+	</roomList>
+</root>	

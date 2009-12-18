@@ -1,6 +1,5 @@
 package controllers
 {
-	import flash.media.Camera;
 	import flash.media.Microphone;
 	import flash.net.NetStream;
 	import flash.net.SharedObject;
@@ -31,14 +30,17 @@ package controllers
 			inStream = sendDexterEvent("initInStream",id) as NetStream;
 			inStream.play("media");
 			sendDexterEvent("setVideo",id);
+			sendDexterEvent("receiveChat","“"+user.name+"”已经上了视频","系统提示");
 		}
 		[DexterEvent]
 		public function initSOsuccess_publisher(id:String):void{
 			var outStream:NetStream = sendDexterEvent("initOutStream") as NetStream;
 			outStream.attachCamera(localSetting.cam);
-//			outStream.attachAudio(Microphone.getMicrophone());
+			outStream.attachAudio(Microphone.getMicrophone());
 			outStream.publish("media");
 			sendDexterEvent("setVideo",id);
+			var user:UserVO = sendDexterEvent("getUserByID",id);
+			sendDexterEvent("receiveChat","“"+user.name+"”已经上了视频","系统提示");
 		}
 	}
 }

@@ -17,20 +17,6 @@
 			[DexterBinding]
 			public var localSetting:LocalSetting;
 			private var video:Video;
-			protected function chatInput_enterHandler(event:FlexEvent):void
-			{
-				sendDexterEvent("sendChat",chatInput.text);
-				callLater(clearInput);
-			}
-			private function clearInput():void{
-				chatInput.text = "";
-			}
-			[DexterEvent]
-			public function receiveChat(content:String,id:String):void{
-				var user:UserVO = sendDexterEvent("getUserByID",id) as UserVO;
-				chatOutput.appendText(user.name + "\n" + "  "+content + "\n");
-				chatOutput.scrollToRange(int.MAX_VALUE);
-			}
 			[DexterEvent]
 			public function setVideo(userId:String):void{
 				videoWindow.setUser(userId);
@@ -56,19 +42,9 @@
 		<local:DexterFramework/>
 	</fx:Declarations>
 	<!--<s:BitmapImage resizeMode="repeat" source="back2.jpg" width="100%" height="100%"/>-->
-	<views:UserList x="10" y="297" width="314" height="208"/>
-	<s:TextArea x="337" y="6" id="chatOutput" text="" width="451" height="446" contentBackgroundAlpha="1.0" editable="false" color="#000000" borderColor="#799AE0"/>
-	<s:Border x="334" y="456" width="454" height="49" borderWeight="6" cornerRadius="5" borderColor="#365FB7" backgroundColor="#F6E497">
-		<s:TextInput  id="chatInput" enter="chatInput_enterHandler(event)" left="0" right="65" top="0" bottom="0" color="#000000" fontSize="24">
-			<s:filters>
-				<s:BevelFilter angle="-135" distance="1" blurX="4" blurY="4"/>
-			</s:filters>
-		</s:TextInput>
-		<s:Button label="发送" top="2" bottom="2" right="2" color="#000000" width="60" click="chatInput_enterHandler(null);"/>
-		<s:filters>
-			<s:GlowFilter inner="true" color="0xFFFFFF" blurX="4" blurY="4"/>
-		</s:filters>
-	</s:Border>
-	<views:VideoWindow x="6" y="10" id="videoWindow" backgroundColor="#F6E497" cornerRadius="5" rollOver="fullscreenbn.visible = true" rollOut="fullscreenbn.visible = false"/>
+	<views:UserList x="5" width="320" top="284" bottom="13"/>
+	<views:VideoWindow title="视频窗口" x="5" y="0" id="videoWindow" backgroundColor="#F6E497" cornerRadius="5" rollOver="fullscreenbn.visible = true" rollOut="fullscreenbn.visible = false"/>
 	<s:Button x="130" y="138" buttonMode="true" alpha=".5" color="0" id="fullscreenbn" rollOver="fullscreenbn.visible = true" rollOut="fullscreenbn.visible=false" label="全屏显示" visible="false" baseColor="#999999" height="31" click="button1_clickHandler(event)" fontWeight="bold"/>
+	<views:ChatArea left="336" right="10" top="0" bottom="10">
+	</views:ChatArea>
 </s:NavigatorContent>
