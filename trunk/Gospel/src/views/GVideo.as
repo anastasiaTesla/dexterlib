@@ -13,6 +13,10 @@ package views
 			video.width = unscaledWidth;
 			video.height = unscaledHeight;
 		}
+		public function resize():void{
+			video.width = width;
+			video.height = height;
+		}
 		override protected function createChildren():void
 		{
 			addChild(video);

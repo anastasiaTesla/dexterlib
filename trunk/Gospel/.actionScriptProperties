@@ -14,7 +14,21 @@
   </compiler>
   <applications>
     <application path="Gospel.mxml">
-      <airExcludes/>
+      <airExcludes>
+        <airExclude path="dexter.p12"/>
+        <airExclude path="icon/698dove.psd"/>
+        <airExclude path="njtjc.files"/>
+        <airExclude path="config.xml"/>
+        <airExclude path="njtjc.html"/>
+        <airExclude path="help.files"/>
+        <airExclude path="back2.jpg"/>
+        <airExclude path="update.xml"/>
+        <airExclude path="3.swf"/>
+        <airExclude path="help.html"/>
+        <airExclude path="assets/title.psd"/>
+        <airExclude path="assets/VideoBack.fla"/>
+        <airExclude path="help.swf"/>
+      </airExcludes>
     </application>
   </applications>
   <modules/>

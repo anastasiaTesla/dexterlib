@@ -24,6 +24,7 @@ package controllers
 		public function appStart():void{
 			gospelModel.loadConfig();
 			WaitWindow.wait("加载配置文件");
+			localSetting.setMode();
 		}
 		[DexterEvent]
 		public function configComplete():void{

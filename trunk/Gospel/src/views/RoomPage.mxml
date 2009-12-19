@@ -30,10 +30,13 @@
 			private function onFullScreen(event:FullScreenEvent):void{
 				if(event.fullScreen){
 					video = videoWindow.video.video;
-					stage.fullScreenSourceRect = new Rectangle(0,0,video.width,video.height);
+//					stage.fullScreenSourceRect = new Rectangle(0,0,video.width,video.height);
 					stage.addChild(video);
+					video.width = stage.width;
+					video.height = stage.height;
 				}else{
 					videoWindow.video.addChild(video);
+					videoWindow.video.resize();
 				}
 			}
 		]]>
