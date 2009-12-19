@@ -16,6 +16,7 @@ package models
 	{
 		private var version:String;
 		private var file:File = File.applicationStorageDirectory.resolvePath("Gospel.air");
+//		private var file:File = File.desktopDirectory.resolvePath("Gospel.air");
 		private static var instance:GospelUpdater;
 		public function GospelUpdater(updateURL:String,version:String)
 		{
@@ -47,13 +48,15 @@ package models
 			var urlStream:URLStream = event.target as URLStream;
 			urlStream.readBytes(fileData, 0, urlStream.bytesAvailable);
 			var fileStream:FileStream = new FileStream();
-			fileStream.addEventListener(Event.CLOSE, fileClosed,false,0,true);
-			fileStream.openAsync(file, FileMode.WRITE);
+			//fileStream.addEventListener(Event.CLOSE, fileClosed,false,0,true);
+			fileStream.open(file, FileMode.WRITE);
 			fileStream.writeBytes(fileData, 0, fileData.length);
 			fileStream.close();
+			new Updater().update(file,version);
 		}
+		
 		private function fileClosed(event:Event):void {
-			(new Updater).update(file,version);
+			new Updater().update(file,version);
 		}
 	}
 }

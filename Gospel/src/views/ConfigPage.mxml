@@ -25,17 +25,6 @@
 
 			protected function dropdownlist2_changeHandler(event:IndexChangeEvent):void
 			{
-				switch(event.newIndex){
-					case 0:
-						localSetting.cam.setMode(160,120,15);
-						break;
-					case 1:
-						localSetting.cam.setMode(320,240,15);
-						break;
-					case 2:
-						localSetting.cam.setMode(640,480,15);
-						break;
-				}
 				localSetting.cameraSize = event.newIndex;
 			}
 
@@ -50,7 +39,7 @@
 		</s:ArrayCollection>
 	</fx:Declarations>
 	<views:VideoWindow x="10" y="5" id="video" title="选择摄像头" cornerRadius="5"/>
-	<s:DropDownList x="98" y="10" selectedIndex="{localSetting.camera}" change="dropdownlist1_changeHandler(event)" dataProvider="{cameras}" width="227"></s:DropDownList>
+	<s:DropDownList x="98" y="10" change="dropdownlist1_changeHandler(event)" dataProvider="{cameras}" width="227"></s:DropDownList>
 	<mx:Form x="351" y="10" width="263" height="270" color="#133463">
 		<mx:FormItem label="摄像头捕获尺寸">
 			<s:DropDownList selectedIndex="{localSetting.cameraSize}" change="callLater(dropdownlist2_changeHandler,[event])" dataProvider="{cameraSize}"/>
