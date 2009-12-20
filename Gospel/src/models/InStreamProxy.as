@@ -10,6 +10,7 @@ package models
 		public var stream:NetStream;
 		[DexterEvent]
 		public function initInStream(id:String):NetStream{
+			if(stream)stream.close();
 			stream = new NetStream(stratus,id);
 			stream.addEventListener(NetStatusEvent.NET_STATUS,onStatus);
 			return stream;

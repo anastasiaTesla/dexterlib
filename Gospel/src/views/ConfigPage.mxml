@@ -39,7 +39,7 @@
 		</s:ArrayCollection>
 	</fx:Declarations>
 	<views:VideoWindow x="10" y="5" id="video" title="选择摄像头" cornerRadius="5"/>
-	<s:DropDownList x="98" y="10" change="dropdownlist1_changeHandler(event)" dataProvider="{cameras}" width="227"></s:DropDownList>
+	<s:DropDownList x="98" y="10" change="dropdownlist1_changeHandler(event)" dataProvider="{cameras}" width="227" color="#133463"></s:DropDownList>
 	<mx:Form x="351" y="10" width="263" height="270" color="#133463">
 		<mx:FormItem label="摄像头捕获尺寸">
 			<s:DropDownList selectedIndex="{localSetting.cameraSize}" change="callLater(dropdownlist2_changeHandler,[event])" dataProvider="{cameraSize}"/>

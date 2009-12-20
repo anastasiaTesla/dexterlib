@@ -71,7 +71,7 @@
 		<views1:ExtendTab label="帮助" width="100%" height="100%" source="{gospelModel.helpURL}"/>
 	</mx:TabNavigator>
 	<mx:Image x="10" y="5" source="assets/title.png"/>
-	<s:HGroup x="251" y="13" width="540" height="29" fontWeight="bold" color="#365FB7" fontSize="20">
+	<s:HGroup x="251" y="13" width="540" height="29" fontWeight="bold" color="#365FB7" fontSize="20" >
 		<mx:LinkButton label="圣经工具" click="navigateToURL(new URLRequest('http://www.fuyincn.com'))"/>
 		<mx:LinkButton label="活水网站" click="navigateToURL(new URLRequest('http://www.livingwater4u.com'))"/>
 		<mx:LinkButton label="生命之光" click="navigateToURL(new URLRequest('http://www.smzg.com'))"/>
