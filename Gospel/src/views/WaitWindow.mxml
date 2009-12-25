@@ -6,10 +6,10 @@
 		<s:VerticalLayout horizontalAlign="center" paddingTop="10"/>
 	</s:layout>
 	<s:creationCompleteEffect>
-		<mx:Zoom easingFunction="{Back.easeOut}"/>
+		<mx:Fade/>
 	</s:creationCompleteEffect>
 	<s:removedEffect>
-		<mx:Zoom easingFunction="{Back.easeIn}"/>
+		<mx:Fade/>
 	</s:removedEffect>
 	<fx:Script>
 		<![CDATA[
