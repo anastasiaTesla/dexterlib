@@ -10,6 +10,7 @@
 		<models:SOProxy id="proxy"/>
 		<models:InStreamProxy id="inStreamProxy"/>
 		<models:OutStreamProxy id="outStreamProxy"/>
+		<models:GroupSpecifierProxy id="groupSpecifierProxy"/>
 		<controllers:ApplicationController id="applicationController"/>
 		<controllers:ConnectionController id="connectionController"/>
 		<controllers:ChatController id="chatController"/>
