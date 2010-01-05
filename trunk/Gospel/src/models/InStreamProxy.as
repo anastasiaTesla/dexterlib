@@ -12,6 +12,10 @@ package models
 		public function initInStream(id:String):NetStream{
 			if(stream)stream.close();
 			stream = new NetStream(stratus,id);
+			stream.multicastAvailabilitySendToAll = true;
+			stream.multicastAvailabilityUpdatePeriod = 5;
+			stream.multicastPushNeighborLimit = 10;
+			stream.multicastFetchPeriod = 5;
 			stream.addEventListener(NetStatusEvent.NET_STATUS,onStatus);
 			return stream;
 		}

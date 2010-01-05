@@ -60,6 +60,7 @@ package models
 						if(!userListMap[o.name]){
 							userListMap[o.name] = new UserVO(userListSO.data[o.name]);
 							userList.addItem(userListMap[o.name]);
+							sendDexterEvent("receiveChat","“"+userListMap[o.name].name+"”上线","系统提示");
 						}
 						break;
 					case "delete":
