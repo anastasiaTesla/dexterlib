@@ -51,6 +51,7 @@ package controllers
 		}
 		private function login():void{
 			WaitWindow.wait("进入房间");
+			sendDexterEvent("initGroupSpecifier");
 			sendDexterEvent("ConnectServer");
 		}
 		[DexterEvent]
