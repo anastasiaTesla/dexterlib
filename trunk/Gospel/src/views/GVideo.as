@@ -20,6 +20,7 @@ package views
 		override protected function createChildren():void
 		{
 			addChild(video);
+			video.smoothing = true;
 		}
 	}
 }

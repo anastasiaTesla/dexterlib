@@ -57,20 +57,31 @@ package models
 			for each(var o:Object in event.changeList){
 				switch(o.code){
 					case "change":
-						if(!userListMap[o.name]){
-							userListMap[o.name] = new UserVO(userListSO.data[o.name]);
-							userList.addItem(userListMap[o.name]);
-							sendDexterEvent("receiveChat","“"+userListMap[o.name].name+"”上线","系统提示");
+						if(userList.length){
+							if(!userListMap[o.name]){
+								userListMap[o.name] = new UserVO(userListSO.data[o.name]);
+								userList.addItem(userListMap[o.name]);
+								sendDexterEvent("userOnline",userListMap[o.name]);
+							}
+						}else{
+							for(var userId:String in userListSO.data){
+								userListMap[userId] = new UserVO(userListSO.data[userId]);
+								userList.addItem(userListMap[userId]);
+							}
 						}
 						break;
 					case "delete":
-						sendDexterEvent("receiveChat","“"+userListMap[o.name].name+"”已经下线","系统提示");
+						sendDexterEvent("userOffline",userListMap[o.name]);
 						userList.removeItemAt(userList.getItemIndex(userListMap[o.name]));
 						delete userListMap[o.name];
 						break;
 					case "clear":
 						userList.removeAll();
 						userListMap = {};
+						for(userId in userListSO.data){
+							userListMap[userId] = new UserVO(userListSO.data[userId]);
+							userList.addItem(userListMap[userId]);
+						}
 						break;
 				}
 			}

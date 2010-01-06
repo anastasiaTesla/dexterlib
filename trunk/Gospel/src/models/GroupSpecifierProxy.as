@@ -9,7 +9,7 @@ package models
 		public var groupSpecifier:GroupSpecifier;
 		[DexterEvent]
 		public function initGroupSpecifier():void{
-			groupSpecifier = new GroupSpecifier("tjc_gospel/"+localSetting.room);
+			groupSpecifier = new GroupSpecifier("gospel/"+localSetting.room);
 			groupSpecifier.serverChannelEnabled = true;
 //			groupSpecifier.ipMulticastMemberUpdatesEnabled = true;
 //			groupSpecifier.multicastEnabled = true;
