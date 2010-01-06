@@ -17,7 +17,7 @@ package models.vo
 		}
 		public static var self:UserVO = new UserVO();
 		public function get isSelf():Boolean{
-			return id ==  self.id;
+			return id == self.id;
 		}
 	}
 }

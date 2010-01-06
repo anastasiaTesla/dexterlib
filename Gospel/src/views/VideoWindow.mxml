@@ -4,6 +4,7 @@
 		 xmlns:mx="library://ns.adobe.com/flex/halo" width="322" height="273" xmlns:views="views.*" xmlns:local="*">
 	<fx:Declarations>
 		<local:DexterFramework/>
+		<fx:String id="userId"/>
 	</fx:Declarations>
 	<fx:Script>
 		<![CDATA[
@@ -12,6 +13,7 @@
 			[DexterBinding]
 			public var localSetting:LocalSetting;
 			public function setUser(userId:String):void{
+				this.userId = userId;
 				var user:UserVO = sendDexterEvent("getUserByID",userId);
 				if(UserVO.self.id == userId){
 					user = UserVO.self;
@@ -20,6 +22,14 @@
 					video.video.attachNetStream(sendDexterEvent("getInStream") as NetStream);
 				}
 				title = user.name;
+			}
+			[DexterEvent]
+			public function userOffline(user:UserVO):void{
+				if(user.id == userId){
+					video.video.clear();
+					title = "视频窗口";
+					userId = null;
+				}
 			}
 		]]>
 	</fx:Script>
