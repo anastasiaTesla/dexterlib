@@ -12,6 +12,8 @@
 			
 			import mx.core.IVisualElement;
 			import mx.events.FlexEvent;
+			
+			import nl.demonsters.debugger.MonsterDebugger;
 			[DexterBinding]
 			[Bindable]
 			public var gospelModel:GospelModel;
@@ -22,6 +24,7 @@
 			private var extendTabs:Array = [];
 			protected function windowedapplication1_creationCompleteHandler(event:FlexEvent):void
 			{
+				new MonsterDebugger(this);
 				sendDexterEvent("appStart");
 				title = "Gospel Angel " + gospelModel.getVersion();
 			}
