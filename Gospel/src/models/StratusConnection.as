@@ -7,6 +7,7 @@ package models
 	[Bindable]
 	public class StratusConnection extends NetConnection
 	{
+		public var streamConnectType:String;
 		public function StratusConnection()
 		{
 			super();
@@ -17,6 +18,9 @@ package models
 			switch(event.info.code){
 				case "NetConnection.Connect.Success":
 					sendDexterEvent("StratusConnectSuccess");
+					break;
+				case "NetStream.Connect.Success":
+					sendDexterEvent(streamConnectType+"StreamConnect");
 					break;
 			}
 		}
