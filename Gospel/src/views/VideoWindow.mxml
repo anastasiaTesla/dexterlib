@@ -3,32 +3,34 @@
 		 xmlns:s="library://ns.adobe.com/flex/spark" 
 		 xmlns:mx="library://ns.adobe.com/flex/halo" width="322" height="273" xmlns:views="views.*" xmlns:local="*">
 	<fx:Declarations>
-		<local:DexterFramework/>
+		<local:DexterFramework id="df"/>
 		<fx:String id="userId"/>
 	</fx:Declarations>
 	<fx:Script>
 		<![CDATA[
+			import flash.net.NetStream;
+			
 			import models.LocalSetting;
+			import models.StratusConnection;
 			import models.vo.UserVO;
 			[DexterBinding]
 			public var localSetting:LocalSetting;
+			[DexterBinding]
+			public var stratus:StratusConnection;
+
 			public function setUser(userId:String):void{
 				this.userId = userId;
 				var user:UserVO = sendDexterEvent("getUserByID",userId);
-				if(UserVO.self.id == userId){
-					user = UserVO.self;
-					video.video.attachCamera(localSetting.cam);
+				if(user){
+					if(user.isSelf){
+						video.video.attachCamera(localSetting.cam);
+					}else{
+						video.video.attachNetStream(stratus.inStream);
+					}
+					title = user.name;
 				}else{
-					video.video.attachNetStream(sendDexterEvent("getInStream") as NetStream);
-				}
-				title = user.name;
-			}
-			[DexterEvent]
-			public function userOffline(user:UserVO):void{
-				if(user.id == userId){
 					video.video.clear();
 					title = "视频窗口";
-					userId = null;
 				}
 			}
 		]]>

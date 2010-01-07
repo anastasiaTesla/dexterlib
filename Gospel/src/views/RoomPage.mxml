@@ -7,13 +7,11 @@
 			import flash.display.StageDisplayState;
 			import flash.events.FullScreenEvent;
 			import flash.events.MouseEvent;
-			import flash.geom.Rectangle;
 			import flash.media.Video;
+			import flash.net.NetStream;
 			
 			import models.LocalSetting;
 			import models.vo.UserVO;
-			
-			import mx.events.FlexEvent;
 			[DexterBinding]
 			public var localSetting:LocalSetting;
 			private var video:Video;
@@ -21,7 +19,12 @@
 			public function setVideo(userId:String):void{
 				videoWindow.setUser(userId);
 			}
-
+			[DexterEvent]
+			public function userOffline(user:UserVO):void{
+				if(user.id == videoWindow.userId){
+					videoWindow.setUser(null);
+				}
+			}
 			protected function button1_clickHandler(event:MouseEvent):void
 			{
 				stage.addEventListener(FullScreenEvent.FULL_SCREEN,onFullScreen);
