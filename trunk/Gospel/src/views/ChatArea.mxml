@@ -37,7 +37,7 @@
 				chatInput.text = "";
 			}
 			[DexterEvent]
-			public function receiveChat(content:String,id:String):void{
+			public function $chat(content:String,id:String):void{
 				switch(id){
 					case "系统消息":
 						chatOutput.appendText("★系统消息★ "+ new Date().toLocaleTimeString() + "\n");

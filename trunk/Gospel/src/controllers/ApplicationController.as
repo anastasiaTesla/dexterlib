@@ -51,7 +51,6 @@ package controllers
 		}
 		private function login():void{
 			WaitWindow.wait("进入房间");
-			sendDexterEvent("initGroupSpecifier");
 			sendDexterEvent("ConnectServer");
 		}
 		[DexterEvent]
@@ -59,24 +58,36 @@ package controllers
 			ChangeNickWindow.show(user);
 		}
 		[DexterEvent]
+		public function kickUser(user:UserVO):void{
+			sendDexterEvent("broadcast","kickUser",user.id);
+		}
+		[DexterEvent]
+		public function $kickUser(id:String):void{
+			if(UserVO.self.id == id)exitRoom();
+		}
+		[DexterEvent]
+		public function exitRoom():void{
+			
+		}
+		[DexterEvent]
 		public function sendChangeNick(id:String,newName:String):void{
 			var user:UserVO = sendDexterEvent("getUserByID",id) as UserVO;
 			user.name = newName;
 			userListSO.setProperty(id,user);
-			broadcast("receiveChangeNick",id,newName);
+			sendDexterEvent("broadcast","changeNick",id,newName);
 		}
 		[DexterEvent]
-		public function receiveChangeNick(id:String,newName:String):void{
+		public function $changeNick(id:String,newName:String):void{
 			var user:UserVO = sendDexterEvent("getUserByID",id) as UserVO;
 			user.name = newName;
 			if(user.isSelf){
 				localSetting.userName = newName;
-				sendDexterEvent("receiveChat","你的昵称已经被管理员修改，新昵称："+newName,"系统消息");
+				sendDexterEvent("$chat","你的昵称已经被管理员修改，新昵称："+newName,"系统消息");
 			}
 		}
-		[DexterEvent]
-		public function broadcast(...arg):void{
-			userListSO.send.apply(userListSO,arg);
-		}
+//		[DexterEvent]
+//		public function broadcast(...arg):void{
+//			userListSO.send.apply(userListSO,arg);
+//		}
 	}
 }

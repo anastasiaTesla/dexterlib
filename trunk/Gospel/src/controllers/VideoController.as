@@ -14,7 +14,6 @@ package controllers
 		[DexterEvent]
 		public function publishUserVideo(user:UserVO):void{
 			if(user.id == initSO.data["publisher"]){
-				
 			}else{
 				initSO.setProperty("publisher",user.id);
 			}
@@ -23,10 +22,9 @@ package controllers
 		public function initSOchange_publisher(id:String):void{
 			var user:UserVO = sendDexterEvent("getUserByID",id);
 			if(!user)return;
-			if(user.isSelf)
-				sendDexterEvent("initOutStream");
-			else
-				sendDexterEvent("initInStream",id);
+			sendDexterEvent("publishOutStream",user);
+			sendDexterEvent("setVideo",id);
+			sendDexterEvent("tip_dockVideo",id);
 		}
 		[DexterEvent]
 		public function initSOsuccess_publisher(id:String):void{

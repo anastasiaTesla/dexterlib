@@ -7,7 +7,7 @@ package models
 	{
 		flash_proxy override function getProperty(name:*) : *{
 			return function(...arg):void{
-				arg.unshift(name);
+				arg.unshift("$"+name);
 				DexterEvent.SendEvent.apply(DexterEvent,arg);
 			};
 		}
