@@ -8,6 +8,7 @@ package models
 	import flash.net.NetGroup;
 	import flash.net.NetStream;
 	import flash.utils.Timer;
+	import flash.utils.setTimeout;
 	
 	import models.vo.UserVO;
 
@@ -24,7 +25,7 @@ package models
 		public static const OUT:String = "out";
 		private var groupSpecifier:GroupSpecifier;
 		private var publishName:String;
-		private var keepAlive:Timer = new Timer(5000);
+		private var keepAlive:Timer = new Timer(4000);
 		public function StratusConnection()
 		{
 			super();
@@ -32,7 +33,7 @@ package models
 			keepAlive.addEventListener(TimerEvent.TIMER,onTimer);
 		}
 		private function onTimer(event:TimerEvent):void{
-			netGroup.post(["stillAlive",UserVO.self]);
+			sendToOthers("stillAlive",UserVO.self);
 			sendDexterEvent("checkUserAlive");
 		}
 		private function onNetStatus(event:NetStatusEvent):void{
@@ -53,11 +54,12 @@ package models
 					}
 					break;
 				case "NetGroup.Connect.Success":
-					onTimer(null);
+					setTimeout(onTimer,1000,null);
 					keepAlive.start();
 					break;
 				case "NetGroup.Posting.Notify":
 					var array:Array = event.info.message as Array;
+					array.pop();
 					array[0] = "$"+array[0];
 					DexterEvent.SendEvent.apply(DexterEvent,array);
 					break;
@@ -117,9 +119,16 @@ package models
 		[DexterEvent]
 		public function broadcast(...arg):void{
 			try{
-				netGroup.post(arg);
+				netGroup.post(arg.concat(Math.random()*100>>0));
 				arg[0] = "$"+arg[0];
 				DexterEvent.SendEvent.apply(DexterEvent,arg);
+			}catch(e:Error){
+			}
+		}
+		[DexterEvent]
+		public function sendToOthers(...arg):void{
+			try{
+				netGroup.post(arg.concat(Math.random()*100>>0));
 			}catch(e:Error){
 			}
 		}

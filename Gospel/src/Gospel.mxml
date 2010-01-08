@@ -55,7 +55,7 @@
 
 			protected function windowedapplication1_closeHandler(event:Event):void
 			{
-				sendDexterEvent("broadcast","userOffline",UserVO.self.id);
+				sendDexterEvent("sendToOthers","userOffline",UserVO.self.id);
 			}
 
 		]]>
