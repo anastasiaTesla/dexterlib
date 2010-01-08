@@ -10,7 +10,7 @@ package views
 		{
 			super();
 			contextMenu = new ContextMenu();;
-			addItem("上视频","publishUserVideo");
+			addItem("上/下视频","publishUserVideo");
 			addItem("修改其昵称","changeNick");
 			addItem("踢出此人","kickUser");
 		}

@@ -13,19 +13,12 @@ package controllers
 		[DexterBinding]
 		public var gospelModel:GospelModel;
 		[DexterBinding]
-		public var server:ServerConnection;
-		[DexterBinding]
 		public var stratus:StratusConnection;
 		[DexterEvent]
 		public function ConnectServer():void{
 			UserVO.self.name = localSetting.userName;
 			UserVO.self.role = localSetting.role;
 			stratus.connect(gospelModel.connectUrl+"/"+gospelModel.developerKey+"/"+localSetting.room);
-		}
-		[DexterEvent]
-		public function StratusConnectSuccess():void{
-			UserVO.self.id = stratus.nearID;
-			server.Connect(UserVO.self);
 		}
 	}
 }
