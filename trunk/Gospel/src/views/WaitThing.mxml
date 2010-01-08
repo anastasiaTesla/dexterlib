@@ -9,6 +9,7 @@
 				<thing name="进入房间" icon="assets/door.png"/>
 				<thing name="检查更新" icon="assets/xhtml_valid.png"/>
 				<thing name="下载更新" icon="assets/application_put.png"/>
+				<thing name="获取IP地址" icon="assets/world.png"/>
 			</root>
 		</fx:XML>
 	</fx:Declarations>

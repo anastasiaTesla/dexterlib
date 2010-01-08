@@ -16,7 +16,7 @@
 			import models.vo.UserVO;
 			
 			import mx.collections.ArrayCollection;
-			[DexterBinding(model="server",property="userList")]
+			[DexterBinding(model="userListController",property="userList")]
 			[Bindable]
 			public var userList:ArrayCollection;
 			[DexterBinding]

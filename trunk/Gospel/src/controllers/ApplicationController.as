@@ -23,12 +23,11 @@ package controllers
 		[DexterEvent]
 		public function appStart():void{
 			gospelModel.loadConfig();
-			WaitWindow.wait("加载配置文件");
+			gospelModel.lookIp();
 			localSetting.setMode();
 		}
 		[DexterEvent]
 		public function configComplete():void{
-			WaitWindow.waitThingDone("加载配置文件");
 			if(localSetting.autoLogin){
 				login();
 			}
@@ -85,9 +84,5 @@ package controllers
 				sendDexterEvent("$chat","你的昵称已经被管理员修改，新昵称："+newName,"系统消息");
 			}
 		}
-//		[DexterEvent]
-//		public function broadcast(...arg):void{
-//			userListSO.send.apply(userListSO,arg);
-//		}
 	}
 }

@@ -55,6 +55,6 @@
 				  toolTip="{data.role == UserVO.ADMIN?'管理员':'普通访客'}"
 				  scaleContent="false" verticalCenter="0"/>
 		<mx:Image source="{data.isSelf?'assets/user_green.png':null}" toolTip="自己"/>
-		<s:Label verticalCenter="0" text="{data.name} {data.ip}" id="userName" color.normal="0" color.over="0xFFFFFF"/>
+		<s:Label verticalCenter="0" text="{data.name} {data.address}" id="userName" color.normal="0" color.over="0xFFFFFF"/>
 	</s:HGroup>
 </s:DataRenderer>

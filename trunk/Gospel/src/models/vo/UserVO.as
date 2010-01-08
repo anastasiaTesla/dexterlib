@@ -8,6 +8,7 @@ package models.vo
 		public var id:String;
 		public var name:String;
 		public var ip:String;
+		public var address:String;
 		public var role:int;
 		public function UserVO(o:Object=null)
 		{

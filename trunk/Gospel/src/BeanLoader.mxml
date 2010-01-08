@@ -6,11 +6,9 @@
 		<models:GospelModel id="gospelModel"/>
 		<models:LocalSetting id="localSetting"/>
 		<models:StratusConnection id="stratus"/>
-		<models:ServerConnection id="server"/>
-		<models:SOProxy id="proxy"/>
 		<controllers:ApplicationController id="applicationController"/>
 		<controllers:ConnectionController id="connectionController"/>
 		<controllers:ChatController id="chatController"/>
-		<controllers:VideoController id="videoController"/>
+		<controllers:UserListController id="userListController"/>
 	</fx:Declarations>
 </DexterBeanLoader>
