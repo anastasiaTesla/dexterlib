@@ -58,7 +58,7 @@ package models
 			data = data.substr(p);
 			var address:String = data.substring(data.indexOf("来自:")+3,data.indexOf(" ++"));
 			UserVO.self.ip = ip;
-			UserVO.self.address = address.replace("&nbsp;","");
+			UserVO.self.address = address.replace(/&nbsp;/g,"");
 			WaitWindow.waitThingDone("获取IP地址");
 		}
 	}
