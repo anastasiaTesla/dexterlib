@@ -23,12 +23,9 @@ package controllers
 		}
 		[DexterEvent]
 		public function checkUserAlive():void{
-			for(var id:String in userAliveTime){
-				var timeStamp:int = userAliveTime[id];
-				if((getTimer()/1000>>0) - timeStamp>20){
+			for(var id:String in userAliveTime)
+				if((getTimer()/1000>>0) - userAliveTime[id]>30)
 					userOffline(id);
-				}
-			}
 		}
 		[DexterEvent]
 		public function $userOffline(id:String):void{

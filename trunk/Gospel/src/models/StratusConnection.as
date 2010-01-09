@@ -25,7 +25,7 @@ package models
 		public static const OUT:String = "out";
 		private var groupSpecifier:GroupSpecifier;
 		private var publishName:String;
-		private var keepAlive:Timer = new Timer(4000);
+		private var keepAlive:Timer = new Timer(5000);
 		public function StratusConnection()
 		{
 			super();
@@ -43,6 +43,9 @@ package models
 					UserVO.self.id = nearID;
 					sendDexterEvent("ServerConnectSuccess");
 					onConnect();
+					break;
+				case "NetConnection.Connect.Close":
+					keepAlive.stop();
 					break;
 				case "NetStream.Connect.Closed":
 					break;
@@ -108,7 +111,7 @@ package models
 			sendDexterEvent("setVideo",id);
 			sendDexterEvent("tip_dockVideo",id);
 			inStream.play(id);
-			inStream.bufferTime = 1.0;
+			inStream.bufferTime = 5.0;
 		}
 		public function publishStream():void{
 			if(outStream)outStream.close();
