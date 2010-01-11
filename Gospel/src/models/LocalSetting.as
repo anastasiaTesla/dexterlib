@@ -79,5 +79,36 @@ package models
 					break;
 			}
 		}
+		
+		public function get bufferTime():Number{
+			return so.data["bufferTime"]?so.data["bufferTime"]:1.0;
+		}
+		public function set bufferTime(v:Number):void{
+			setValue("bufferTime",v);
+		}
+		public function get multicastAvailabilitySendToAll():Boolean{
+			return so.data["multicastAvailabilitySendToAll"];
+		}
+		public function set multicastAvailabilitySendToAll(v:Boolean):void{
+			setValue("multicastAvailabilitySendToAll",v);
+		}
+		public function get multicastAvailabilityUpdatePeriod():Number{
+			return so.data["multicastAvailabilityUpdatePeriod"];
+		}
+		public function set multicastAvailabilityUpdatePeriod(v:Number):void{
+			setValue("multicastAvailabilityUpdatePeriod",v);
+		}
+		public function get multicastFetchPeriod():Number{
+			return so.data["multicastFetchPeriod"];
+		}
+		public function set multicastFetchPeriod(v:Number):void{
+			setValue("multicastFetchPeriod",v);
+		}
+		public function get multicastWindowDuration():Number{
+			return so.data["multicastWindowDuration"];
+		}
+		public function set multicastWindowDuration(v:Number):void{
+			setValue("multicastWindowDuration",v);
+		}
 	}
 }

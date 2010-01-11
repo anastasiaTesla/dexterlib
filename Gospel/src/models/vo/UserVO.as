@@ -10,6 +10,7 @@ package models.vo
 		public var ip:String;
 		public var address:String;
 		public var role:int;
+		public var groupAddress:String;
 		public function UserVO(o:Object=null)
 		{
 			for(var i:String in o){

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <s:WindowedApplication xmlns:fx="http://ns.adobe.com/mxml/2009" creationComplete="windowedapplication1_creationCompleteHandler(event)"
-					   xmlns:s="library://ns.adobe.com/flex/spark" status="{gospelModel.statusBarText}" showStatusBar="false" close="windowedapplication1_closeHandler(event)"
+					   xmlns:s="library://ns.adobe.com/flex/spark" status="{gospelModel.statusBarText}" showStatusBar="false"
 					   xmlns:mx="library://ns.adobe.com/flex/halo" width="800" height="600" xmlns:local="*" fontFamily="幼圆" fontSize="14" xmlns:views="gospel.views.*" xmlns:views1="views.*">
 	<fx:Style source="Gospel.css"/>
 	<fx:Script>
@@ -51,11 +51,6 @@
 						tab.addElementAt(child,2);
 					}
 				}
-			}
-
-			protected function windowedapplication1_closeHandler(event:Event):void
-			{
-				sendDexterEvent("sendToOthers","userOffline",UserVO.self.id);
 			}
 
 		]]>
