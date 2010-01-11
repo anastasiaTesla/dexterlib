@@ -1,14 +1,12 @@
 package models
 {
 	import flash.events.NetStatusEvent;
-	import flash.events.TimerEvent;
 	import flash.media.Microphone;
 	import flash.net.GroupSpecifier;
 	import flash.net.NetConnection;
 	import flash.net.NetGroup;
 	import flash.net.NetStream;
-	import flash.utils.Timer;
-	import flash.utils.setTimeout;
+	import flash.utils.getTimer;
 	
 	import models.vo.UserVO;
 
@@ -25,16 +23,11 @@ package models
 		public static const OUT:String = "out";
 		private var groupSpecifier:GroupSpecifier;
 		private var publishName:String;
-		private var keepAlive:Timer = new Timer(5000);
+		private var hasConnected:Boolean;
 		public function StratusConnection()
 		{
 			super();
 			addEventListener(NetStatusEvent.NET_STATUS,onNetStatus);
-			keepAlive.addEventListener(TimerEvent.TIMER,onTimer);
-		}
-		private function onTimer(event:TimerEvent):void{
-			sendToOthers("stillAlive",UserVO.self);
-			sendDexterEvent("checkUserAlive");
 		}
 		private function onNetStatus(event:NetStatusEvent):void{
 			trace("Stratus:"+event.info.code);
@@ -45,7 +38,6 @@ package models
 					onConnect();
 					break;
 				case "NetConnection.Connect.Close":
-					keepAlive.stop();
 					break;
 				case "NetStream.Connect.Closed":
 					break;
@@ -56,15 +48,24 @@ package models
 						outStream.publish(UserVO.self.id);
 					}
 					break;
-				case "NetGroup.Connect.Success":
-					setTimeout(onTimer,1000,null);
-					keepAlive.start();
-					break;
+//				case "NetGroup.Connect.Success":
+//					UserVO.self.groupAddress = netGroup.convertPeerIDToGroupAddress(UserVO.self.id);
+//					sendToOthers2("userOnline",UserVO.self);
+//					break;
 				case "NetGroup.Posting.Notify":
+				case "NetGroup.SendTo.Notify":
 					var array:Array = event.info.message as Array;
-					array.pop();
 					array[0] = "$"+array[0];
 					DexterEvent.SendEvent.apply(DexterEvent,array);
+					break;
+				case "NetGroup.Neighbor.Connect":
+					if(hasConnected)break;
+					hasConnected = true;
+					UserVO.self.groupAddress = netGroup.convertPeerIDToGroupAddress(UserVO.self.id);
+					sendToOthers2("userOnline",UserVO.self);
+					break;
+				case "NetGroup.Neighbor.Disconnect":
+					broadcast2("userOffline",event.info.neighbor);
 					break;
 				case "NetGroup.MulticastStream.PublishNotify":
 					playStream(event.info.name);
@@ -76,7 +77,14 @@ package models
 			groupSpecifier.multicastEnabled = true;
 			groupSpecifier.postingEnabled = true;
 			groupSpecifier.serverChannelEnabled = true;
+			groupSpecifier.ipMulticastMemberUpdatesEnabled = true;
+			groupSpecifier.objectReplicationEnabled = true;
+			groupSpecifier.routingEnabled = true;
 			inStream = new NetStream(this,groupSpecifier.groupspecWithAuthorizations());
+			inStream.multicastAvailabilitySendToAll = localSetting.multicastAvailabilitySendToAll;
+			inStream.multicastAvailabilityUpdatePeriod = localSetting.multicastAvailabilityUpdatePeriod;
+			inStream.multicastFetchPeriod = localSetting.multicastFetchPeriod;
+			inStream.multicastWindowDuration = localSetting.multicastWindowDuration;
 			inStream.client = this;
 			inStream.addEventListener(NetStatusEvent.NET_STATUS,onNetStatus);
 			netGroup = new NetGroup(this,groupSpecifier.groupspecWithAuthorizations());
@@ -111,27 +119,49 @@ package models
 			sendDexterEvent("setVideo",id);
 			sendDexterEvent("tip_dockVideo",id);
 			inStream.play(id);
-			inStream.bufferTime = 5.0;
+			inStream.bufferTime = localSetting.bufferTime;
 		}
 		public function publishStream():void{
 			if(outStream)outStream.close();
 			outStream = new NetStream(this,groupSpecifier.groupspecWithAuthorizations());
+			outStream.multicastAvailabilitySendToAll = localSetting.multicastAvailabilitySendToAll;
+			outStream.multicastAvailabilityUpdatePeriod = localSetting.multicastAvailabilityUpdatePeriod;
+			outStream.multicastFetchPeriod = localSetting.multicastFetchPeriod;
+			outStream.multicastWindowDuration = localSetting.multicastWindowDuration;
 			outStream.client = this;
 			outStream.addEventListener(NetStatusEvent.NET_STATUS,onNetStatus);
 		}
 		[DexterEvent]
-		public function broadcast(...arg):void{
+		public function broadcast2(...arg):void{
 			try{
-				netGroup.post(arg.concat(Math.random()*100>>0));
-				arg[0] = "$"+arg[0];
-				DexterEvent.SendEvent.apply(DexterEvent,arg);
+				netGroup.post(arg);
+			}catch(e:Error){
+			}
+			arg[0] = "$"+arg[0];
+			DexterEvent.SendEvent.apply(DexterEvent,arg);
+		}
+		[DexterEvent]
+		public function sendToOthers2(...arg):void{
+			try{
+				netGroup.post(arg);
 			}catch(e:Error){
 			}
 		}
 		[DexterEvent]
-		public function sendToOthers(...arg):void{
+		public function broadcast(...arg):void{
+			arg["t"] = getTimer();
 			try{
-				netGroup.post(arg.concat(Math.random()*100>>0));
+				netGroup.post(arg);
+			}catch(e:Error){
+			}
+			arg[0] = "$"+arg[0];
+			DexterEvent.SendEvent.apply(DexterEvent,arg);
+		}
+		[DexterEvent]
+		public function sendToOthers(...arg):void{
+			arg["t"] = getTimer();
+			try{
+				netGroup.post(arg);
 			}catch(e:Error){
 			}
 		}

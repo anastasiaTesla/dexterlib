@@ -1,7 +1,6 @@
 package controllers
 {
-	import flash.utils.getTimer;
-	
+	import models.StratusConnection;
 	import models.vo.UserVO;
 	
 	import mx.collections.ArrayCollection;
@@ -10,30 +9,33 @@ package controllers
 	{
 		private var userListMap:Object;
 		public var userList:ArrayCollection;
-		private var userAliveTime:Object;
+		[DexterBinding]
+		public var stratus:StratusConnection;
 		[DexterEvent]
-		public function $stillAlive(user:Object):void{
+		public function $userOnline(user:Object):void{
 			var u:UserVO = new UserVO(user);
 			if(!userListMap[u.id]){
 				userListMap[u.id] = u;
 				userList.addItem(u);
 				sendDexterEvent("userOnline",u);
 			}
-			userAliveTime[u.id] = getTimer()/1000>>0;
+			stratus.netGroup.sendToNearest(["alreadyOnline",UserVO.self],u.groupAddress);
 		}
 		[DexterEvent]
-		public function checkUserAlive():void{
-			for(var id:String in userAliveTime)
-				if((getTimer()/1000>>0) - userAliveTime[id]>30)
-					userOffline(id);
+		public function $alreadyOnline(userVO:Object):void{
+			var u:UserVO = new UserVO(userVO);
+			if(!userListMap[u.id]){
+				userListMap[u.id] = u;
+				userList.addItem(u);
+			}
 		}
 		[DexterEvent]
 		public function $userOffline(id:String):void{
-			userOffline(id);
+			var userVO:UserVO = getUserByGroupAddress(id);
+			userOffline(userVO.id);
 		}
 		private function userOffline(id:String):void{
 			sendDexterEvent("userOffline",userListMap[id]);
-			delete userAliveTime[id];
 			userList.removeItemAt(userList.getItemIndex(userListMap[id]));
 			delete userListMap[id];
 		}
@@ -41,13 +43,19 @@ package controllers
 		public function ServerConnectSuccess():void{
 			userListMap = {};
 			userList = new ArrayCollection();
-			userAliveTime = {};
 			userListMap[UserVO.self.id] = UserVO.self;
 			userList.addItemAt(UserVO.self,0);
 		}
 		[DexterEvent]
 		public function getUserByID(id:String):UserVO{
 			return userListMap[id];
+		}
+		[DexterEvent]
+		public function getUserByGroupAddress(groupAddress:String):UserVO{
+			for each(var userVO:UserVO in userListMap)
+				if(userVO.groupAddress == groupAddress)
+					return userVO;
+			return null;
 		}
 	}
 }
