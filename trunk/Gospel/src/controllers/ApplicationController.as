@@ -24,7 +24,7 @@ package controllers
 		public function appStart():void{
 			gospelModel.loadConfig();
 			gospelModel.lookIp();
-			localSetting.setMode();
+			localSetting.initCamera();
 		}
 		[DexterEvent]
 		public function configComplete():void{

@@ -8,6 +8,7 @@ package controllers
 	public class UserListController
 	{
 		private var userListMap:Object;
+		[Bindable]
 		public var userList:ArrayCollection;
 		[DexterBinding]
 		public var stratus:StratusConnection;
@@ -27,6 +28,7 @@ package controllers
 			if(!userListMap[u.id]){
 				userListMap[u.id] = u;
 				userList.addItem(u);
+				sendDexterEvent("alreadyOnline",u);
 			}
 		}
 		[DexterEvent]
@@ -42,9 +44,8 @@ package controllers
 		[DexterEvent]
 		public function ServerConnectSuccess():void{
 			userListMap = {};
-			userList = new ArrayCollection();
 			userListMap[UserVO.self.id] = UserVO.self;
-			userList.addItemAt(UserVO.self,0);
+			userList = new ArrayCollection([UserVO.self]);
 		}
 		[DexterEvent]
 		public function getUserByID(id:String):UserVO{

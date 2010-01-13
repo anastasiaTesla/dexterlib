@@ -11,7 +11,7 @@ package controllers
 		[DexterEvent]
 		public function tip_dockVideo(id:String):void{
 			var user:UserVO = sendDexterEvent("getUserByID",id);
-			sendDexterEvent("$chat","“"+user.name+"”已经上了视频","系统提示");
+			if(user)sendDexterEvent("$chat","“"+user.name+"”已经上了视频","系统提示");
 		}
 		[DexterEvent]
 		public function userOnline(user:UserVO):void{
