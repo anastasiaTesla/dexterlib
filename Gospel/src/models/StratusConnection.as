@@ -8,6 +8,8 @@ package models
 	import flash.net.NetStream;
 	import flash.utils.getTimer;
 	
+	import models.vo.GospelNetStream;
+	import models.vo.InStream;
 	import models.vo.UserVO;
 
 	[Bindable]
@@ -59,18 +61,31 @@ package models
 					DexterEvent.SendEvent.apply(DexterEvent,array);
 					break;
 				case "NetGroup.Neighbor.Connect":
-					if(hasConnected)break;
-					hasConnected = true;
-					UserVO.self.groupAddress = netGroup.convertPeerIDToGroupAddress(UserVO.self.id);
-					sendToOthers2("userOnline",UserVO.self);
+					if(hasConnected){
+						var user:UserVO = sendDexterEvent("getUserByGroupAddress",event.info.neighbor);
+						if(!user){
+							netGroup.sendToNearest(["hello",getTimer()],event.info.neighbor);
+						}
+					}else{
+						hasConnected = true;
+						UserVO.self.groupAddress = netGroup.convertPeerIDToGroupAddress(UserVO.self.id);
+						sendToOthers2("userOnline",UserVO.self);
+					}
 					break;
 				case "NetGroup.Neighbor.Disconnect":
 					broadcast2("userOffline",event.info.neighbor);
 					break;
 				case "NetGroup.MulticastStream.PublishNotify":
-					playStream(event.info.name);
+					if(sendDexterEvent("getUserByID",event.info.name))
+						playStream(event.info.name);
+					else
+						publishName = event.info.name;
 					break;
 			}
+		}
+		[DexterEvent]
+		public function $hello(t:Number):void{
+			trace(t);
 		}
 		private function onConnect():void{
 			groupSpecifier = new GroupSpecifier("gospel/"+localSetting.room);
@@ -80,11 +95,7 @@ package models
 			groupSpecifier.ipMulticastMemberUpdatesEnabled = true;
 			groupSpecifier.objectReplicationEnabled = true;
 			groupSpecifier.routingEnabled = true;
-			inStream = new NetStream(this,groupSpecifier.groupspecWithAuthorizations());
-			inStream.multicastAvailabilitySendToAll = localSetting.multicastAvailabilitySendToAll;
-			inStream.multicastAvailabilityUpdatePeriod = localSetting.multicastAvailabilityUpdatePeriod;
-			inStream.multicastFetchPeriod = localSetting.multicastFetchPeriod;
-			inStream.multicastWindowDuration = localSetting.multicastWindowDuration;
+			inStream = new InStream(this,groupSpecifier.groupspecWithAuthorizations());
 			inStream.client = this;
 			inStream.addEventListener(NetStatusEvent.NET_STATUS,onNetStatus);
 			netGroup = new NetGroup(this,groupSpecifier.groupspecWithAuthorizations());
@@ -114,20 +125,21 @@ package models
 				sendDexterEvent("tip_dockVideo",id);
 			}
 		}
+		[DexterEvent]
+		public function alreadyOnline(user:UserVO):void{
+			if(user.id == publishName){
+				playStream(publishName);
+			}
+		}
 		public function playStream(id:String):void{
 			publishName = id;
 			sendDexterEvent("setVideo",id);
 			sendDexterEvent("tip_dockVideo",id);
-			inStream.play(id);
-			inStream.bufferTime = localSetting.bufferTime;
+			if(UserVO.self.id != id)inStream.play(id);
 		}
 		public function publishStream():void{
 			if(outStream)outStream.close();
-			outStream = new NetStream(this,groupSpecifier.groupspecWithAuthorizations());
-			outStream.multicastAvailabilitySendToAll = localSetting.multicastAvailabilitySendToAll;
-			outStream.multicastAvailabilityUpdatePeriod = localSetting.multicastAvailabilityUpdatePeriod;
-			outStream.multicastFetchPeriod = localSetting.multicastFetchPeriod;
-			outStream.multicastWindowDuration = localSetting.multicastWindowDuration;
+			outStream = new GospelNetStream(this,groupSpecifier.groupspecWithAuthorizations());
 			outStream.client = this;
 			outStream.addEventListener(NetStatusEvent.NET_STATUS,onNetStatus);
 		}
@@ -164,6 +176,13 @@ package models
 				netGroup.post(arg);
 			}catch(e:Error){
 			}
+		}
+		[DexterEvent]
+		public function sendToUser(userId:String,...arg):void{
+			var user:UserVO = sendDexterEvent("getUserByID",userId) as UserVO;
+			arg["t"] = getTimer();
+			if(user)
+				netGroup.sendToNearest(arg,user.groupAddress);
 		}
 	}
 }

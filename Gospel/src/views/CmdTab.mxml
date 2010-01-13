@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:NavigatorContent xmlns:fx="http://ns.adobe.com/mxml/2009" label="控制台"
+					xmlns:s="library://ns.adobe.com/flex/spark" 
+					xmlns:mx="library://ns.adobe.com/flex/halo" width="100%" height="100%" xmlns:local="*">
+	<fx:Script>
+		<![CDATA[
+			import mx.effects.easing.Linear;
+			import mx.events.FlexEvent;
+
+			protected function textinput1_enterHandler(event:FlexEvent):void
+			{
+				cmdOutput(input.text);
+				sendDexterEvent("cmd",input.text);
+				input.callLater(clear);
+			}
+			private function clear():void{
+				input.text = "";
+			}
+			[DexterEvent]
+			public function cmdOutput(str:String):void{
+				output.appendText(">:"+str+"\n");
+				scrollEffect.fromValue = output.textDisplay.verticalScrollPosition;
+				scrollEffect.toValue = output.textDisplay.contentHeight - output.textDisplay.height;
+				scrollEffect.play([output.textDisplay]);
+			}
+		]]>
+	</fx:Script>
+	<fx:Declarations>
+		<local:DexterFramework id="df"/>
+		<mx:AnimateProperty id="scrollEffect" easingFunction="{Linear.easeNone}" duration="200" property="verticalScrollPosition"/>
+	</fx:Declarations>
+	<s:TextArea editable="false" id="output" left="0" right="0" top="0" bottom="34" contentBackgroundColor="#525252"/>
+	<s:TextInput left="11" right="9" bottom="7" id="input" enter="textinput1_enterHandler(event)" color="#000000"/>
+</s:NavigatorContent>

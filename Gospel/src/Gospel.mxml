@@ -5,7 +5,6 @@
 	<fx:Style source="Gospel.css"/>
 	<fx:Script>
 		<![CDATA[
-			import flash.events.Event;
 			import flash.net.URLRequest;
 			import flash.net.navigateToURL;
 			
@@ -14,7 +13,7 @@
 			
 			import mx.core.IVisualElement;
 			import mx.events.FlexEvent;
-			
+			import views.*;
 			import nl.demonsters.debugger.MonsterDebugger;
 			[DexterBinding]
 			[Bindable]
@@ -35,6 +34,9 @@
 			public function ServerConnectSuccess():void{
 				views.WaitWindow.waitThingDone("进入房间");
 				tab.selectedIndex = 1;
+				if(UserVO.self.role == UserVO.ADMIN){
+					tab.addElement(new CmdTab());
+				}
 			}
 			[DexterBinding(model="gospelModel",property="selectedRoom")]
 			public function getExtendTab(room:XML):void{

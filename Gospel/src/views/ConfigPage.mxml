@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <s:NavigatorContent xmlns:fx="http://ns.adobe.com/mxml/2009" 
 					xmlns:s="library://ns.adobe.com/flex/spark" 
-					xmlns:mx="library://ns.adobe.com/flex/halo" width="624" height="492" xmlns:views="views.*" xmlns:local="*">
+					xmlns:mx="library://ns.adobe.com/flex/halo" width="800" height="600" xmlns:views="views.*" xmlns:local="*">
 	<fx:Script>
 		<![CDATA[
 			import flash.media.Camera;
@@ -40,22 +40,31 @@
 	</fx:Declarations>
 	<views:VideoWindow x="10" y="5" id="video" title="选择摄像头" cornerRadius="5"/>
 	<s:DropDownList x="98" y="10" change="dropdownlist1_changeHandler(event)" dataProvider="{cameras}" width="227" color="#133463"></s:DropDownList>
-	<mx:Form x="351" y="10" width="263" height="270" color="#133463">
+	<mx:Form x="351" y="10" width="389" height="270" color="#133463">
 		<mx:FormItem label="摄像头捕获尺寸">
 			<s:DropDownList selectedIndex="{localSetting.cameraSize}" change="callLater(dropdownlist2_changeHandler,[event])" dataProvider="{cameraSize}"/>
 		</mx:FormItem>
-		<mx:FormItem label="视频缓冲时间" width="213">
-			<s:HSlider stepSize="1" value="{localSetting.bufferTime}" maximum="100" minimum="1" liveDragging="false" change="localSetting.bufferTime = event.target.value"/>
+		<mx:FormItem label="视频质量" width="307">
+			<s:HSlider stepSize="1" value="{localSetting.camQuality}" maximum="100" minimum="1" liveDragging="false" change="localSetting.camQuality = event.target.value" width="180"/>
+		</mx:FormItem>
+		<mx:FormItem label="视频缓冲时间" width="307">
+			<s:HSlider stepSize="1" value="{localSetting.bufferTime}" maximum="100" minimum="1" liveDragging="false" change="localSetting.bufferTime = event.target.value" width="180"/>
 		</mx:FormItem>
 		<s:CheckBox label="multicastAvailabilitySendToAll" selected="{localSetting.multicastAvailabilitySendToAll}" change="localSetting.multicastAvailabilitySendToAll = event.target.selected"/>
-		<mx:FormItem label="组播更新周期" width="214">
-			<s:HSlider stepSize="1" value="{localSetting.multicastAvailabilityUpdatePeriod}" maximum="100" minimum="0" liveDragging="false" change="localSetting.multicastAvailabilityUpdatePeriod = event.target.value"/>
+		<mx:FormItem label="组播更新周期" width="309">
+			<s:HSlider stepSize="1" value="{localSetting.multicastAvailabilityUpdatePeriod}" maximum="100" minimum="0" liveDragging="false" change="localSetting.multicastAvailabilityUpdatePeriod = event.target.value" width="180"/>
 		</mx:FormItem>
-		<mx:FormItem label="组播撷取周期">
-			<s:HSlider stepSize="1" value="{localSetting.multicastFetchPeriod}" maximum="100" minimum="0" liveDragging="false" change="localSetting.multicastFetchPeriod = event.target.value"/>
+		<mx:FormItem label="组播撷取周期" width="309">
+			<s:HSlider stepSize="1" value="{localSetting.multicastFetchPeriod}" maximum="100" minimum="0" liveDragging="false" change="localSetting.multicastFetchPeriod = event.target.value" width="180"/>
 		</mx:FormItem>
-		<mx:FormItem label="组播窗口时间">
-			<s:HSlider stepSize="1" value="{localSetting.multicastWindowDuration}" maximum="100" minimum="0" liveDragging="false" change="localSetting.multicastWindowDuration = event.target.value"/>
+		<mx:FormItem label="组播窗口时间" width="309">
+			<s:HSlider stepSize="1" value="{localSetting.multicastWindowDuration}" maximum="100" minimum="0" liveDragging="false" change="localSetting.multicastWindowDuration = event.target.value" width="180"/>
+		</mx:FormItem>
+		<mx:FormItem label="组播推送邻居限制" width="309">
+			<s:HSlider stepSize="1" value="{localSetting.multicastPushNeighborLimit}" maximum="100" minimum="0" liveDragging="false" change="localSetting.multicastPushNeighborLimit = event.target.value" width="180"/>
+		</mx:FormItem>
+		<mx:FormItem label="组播保证时间" width="309">
+			<s:HSlider stepSize="1" value="{localSetting.multicastRelayMarginDuration}" maximum="100" minimum="0" liveDragging="false" change="localSetting.multicastRelayMarginDuration = event.target.value" width="180"/>
 		</mx:FormItem>
 	</mx:Form>
 </s:NavigatorContent>

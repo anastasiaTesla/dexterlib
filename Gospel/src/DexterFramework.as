@@ -24,6 +24,15 @@ package
 			}
 			_document = null;
 		}
+		public static function unRegister(document:Object):void{
+			DexterEvent.DetachDexterEvent(document);
+			if(bindings[document]){
+				while(bindings[document].length){
+					bindings[document].pop().unwatch();
+				}
+				delete 	bindings[document];
+			}
+		}
 		public static function registerView(document:Object):void{
 			var xml:XML = describeType(document);
 			DexterEvent.JoinDexterEvent(document,xml);
