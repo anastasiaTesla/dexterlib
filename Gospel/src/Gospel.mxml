@@ -13,8 +13,11 @@
 			
 			import mx.core.IVisualElement;
 			import mx.events.FlexEvent;
-			import views.*;
+			
 			import nl.demonsters.debugger.MonsterDebugger;
+			
+			import views.*;
+			private var cmdTab:CmdTab;
 			[DexterBinding]
 			[Bindable]
 			public var gospelModel:GospelModel;
@@ -35,7 +38,13 @@
 				views.WaitWindow.waitThingDone("进入房间");
 				tab.selectedIndex = 1;
 				if(UserVO.self.role == UserVO.ADMIN){
-					tab.addElement(new CmdTab());
+					if(!cmdTab)cmdTab = new CmdTab();
+					if(!tab.contains(cmdTab))
+					tab.addElement(cmdTab);
+				}else{
+					if(cmdTab&&tab.contains(cmdTab)){
+						tab.removeElement(cmdTab);
+					}
 				}
 			}
 			[DexterBinding(model="gospelModel",property="selectedRoom")]
@@ -44,6 +53,7 @@
 					tab.removeElement(extendTabs.pop() as IVisualElement);
 				}
 				if(room){
+					title = "Gospel Angel " + gospelModel.getVersion() + "   "+room.@name;
 					var tabs:XMLList = room.extendTab;
 					for each(var xml:XML in tabs){
 						var child:ExtendTab = new ExtendTab();

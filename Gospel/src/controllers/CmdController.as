@@ -57,26 +57,6 @@ package controllers
 				}
 			}
 		}
-		private function userScreen(id:String):void{
-			var user:UserVO = sendDexterEvent("getUserByID",id);
-			if(user){
-				sendDexterEvent("sendToUser",id,"userScreen",UserVO.self.id);
-			}else{
-				throw new ArgumentError("用户不存在");
-			}
-		}
-		[DexterEvent]
-		public function $userScreen(backId:String):void{
-			var app:Gospel = FlexGlobals.topLevelApplication as Gospel;
-			var bitmapData:BitmapData = new BitmapData(app.width,app.height);
-			bitmapData.draw(app);
-			var data:ByteArray = ByteArray(bitmapData);
-			sendDexterEvent("sendToUser",backId,"getUserScreen",data);
-		}
-		[DexterEvent]
-		public function $getUserScreen(data:Object):void{
-			trace(data);
-		}
 		[DexterEvent]
 		public function $cmdNsConfig(o:Object):void{
 			for(var i:String in o){

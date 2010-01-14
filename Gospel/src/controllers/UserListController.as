@@ -20,7 +20,7 @@ package controllers
 				userList.addItem(u);
 				sendDexterEvent("userOnline",u);
 			}
-			stratus.netGroup.sendToNearest(["alreadyOnline",UserVO.self],u.groupAddress);
+			sendDexterEvent("sendToUser",u,"alreadyOnline",UserVO.self);
 		}
 		[DexterEvent]
 		public function $alreadyOnline(userVO:Object):void{
