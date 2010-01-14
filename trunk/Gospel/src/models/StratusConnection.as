@@ -64,7 +64,9 @@ package models
 					if(hasConnected){
 						var user:UserVO = sendDexterEvent("getUserByGroupAddress",event.info.neighbor);
 						if(!user){
-							netGroup.sendToNearest(["hello",getTimer()],event.info.neighbor);
+							array = ["hello",UserVO.self];
+							array["t"] = getTimer();
+							netGroup.sendToNearest(array,event.info.neighbor);
 						}
 					}else{
 						hasConnected = true;
@@ -84,8 +86,8 @@ package models
 			}
 		}
 		[DexterEvent]
-		public function $hello(t:Number):void{
-			trace(t);
+		public function $hello(u:Object):void{
+			trace(u);
 		}
 		private function onConnect():void{
 			groupSpecifier = new GroupSpecifier("gospel/"+localSetting.room);
@@ -178,11 +180,10 @@ package models
 			}
 		}
 		[DexterEvent]
-		public function sendToUser(userId:String,...arg):void{
-			var user:UserVO = sendDexterEvent("getUserByID",userId) as UserVO;
+		public function sendToUser(...arg):void{
+			var user:UserVO = arg.shift() as UserVO;
 			arg["t"] = getTimer();
-			if(user)
-				netGroup.sendToNearest(arg,user.groupAddress);
+			netGroup.sendToNearest(arg,user.groupAddress);
 		}
 	}
 }

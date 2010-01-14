@@ -5,6 +5,7 @@
 	<fx:Script>
 		<![CDATA[
 			import flash.media.Camera;
+			import flash.media.Microphone;
 			
 			import models.LocalSetting;
 			
@@ -16,6 +17,8 @@
 			public var localSetting:LocalSetting;
 			[Bindable]
 			private var cameras:ArrayCollection = new ArrayCollection(Camera.names);
+			[Bindable]
+			private var mics:ArrayCollection = new ArrayCollection(Microphone.names);
 			protected function dropdownlist1_changeHandler(event:IndexChangeEvent):void
 			{
 				video.video.video.attachCamera(Camera.getCamera(event.newIndex.toString()));
@@ -41,6 +44,9 @@
 	<views:VideoWindow x="10" y="5" id="video" title="选择摄像头" cornerRadius="5"/>
 	<s:DropDownList x="98" y="10" change="dropdownlist1_changeHandler(event)" dataProvider="{cameras}" width="227" color="#133463"></s:DropDownList>
 	<mx:Form x="351" y="10" width="389" height="270" color="#133463">
+		<mx:FormItem label="选择麦克风">
+			<s:DropDownList dataProvider="{mics}" width="227" color="#133463"></s:DropDownList>
+		</mx:FormItem>
 		<mx:FormItem label="摄像头捕获尺寸">
 			<s:DropDownList selectedIndex="{localSetting.cameraSize}" change="callLater(dropdownlist2_changeHandler,[event])" dataProvider="{cameraSize}"/>
 		</mx:FormItem>
