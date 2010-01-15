@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:Window xmlns:fx="http://ns.adobe.com/mxml/2009"
+		  xmlns:s="library://ns.adobe.com/flex/spark" 
+		  xmlns:mx="library://ns.adobe.com/flex/halo" width="400" height="300">
+	<s:layout>
+		<s:BasicLayout/>
+	</s:layout>
+	<fx:Declarations>
+		<!-- Place non-visual elements (e.g., services, value objects) here -->
+	</fx:Declarations>
+	<fx:Script>
+		<![CDATA[
+			import flash.events.Event;
+			public static var instance:Main;
+			public static function show():void{
+				if(!instance)instance = new Main();
+				instance.addEventListener(Event.CLOSE,function(event:Event):void{instance = null;},false,0,true);
+				instance.open();
+			}
+		]]>
+	</fx:Script>
+</s:Window>

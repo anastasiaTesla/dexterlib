@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:Group xmlns:fx="http://ns.adobe.com/mxml/2009"
+		 xmlns:s="library://ns.adobe.com/flex/spark" 
+		 xmlns:mx="library://ns.adobe.com/flex/halo" width="256" height="60" xmlns:local="*">
+	<s:creationCompleteEffect>
+		<mx:Fade/>
+	</s:creationCompleteEffect>
+	<s:removedEffect>
+		<mx:Fade/>
+	</s:removedEffect>
+	<fx:Script>
+		<![CDATA[
+			import flash.display.DisplayObject;
+			
+			import mx.collections.ArrayCollection;
+			import mx.controls.ProgressBar;
+			import mx.core.FlexGlobals;
+			import mx.managers.PopUpManager;
+			[Bindable]
+			public var things:ArrayCollection = new ArrayCollection();
+			public static var instance:WaitWindow;
+			public static function wait(name:String):void{
+				if(!instance){
+					instance = PopUpManager.createPopUp(FlexGlobals.topLevelApplication as DisplayObject,WaitWindow,true) as WaitWindow;
+					PopUpManager.centerPopUp(instance);
+				}
+				instance.addThing(name);
+			}
+			public function addThing(name:String):void{
+				things.addItem(name);
+			}
+			public static function waitThingDone(name:String):void{
+				instance.things.removeItemAt(instance.things.getItemIndex(name));
+				if(!instance.things.length){
+					instance.close();
+				}
+			}
+			public function close():void{
+				PopUpManager.removePopUp(this);
+				instance = null;
+			}
+		]]>
+	</fx:Script>
+	<s:Rect width="100%" height="100%" alpha="0.8" radiusX="5" radiusY="5">
+		<s:fill>
+			<s:LinearGradient>
+				<s:GradientEntry color="#FFFFFF"/>
+			</s:LinearGradient>
+		</s:fill>
+	</s:Rect>
+	<s:Group horizontalCenter="0" verticalCenter="0">
+		<s:layout>
+			<s:VerticalLayout horizontalAlign="center" paddingTop="5"/>
+		</s:layout>
+		<s:DataGroup id="thingsContainer" dataProvider="{things}" itemRenderer="{new ClassFactory(WaitThing)}">
+			<s:layout><s:HorizontalLayout/></s:layout>
+		</s:DataGroup>
+		<mx:ProgressBar id="progressBar" indeterminate="true" labelPlacement="center" label="" height="13"/>
+	</s:Group>
+</s:Group>
