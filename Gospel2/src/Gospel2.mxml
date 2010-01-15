@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:WindowedApplication xmlns:fx="http://ns.adobe.com/mxml/2009" creationComplete="windowedapplication1_creationCompleteHandler(event)"
+					   xmlns:s="library://ns.adobe.com/flex/spark" showStatusBar="false"
+					   xmlns:mx="library://ns.adobe.com/flex/halo" width="300" height="198" xmlns:local="*">
+	<fx:Script>
+		<![CDATA[
+			import flash.display.Screen;
+			import flash.events.MouseEvent;
+			
+			import models.LocalSetting;
+			
+			import mx.collections.XMLListCollection;
+			import mx.events.FlexEvent;
+			
+			import views.Setting;
+			[DexterBinding]
+			[Bindable]
+			public var localSetting:LocalSetting;
+			[DexterBinding(model="gospelModel",property="roomList")]
+			[Bindable]
+			public var roomList:XMLListCollection;
+			[DexterBinding(model="gospelModel",property="selectedRoom")]
+			[Bindable]
+			public var selectedRoom:XML;
+			protected function windowedapplication1_creationCompleteHandler(event:FlexEvent):void
+			{
+				sendDexterEvent("appStart");
+				nativeWindow.x = Screen.mainScreen.bounds.width - width>>1;
+				nativeWindow.y = Screen.mainScreen.bounds.height - height>>1;
+			}
+
+
+			protected function button1_clickHandler(event:MouseEvent):void
+			{
+				if(rooms.selectedItem)sendDexterEvent("enterRoom",rooms.selectedItem);
+			}
+
+		]]>
+	</fx:Script>
+	<fx:Declarations>
+		<local:DexterFramework id="df"/>
+		<local:BeanLoader/>
+	</fx:Declarations>
+	<mx:Image source="assets/title.png"/>
+	<s:TextInput x="75" y="93" id="userName" focusIn="if(userName.text=='请输入你的昵称')userName.text=''" text="{localSetting.userName?localSetting.userName:'请输入你的昵称'}"/>
+	<s:Button x="211" y="93" label="个人设置" click="Setting.show()"/>
+	<s:Label x="31" y="98" text="昵称：" color="#FFFFFF"/>
+	<s:Button x="211" y="167" label="登录" click="button1_clickHandler(event)"/>
+	<s:DropDownList x="75" y="128" width="206" labelField="@name" dataProvider="{roomList}" selectedItem="{selectedRoom}" id="rooms"/>
+	<s:Label x="31" y="132" text="房间：" color="#FFFFFF"/>
+	<s:CheckBox x="31" y="167" label="自动登录" id="autoLogin" selected="{localSetting.autoLogin}" change="localSetting.autoLogin = autoLogin.selected" color="#FFFFFF"/>
+</s:WindowedApplication>
