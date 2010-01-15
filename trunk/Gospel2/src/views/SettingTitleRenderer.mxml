@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:DataRenderer xmlns:fx="http://ns.adobe.com/mxml/2009" implements="spark.components.IItemRenderer"
+		 xmlns:s="library://ns.adobe.com/flex/spark" rollOver="datarenderer1_rollOverHandler(event)"
+		 rollOut="datarenderer1_rollOutHandler(event)"
+		 xmlns:mx="library://ns.adobe.com/flex/halo" width="100%" height="25">
+	<fx:Script>
+		<![CDATA[
+			import flash.events.MouseEvent;
+			
+			import mx.events.FlexEvent;
+			
+			import spark.components.IItemRenderer;
+			private var _selected:Boolean;
+			protected function datarenderer1_rollOverHandler(event:MouseEvent):void
+			{
+				if(!_selected)labelDisplay.setStyle("color",0x0000AA);
+			}
+
+
+			protected function datarenderer1_rollOutHandler(event:MouseEvent):void
+			{
+				if(!_selected)labelDisplay.setStyle("color",0x000000);
+			}
+			[Bindable]
+			public function get selected():Boolean
+			{
+				return _selected;
+			}
+			
+			public function set selected(value:Boolean):void
+			{
+				if (value != _selected)
+				{
+					_selected = value;
+					labelDisplay.setStyle("color",_selected?0xFFFFFF:0);
+				}
+			}
+			private var _showsCaret:Boolean = false;
+			
+			public function get showsCaret():Boolean
+			{
+				return false;
+			}
+			public function set showsCaret(value:Boolean):void
+			{
+			}
+			private var _label:String;
+			public function get label():String
+			{
+				return label;
+			}
+			public function set label(value:String):void
+			{
+				if (value != _label)
+					_label = value;
+				
+				//Push the label down into the labelDisplay,
+				//if it exists
+				if (labelDisplay)
+					labelDisplay.text = _label; 
+				
+				dispatchEvent(new FlexEvent("textChanged"));
+			}
+		]]>
+	</fx:Script>
+	<fx:Declarations>
+		<!-- Place non-visual elements (e.g., services, value objects) here -->
+	</fx:Declarations>
+	<s:Rect id="background" visible="{selected}" width="100%" height="100%" radiusX="3" radiusY="3">
+		<s:fill>
+			<s:LinearGradient rotation="90">
+				<s:GradientEntry color="#3184be" ratio="0"/>
+				<s:GradientEntry color="#2c72ad" ratio="1"/>
+			</s:LinearGradient>
+		</s:fill>
+	</s:Rect>
+	<s:HGroup x="10" width="100%" height="100%" verticalAlign="middle">
+		<mx:Image source="{data is XML?data.@icon:data.icon}"/>
+		<s:Label text="{data is XML?data.@label:data.label}" id="labelDisplay"/>
+	</s:HGroup>
+</s:DataRenderer>
