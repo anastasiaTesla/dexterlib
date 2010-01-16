@@ -5,6 +5,7 @@ package controllers
 	
 	import models.GospelModel;
 	import models.LocalSetting;
+	import models.StratusConnection;
 	import models.vo.UserVO;
 	
 	import mx.controls.Alert;
@@ -20,10 +21,12 @@ package controllers
 		public var localSetting:LocalSetting;
 		[DexterBinding(model="server",property="userListSO")]
 		public var userListSO:SharedObject;
+		[DexterBinding]
+		public var stratus:StratusConnection;
 		[DexterEvent]
 		public function appStart():void{
 			gospelModel.loadConfig();
-			gospelModel.lookIp();
+//			gospelModel.lookIp();
 			localSetting.initCamera();
 		}
 		[DexterEvent]
@@ -34,16 +37,15 @@ package controllers
 			}
 		}
 		[DexterEvent]
-		public function enterRoom(room:XML,userName:String,pwd:String):void{
+		public function enterRoom(room:XML,userName:String):void{
 			if(userName.length>5)return;
 			gospelModel.selectedRoom = room;
 			localSetting.userName = userName;
-			localSetting.pwd = pwd;
 			localSetting.room = room.@code;
-			if(pwd == room.@pwd){
+			if(localSetting.pwd == room.@pwd){
 				localSetting.role = UserVO.ADMIN;
 				login();
-			}else if(!pwd){
+			}else if(!localSetting.pwd){
 				localSetting.role = UserVO.GUEST;
 				login();
 			}else{
@@ -52,7 +54,9 @@ package controllers
 		}
 		private function login():void{
 			WaitWindow.wait("进入房间");
-			sendDexterEvent("ConnectServer");
+			UserVO.self.name = localSetting.userName;
+			UserVO.self.role = localSetting.role;
+			stratus.connect(gospelModel.connectUrl+"/"+gospelModel.developerKey+"/"+localSetting.room);
 		}
 		[DexterEvent]
 		public function changeNick(user:UserVO):void{
