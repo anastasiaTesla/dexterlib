@@ -27,8 +27,8 @@
 			protected function windowedapplication1_creationCompleteHandler(event:FlexEvent):void
 			{
 				sendDexterEvent("appStart");
-				nativeWindow.x = Screen.mainScreen.bounds.width - width>>1;
-				nativeWindow.y = Screen.mainScreen.bounds.height - height>>1;
+				nativeWindow.x = Screen.mainScreen.bounds.width - width >> 1;
+				nativeWindow.y = Screen.mainScreen.bounds.height - height >> 1;
 			}
 			[DexterEvent]
 			public function ServerConnectSuccess():void{
