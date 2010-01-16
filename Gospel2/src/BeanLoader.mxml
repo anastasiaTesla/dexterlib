@@ -7,7 +7,6 @@
 		<models:LocalSetting id="localSetting"/>
 		<models:StratusConnection id="stratus"/>
 		<controllers:ApplicationController id="applicationController"/>
-		<controllers:ConnectionController id="connectionController"/>
 		<controllers:ChatController id="chatController"/>
 		<controllers:UserListController id="userListController"/>
 		<controllers:CmdController id="cmdController"/>
