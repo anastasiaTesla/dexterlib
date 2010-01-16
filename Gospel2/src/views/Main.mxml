@@ -1,23 +1,30 @@
 <?xml version="1.0" encoding="utf-8"?>
 <s:Window xmlns:fx="http://ns.adobe.com/mxml/2009" showStatusBar="false"
 		  xmlns:s="library://ns.adobe.com/flex/spark" 
-		  xmlns:mx="library://ns.adobe.com/flex/halo" width="200" height="648">
+		  xmlns:mx="library://ns.adobe.com/flex/halo" width="200" height="648" xmlns:local="*">
 	<s:layout>
 		<s:BasicLayout/>
 	</s:layout>
 	<fx:Declarations>
-		<!-- Place non-visual elements (e.g., services, value objects) here -->
+		<local:DexterFramework id="df"/>
 	</fx:Declarations>
 	<fx:Script>
 		<![CDATA[
+			import mx.events.FlexEvent;
 			import flash.events.Event;
+			
+			import mx.collections.ArrayCollection;
 			public static var instance:Main;
+			[DexterBinding(model="userListController",property="userList")]
+			[Bindable]
+			public var userList:ArrayCollection;
 			public static function show():void{
 				if(!instance)instance = new Main();
 				instance.addEventListener(Event.CLOSE,function(event:Event):void{instance = null;},false,0,true);
 				instance.open();
 			}
+
 		]]>
 	</fx:Script>
-	<s:List x="10" y="10" height="418" width="132"></s:List>
+	<s:List x="10" y="10" height="418" width="132" labelField="name" dataProvider="{userList}"></s:List>
 </s:Window>
