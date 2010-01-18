@@ -1,5 +1,6 @@
 package models
 {
+	import flash.geom.Rectangle;
 	import flash.media.Camera;
 	import flash.net.SharedObject;
 
@@ -96,41 +97,12 @@ package models
 		public function set bufferTime(v:Number):void{
 			setValue("bufferTime",v);
 		}
-		public function get multicastAvailabilitySendToAll():Boolean{
-			return so.data["multicastAvailabilitySendToAll"];
+		public function get windowRect():Rectangle{
+			var o:Object = so.data["windowRect"];
+			return o?new Rectangle(o.x,o.y,o.width,o.height):null;
 		}
-		public function set multicastAvailabilitySendToAll(v:Boolean):void{
-			setValue("multicastAvailabilitySendToAll",v);
-		}
-		public function get multicastAvailabilityUpdatePeriod():Number{
-			return so.data["multicastAvailabilityUpdatePeriod"];
-		}
-		public function set multicastAvailabilityUpdatePeriod(v:Number):void{
-			setValue("multicastAvailabilityUpdatePeriod",v);
-		}
-		public function get multicastFetchPeriod():Number{
-			return so.data["multicastFetchPeriod"];
-		}
-		public function set multicastFetchPeriod(v:Number):void{
-			setValue("multicastFetchPeriod",v);
-		}
-		public function get multicastWindowDuration():Number{
-			return so.data["multicastWindowDuration"];
-		}
-		public function set multicastWindowDuration(v:Number):void{
-			setValue("multicastWindowDuration",v);
-		}
-		public function get multicastPushNeighborLimit():Number{
-			return so.data["multicastPushNeighborLimit"];
-		}
-		public function set multicastPushNeighborLimit(v:Number):void{
-			setValue("multicastPushNeighborLimit",v);
-		}
-		public function get multicastRelayMarginDuration():Number{
-			return so.data["multicastRelayMarginDuration"];
-		}
-		public function set multicastRelayMarginDuration(v:Number):void{
-			setValue("multicastRelayMarginDuration",v);
+		public function set windowRect(v:Rectangle):void{
+			setValue("windowRect",v);
 		}
 	}
 }
