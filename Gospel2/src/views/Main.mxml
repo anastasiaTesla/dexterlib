@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<s:Window xmlns:fx="http://ns.adobe.com/mxml/2009" showStatusBar="false"
-		  xmlns:s="library://ns.adobe.com/flex/spark" 
-		  xmlns:mx="library://ns.adobe.com/flex/halo" width="200" height="648" xmlns:local="*">
+<s:Window title="福音天使" xmlns:fx="http://ns.adobe.com/mxml/2009" showStatusBar="false" windowComplete="window1_windowCompleteHandler(event)" alwaysInFront="true"
+		  xmlns:s="library://ns.adobe.com/flex/spark" closing="window1_closingHandler(event)" systemChrome="{NativeWindowSystemChrome.NONE}" transparent="true"
+		  xmlns:mx="library://ns.adobe.com/flex/halo" width="216" height="710" xmlns:local="*" backgroundColor="#2C72AD" backgroundAlpha="0">
 	<s:layout>
 		<s:BasicLayout/>
 	</s:layout>
@@ -10,21 +10,47 @@
 	</fx:Declarations>
 	<fx:Script>
 		<![CDATA[
-			import mx.events.FlexEvent;
+			import flash.display.NativeWindowSystemChrome;
 			import flash.events.Event;
 			
+			import models.LocalSetting;
+			
 			import mx.collections.ArrayCollection;
+			import mx.core.FlexGlobals;
+			import mx.events.AIREvent;
 			public static var instance:Main;
 			[DexterBinding(model="userListController",property="userList")]
 			[Bindable]
 			public var userList:ArrayCollection;
+			[DexterBinding]
+			public var localSetting:LocalSetting;
 			public static function show():void{
 				if(!instance)instance = new Main();
 				instance.addEventListener(Event.CLOSE,function(event:Event):void{instance = null;},false,0,true);
 				instance.open();
 			}
+			[DexterEvent]
+			public function trayClick():void{
+				nativeWindow.activate();
+			}
+			protected function window1_closingHandler(event:Event):void
+			{
+				localSetting.windowRect = nativeWindow.bounds;
+			}
 
+			protected function window1_windowCompleteHandler(event:AIREvent):void
+			{
+				if(localSetting.windowRect)
+				nativeWindow.bounds = localSetting.windowRect;
+			}
+			[DexterEvent]
+			public function quit():void{
+				close();
+			}
 		]]>
 	</fx:Script>
-	<s:List x="10" y="10" height="418" width="132" labelField="name" dataProvider="{userList}"></s:List>
+	<s:List labelField="name" dataProvider="{userList}" top="109" bottom="50" left="19" borderColor="#00A2FF" width="174"></s:List>
+	<s:Button y="89" label="公共聊天" left="19" width="174"/>
+	<mx:Image source="assets/MainTop.png" mouseDown="nativeWindow.startMove()"/>
+	<mx:Image x="0" source="assets/MainBottom.png" bottom="7"/>
 </s:Window>

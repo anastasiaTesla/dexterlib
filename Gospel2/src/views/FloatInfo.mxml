@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:Label xmlns:fx="http://ns.adobe.com/mxml/2009" creationCompleteEffect="{moveEffect}"
+		 xmlns:s="library://ns.adobe.com/flex/spark" 
+		 xmlns:mx="library://ns.adobe.com/flex/halo">
+	<fx:Declarations>
+		<s:Move id="moveEffect" yBy="-40" duration="1000" easer="{new Power(0.1,4)}" effectEnd="moveEffect_effectEndHandler(event)"/>
+	</fx:Declarations>
+	<fx:Script>
+		<![CDATA[
+			import mx.core.FlexGlobals;
+			import mx.events.EffectEvent;
+			
+			import spark.effects.easing.Power;
+			public static function show(txt:String):void{
+				var float:FloatInfo = new FloatInfo();
+				float.text = txt;
+				FlexGlobals.topLevelApplication.addElement(float);
+				float.move(float.stage.mouseX,float.stage.mouseY);
+			}
+
+			protected function moveEffect_effectEndHandler(event:EffectEvent):void
+			{
+				parent["removeElement"](this);
+			}
+
+		]]>
+	</fx:Script>
+	<s:filters>
+		<s:GlowFilter color="0xFFFFFF" quality="3"/>
+	</s:filters>
+</s:Label>

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <s:Window xmlns:fx="http://ns.adobe.com/mxml/2009" showStatusBar="false"
-		  xmlns:views="views.*"
+		  xmlns:views="views.*" maximizable="false" resizable="false"
 		  xmlns:s="library://ns.adobe.com/flex/spark" title="系统设置"
 		  xmlns:mx="library://ns.adobe.com/flex/halo" width="550" height="400" xmlns:settings="views.settings.*">
 	<s:layout>
@@ -11,8 +11,10 @@
 	</fx:Declarations>
 	<fx:Script>
 		<![CDATA[
-			import spark.events.IndexChangeEvent;
+			import flash.display.NativeWindowType;
 			import flash.events.Event;
+			
+			import spark.events.IndexChangeEvent;
 			public static var instance:Setting;
 			public static function show():void{
 				if(!instance)instance = new Setting();

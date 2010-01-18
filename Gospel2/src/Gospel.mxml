@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<s:WindowedApplication xmlns:fx="http://ns.adobe.com/mxml/2009" creationComplete="windowedapplication1_creationCompleteHandler(event)"
+<s:WindowedApplication xmlns:fx="http://ns.adobe.com/mxml/2009" backgroundFrameRate="-1"
+					   creationComplete="windowedapplication1_creationCompleteHandler(event)"
 					   xmlns:s="library://ns.adobe.com/flex/spark" showStatusBar="false"
-					   xmlns:mx="library://ns.adobe.com/flex/halo" width="300" height="198" xmlns:local="*">
+					   xmlns:mx="library://ns.adobe.com/flex/halo" width="312" height="218" xmlns:local="*" backgroundAlpha="0.0">
 	<fx:Script>
 		<![CDATA[
 			import flash.display.Screen;
@@ -41,14 +42,26 @@
 			{
 				if(rooms.selectedItem)sendDexterEvent("enterRoom",rooms.selectedItem,userName.text);
 			}
-			
 		]]>
 	</fx:Script>
+	<fx:Style>
+		@namespace s "library://ns.adobe.com/flex/spark";
+		@namespace mx "library://ns.adobe.com/flex/halo";
+		@namespace local "*";
+		global {
+			modalTransparencyBlur: 0;
+			modalTransparency: 0;
+		}
+	</fx:Style>
 	<fx:Declarations>
 		<local:DexterFramework id="df"/>
 		<local:BeanLoader/>
 	</fx:Declarations>
-	<mx:Image source="assets/title.png"/>
+	<mx:Image horizontalCenter="0" source="assets/title.png" mouseDown="nativeWindow.startMove()">
+		<mx:filters>
+			<mx:DropShadowFilter angle="90" quality="3" blurX="8" blurY="8"/>
+		</mx:filters>
+	</mx:Image>
 	<s:TextInput x="75" y="93" id="userName" focusIn="if(userName.text=='请输入你的昵称')userName.text=''" text="{localSetting.userName?localSetting.userName:'请输入你的昵称'}"/>
 	<s:Button x="211" y="93" label="个人设置" click="Setting.show()"/>
 	<s:Label x="31" y="98" text="昵称：" color="#FFFFFF"/>
@@ -56,4 +69,5 @@
 	<s:DropDownList x="75" y="128" width="206" labelField="@name" dataProvider="{roomList}" selectedItem="{selectedRoom}" id="rooms"/>
 	<s:Label x="31" y="132" text="房间：" color="#FFFFFF"/>
 	<s:CheckBox x="31" y="167" label="自动登录" id="autoLogin" selected="{localSetting.autoLogin}" change="localSetting.autoLogin = autoLogin.selected" color="#FFFFFF"/>
+	<s:Button x="133" y="167" label="退出" click="close()"/>
 </s:WindowedApplication>

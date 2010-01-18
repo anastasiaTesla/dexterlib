@@ -2,15 +2,15 @@ package controllers
 {
 	
 	import flash.net.SharedObject;
+	import flash.text.TextField;
 	
 	import models.GospelModel;
 	import models.LocalSetting;
 	import models.StratusConnection;
 	import models.vo.UserVO;
 	
-	import mx.controls.Alert;
-	
 	import views.ChangeNickWindow;
+	import views.FloatInfo;
 	import views.WaitWindow;
 
 	public class ApplicationController
@@ -38,7 +38,12 @@ package controllers
 		}
 		[DexterEvent]
 		public function enterRoom(room:XML,userName:String):void{
-			if(userName.length>5)return;
+			var test:TextField = new TextField();
+			test.text = userName;
+			if(test.textWidth>50){
+				FloatInfo.show("昵称太长");
+				return;
+			}
 			gospelModel.selectedRoom = room;
 			localSetting.userName = userName;
 			localSetting.room = room.@code;
@@ -49,7 +54,7 @@ package controllers
 				localSetting.role = UserVO.GUEST;
 				login();
 			}else{
-				Alert.show("密码错误！");
+				FloatInfo.show("密码错误！");
 			}
 		}
 		private function login():void{
