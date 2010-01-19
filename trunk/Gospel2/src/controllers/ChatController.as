@@ -1,12 +1,19 @@
 package controllers
 {
 	import models.vo.UserVO;
+	
+	import views.ChatWindow;
 
 	public class ChatController
 	{
+		
 		[DexterEvent]
-		public function sendChat(content:String):void{
-			sendDexterEvent("broadcast","chat",content,UserVO.self.id);
+		public function sendChat(content:String,user:UserVO = null):void{
+			if(user){
+				sendDexterEvent("sendToUser",user,"chatPrivate",content,UserVO.self.id);
+			}else{
+				sendDexterEvent("broadcast","chat",content,UserVO.self.id);
+			}
 		}
 		[DexterEvent]
 		public function tip_dockVideo(id:String):void{
@@ -20,6 +27,14 @@ package controllers
 		[DexterEvent]
 		public function userOffline(user:UserVO):void{
 			sendDexterEvent("$chat","“"+user.name+"”已经下线","系统提示");
+		}
+		[DexterEvent]
+		public function $chatPrivate(content:String,from:String):void{
+			
+		}
+		[DexterEvent]
+		public function $chat(content:String,from:String):void{
+			
 		}
 	}
 }
