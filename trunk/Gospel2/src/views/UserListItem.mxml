@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <s:DataRenderer xmlns:fx="http://ns.adobe.com/mxml/2009" implements="spark.components.IItemRenderer"
 				xmlns:s="library://ns.adobe.com/flex/spark" rollOver="datarenderer1_rollOverHandler(event)"
-				rollOut="datarenderer1_rollOutHandler(event)"
+				rollOut="datarenderer1_rollOutHandler(event)" doubleClickEnabled="true" doubleClick="datarenderer1_doubleClickHandler(event)"
 				xmlns:mx="library://ns.adobe.com/flex/halo" width="100%" height="22">
 	<fx:Declarations>
 		<!-- Place non-visual elements (e.g., services, value objects) here -->
@@ -73,6 +73,12 @@
 				
 				dispatchEvent(new FlexEvent("textChanged"));
 			}
+
+			protected function datarenderer1_doubleClickHandler(event:MouseEvent):void
+			{
+				sendDexterEvent("chatToUser",data);
+			}
+
 		]]>
 	</fx:Script>
 	<s:Rect id="background" alpha=".8" visible="{selected}" width="100%" height="100%" radiusX="3" radiusY="3">
