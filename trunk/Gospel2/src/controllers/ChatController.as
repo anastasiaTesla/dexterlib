@@ -36,5 +36,9 @@ package controllers
 		public function $chat(content:String,from:String):void{
 			
 		}
+		[DexterEvent]
+		public function chatToUser():void{
+			
+		}
 	}
 }
