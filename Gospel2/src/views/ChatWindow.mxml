@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:Window xmlns:fx="http://ns.adobe.com/mxml/2009" closing="window1_closingHandler(event)"
+		  xmlns:s="library://ns.adobe.com/flex/spark" 
+		  xmlns:mx="library://ns.adobe.com/flex/halo" width="400" height="300" xmlns:local="*">
+	<s:layout>
+		<s:VerticalLayout/>
+	</s:layout>
+	<fx:Script>
+		<![CDATA[
+			import flash.events.Event;
+			
+			import models.vo.UserVO;
+			private var _ID:String;
+			public static var windows:Object = {};
+			private var user:UserVO;
+			public function get ID():String
+			{
+				return _ID;
+			}
+
+			public function set ID(value:String):void
+			{
+				_ID = value;
+				user = sendDexterEvent("getUserByID",value);
+				title = user?user.name:"所有人";
+			}
+
+			protected function window1_closingHandler(event:Event):void
+			{
+				df.detach();
+				delete windows[ID];
+			}
+			public static function Open(id:String):ChatWindow{
+				if(windows[id]){
+					windows[id].orderToFront();
+				}else{
+					var newWindow:ChatWindow = new ChatWindow();
+					newWindow.open();
+					newWindow.ID = id;
+					windows[id] = newWindow;
+				}
+				return windows[id];
+			}
+			public static function GetWindow(id:String):ChatWindow{
+				return windows[id];
+			}
+		]]>
+	</fx:Script>
+	<s:filters>
+		<s:GlowFilter inner="true" color="0x3184be" blurX="64" blurY="64" quality="3" strength="1"/>
+	</s:filters>
+	<fx:Declarations>
+		<local:DexterFramework id="df"/>
+	</fx:Declarations>
+	<s:Scroller width="345" height="197">
+		<s:Group width="100%" height="100%">
+			<s:RichText text="RichText" width="100%" height="100%"/>
+		</s:Group>
+	</s:Scroller>
+	<s:Border width="400" height="30">
+		<s:layout><s:HorizontalLayout/></s:layout>
+	</s:Border>
+	<s:RichEditableText text="RichEditableText" width="400" height="40">
+		<s:textFlow>
+			<s:TextFlow>
+				<s:img source="assets/webcam.png"/>
+			</s:TextFlow>
+		</s:textFlow>
+	</s:RichEditableText>
+</s:Window>

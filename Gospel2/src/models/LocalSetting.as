@@ -102,7 +102,7 @@ package models
 			return o?new Rectangle(o.x,o.y,o.width,o.height):null;
 		}
 		public function set windowRect(v:Rectangle):void{
-			setValue("windowRect",v);
+			setValue("windowRect",{x:v.x,y:v.y,width:v.width,height:v.height});
 		}
 	}
 }
