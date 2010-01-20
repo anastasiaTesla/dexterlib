@@ -1,18 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <s:Window xmlns:fx="http://ns.adobe.com/mxml/2009" closing="window1_closingHandler(event)"
-		  xmlns:s="library://ns.adobe.com/flex/spark" 
-		  xmlns:mx="library://ns.adobe.com/flex/halo" width="400" height="300" xmlns:local="*">
-	<s:layout>
-		<s:VerticalLayout/>
-	</s:layout>
+		  xmlns:s="library://ns.adobe.com/flex/spark" showStatusBar="false"
+		  xmlns:mx="library://ns.adobe.com/flex/halo" width="400" height="360" xmlns:local="*" xmlns:views="views.*">
 	<fx:Script>
 		<![CDATA[
 			import flash.events.Event;
+			import flash.events.KeyboardEvent;
+			import flash.ui.Keyboard;
 			
+			import models.LocalSetting;
 			import models.vo.UserVO;
 			private var _ID:String;
 			public static var windows:Object = {};
 			private var user:UserVO;
+			[DexterBinding]
+			[Bindable]
+			public var localSetting:LocalSetting;
 			public function get ID():String
 			{
 				return _ID;
@@ -44,27 +47,58 @@
 			public static function GetWindow(id:String):ChatWindow{
 				return windows[id];
 			}
+
+			protected function input_keyDownHandler(event:KeyboardEvent):void
+			{
+				if(event.keyCode == Keyboard.ENTER && (localSetting.sendChatButtonKey != event.ctrlKey))
+					trace(input.text);
+				else if(event.keyCode == Keyboard.C && event.altKey){
+					close();
+				}
+			}
+
+
+			protected function radiobutton1_changeHandler(event:Event):void
+			{
+				localSetting.sendChatButtonKey = useEnter.selected;
+			}
+
+
+			protected function radiobutton2_changeHandler(event:Event):void
+			{
+				localSetting.sendChatButtonKey = !useCEnter.selected;
+			}
+
 		]]>
 	</fx:Script>
 	<s:filters>
-		<s:GlowFilter inner="true" color="0x3184be" blurX="64" blurY="64" quality="3" strength="1"/>
+		<s:GlowFilter inner="true" color="0x3184be" blurX="8" blurY="8" quality="3" strength="1"/>
 	</s:filters>
 	<fx:Declarations>
 		<local:DexterFramework id="df"/>
 	</fx:Declarations>
-	<s:Scroller width="345" height="197">
+	<s:Scroller left="0" right="0" bottom="158" top="0">
 		<s:Group width="100%" height="100%">
 			<s:RichText text="RichText" width="100%" height="100%"/>
 		</s:Group>
 	</s:Scroller>
-	<s:Border width="400" height="30">
-		<s:layout><s:HorizontalLayout/></s:layout>
-	</s:Border>
-	<s:RichEditableText text="RichEditableText" width="400" height="40">
-		<s:textFlow>
-			<s:TextFlow>
-				<s:img source="assets/webcam.png"/>
-			</s:TextFlow>
-		</s:textFlow>
-	</s:RichEditableText>
+	<s:Rect alpha="0.4" width="100%" height="25" bottom="133">
+		<s:fill>
+			<s:LinearGradient rotation="90">
+				<s:GradientEntry color="#FFFFFF" ratio="0"/>
+				<s:GradientEntry color="#2c72ad" ratio="1"/>
+			</s:LinearGradient>
+		</s:fill>
+		<s:stroke>
+			<s:SolidColorStroke color="0" alpha="0.4"/>
+		</s:stroke>
+	</s:Rect>
+	<s:HGroup width="100%" height="25" bottom="133" x="0">
+		<views:ImageButton source="assets/emoticon_grin.png"/>
+	</s:HGroup>
+	<s:RichEditableText id="input" keyDown="input_keyDownHandler(event)" height="95" left="0" right="0" bottom="39"/>
+	<s:Button label="发送" bottom="10" right="10"/>
+	<s:Button label="关闭(C)" click="close()" bottom="10" right="89"/>
+	<s:RadioButton x="10" id="useEnter" label="Enter发送" change="radiobutton1_changeHandler(event)" selected="{localSetting.sendChatButtonKey}" groupName="radioGroup" bottom="10"/>
+	<s:RadioButton x="92" id="useCEnter" label="Ctrl+Enter发送" change="radiobutton2_changeHandler(event)" selected="{!localSetting.sendChatButtonKey}" groupName="radioGroup" bottom="10"/>
 </s:Window>

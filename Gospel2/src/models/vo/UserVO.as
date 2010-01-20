@@ -7,8 +7,18 @@ package models.vo
 	public class UserVO
 	{
 		public static var self:UserVO = new UserVO({av:(Camera.names.length?'1':'0')+(Microphone.names.length?'1':'0')});
-		public static const ADMIN:int = 100;
+		public static var all:UserVO = new UserVO({id:"all",name:"所有人",role:ALL,av:"00"});
+		public static const ADMIN:int = 2;
+		public static const ALL:int = 1;
 		public static const GUEST:int = 0;
+		public static const icons:Vector.<String> = function():Vector.<String>{
+			var _icon:Vector.<String> = new Vector.<String>(3,true);
+			_icon[GUEST] = "assets/user.png";
+			_icon[ALL] = "assets/group.png";
+			_icon[ADMIN] = "assets/user_suit.png";
+			return _icon;
+		}();
+		
 		public var id:String;
 		public var name:String;
 		public var ip:String;

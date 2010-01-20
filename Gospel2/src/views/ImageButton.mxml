@@ -11,8 +11,9 @@
 	</s:states>
 	<fx:Script>
 		<![CDATA[
+			import flash.events.Event;
 			import flash.events.MouseEvent;
-public var selected:Boolean;
+			public var selected:Boolean;
 			protected function group1_mouseOverHandler(event:MouseEvent):void
 			{
 				if(!selected)currentState = "hover";
@@ -43,18 +44,22 @@ public var selected:Boolean;
 					selected = false;
 					currentState = "hover";
 				}
+				dispatchEvent(new Event(Event.CHANGE));
 			}
 
 		]]>
 	</fx:Script>
+	<fx:Metadata>
+		[Event(type="flash.events.Event",name="change")]
+	</fx:Metadata>
 	<fx:Declarations>
 		<!-- Place non-visual elements (e.g., services, value objects) here -->
 	</fx:Declarations>
 	<s:Rect width="{icon.width+4}" height="{icon.height+4}" visible.normal="false" radiusX="3" radiusY="3">
 		<s:fill>
 			<s:LinearGradient rotation="90">
-				<s:GradientEntry color="#6eb0de" ratio.hover="0" ratio.select="1"/>
-				<s:GradientEntry color="#2c72ad" ratio.hover="1" ratio.select="0"/>
+				<s:GradientEntry color="#FFFFFF" alpha="0.5" ratio.hover="0" ratio.select="1"/>
+				<s:GradientEntry color="#FFFFFF" alpha="0" ratio.hover="1" ratio.select="0"/>
 			</s:LinearGradient>
 		</s:fill>
 		<s:filters>

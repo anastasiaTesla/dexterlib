@@ -3,10 +3,10 @@
 		 xmlns:s="library://ns.adobe.com/flex/spark" 
 		 xmlns:mx="library://ns.adobe.com/flex/halo" width="256" height="60" xmlns:local="*">
 	<s:creationCompleteEffect>
-		<mx:Fade/>
+		<mx:Fade duration="200"/>
 	</s:creationCompleteEffect>
 	<s:removedEffect>
-		<mx:Fade/>
+		<mx:Fade duration="200"/>
 	</s:removedEffect>
 	<fx:Script>
 		<![CDATA[
@@ -57,4 +57,7 @@
 		</s:DataGroup>
 		<mx:ProgressBar id="progressBar" indeterminate="true" labelPlacement="center" label="" height="13"/>
 	</s:Group>
+	<s:filters>
+		<s:DropShadowFilter angle="90" quality="3" strength="0.5"/>
+	</s:filters>
 </s:Group>

@@ -37,7 +37,10 @@
 				Main.show();
 				close();
 			}
-			
+			[DexterEvent]
+			public function quit():void{
+				nativeApplication.exit();
+			}
 			protected function button1_clickHandler(event:MouseEvent):void
 			{
 				if(rooms.selectedItem)sendDexterEvent("enterRoom",rooms.selectedItem,userName.text);
@@ -51,6 +54,9 @@
 		global {
 			modalTransparencyBlur: 0;
 			modalTransparency: 0;
+		}
+		mx|ToolTip{
+			font-size:12;
 		}
 	</fx:Style>
 	<fx:Declarations>

@@ -43,9 +43,9 @@ package controllers
 		}
 		[DexterEvent]
 		public function ServerConnectSuccess():void{
-			userListMap = {};
+			userListMap = {all:UserVO.all};
 			userListMap[UserVO.self.id] = UserVO.self;
-			userList = new ArrayCollection([UserVO.self]);
+			userList = new ArrayCollection([UserVO.all,UserVO.self]);
 		}
 		[DexterEvent]
 		public function getUserByID(id:String):UserVO{
