@@ -22,11 +22,16 @@ package models
 		public static const IN:String = "in";
 		public static const OUT:String = "out";
 		private var groupSpecifier:GroupSpecifier;
-		private var publishName:String;
+		public var publishName:String;
 		private var hasConnected:Boolean;
+		
 		[DexterBinding(model="localSetting",property="bufferTime")]
 		public function setBufferTime(v:Number):void{
 			if(inStream&&!isNaN(v))inStream.bufferTime = v;
+		}
+		[DexterBinding(model="localSetting",property="receiveVideo")]
+		public function setReceiveVideo(v:Boolean):void{
+			if(inStream)inStream.receiveVideo(v);
 		}
 		public function StratusConnection()
 		{
@@ -101,6 +106,8 @@ package models
 			groupSpecifier.routingEnabled = true;
 			inStream = new NetStream(this,groupSpecifier.groupspecWithAuthorizations());
 			inStream.client = this;
+			inStream.bufferTime = localSetting.bufferTime;
+			inStream.receiveVideo(localSetting.receiveVideo);
 			inStream.addEventListener(NetStatusEvent.NET_STATUS,onNetStatus);
 			netGroup = new NetGroup(this,groupSpecifier.groupspecWithAuthorizations());
 			netGroup.addEventListener(NetStatusEvent.NET_STATUS, onNetStatus);

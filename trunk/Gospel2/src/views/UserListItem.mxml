@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<s:DataRenderer xmlns:fx="http://ns.adobe.com/mxml/2009" implements="spark.components.IItemRenderer"
+<s:DataRenderer xmlns:fx="http://ns.adobe.com/mxml/2009" implements="spark.components.IItemRenderer" mouseChildren="false"
 				xmlns:s="library://ns.adobe.com/flex/spark" rollOver="datarenderer1_rollOverHandler(event)"
-				rollOut="datarenderer1_rollOutHandler(event)" doubleClickEnabled="true" doubleClick="datarenderer1_doubleClickHandler(event)"
+				rollOut="datarenderer1_rollOutHandler(event)" rightMouseDown="sendDexterEvent('selectMe',data)" doubleClickEnabled="true" doubleClick="datarenderer1_doubleClickHandler(event)"
 				xmlns:mx="library://ns.adobe.com/flex/halo" width="100%" height="22">
 	<fx:Declarations>
 		<!-- Place non-visual elements (e.g., services, value objects) here -->
@@ -81,7 +81,7 @@
 
 		]]>
 	</fx:Script>
-	<s:Rect id="background" alpha=".8" visible="{selected}" width="100%" height="100%" radiusX="3" radiusY="3">
+	<s:Rect id="background" alpha="0" width="100%" height="100%" radiusX="3" radiusY="3">
 		<s:fill>
 			<s:LinearGradient rotation="90">
 				<s:GradientEntry color="#3184be" ratio="0"/>
@@ -90,11 +90,10 @@
 		</s:fill>
 	</s:Rect>
 	<s:HGroup verticalCenter="0" x="10" verticalAlign="bottom">
-		<mx:Image source="{data.role == UserVO.ADMIN?'assets/user_suit.png':'assets/user.png'}"
-				  toolTip="{data.role == UserVO.ADMIN?'管理员':'普通访客'}"
+		<mx:Image source="{UserVO.icons[data.role]}"
 				  scaleContent="false" verticalCenter="0"/>
 		<s:Label verticalCenter="0" width="60" text="{data.name} {data.address}" id="labelDisplay"/>
 		<mx:Image source="assets/webcam.png" visible="{data.av.charAt(0)=='1'}"/>
-		<mx:Image source="assets/sound_none.png" visible="{data.av.charAt(0)=='0'}"/>
+		<mx:Image source="assets/sound_none.png" visible="{data.av.charAt(1)=='1'}"/>
 	</s:HGroup>
 </s:DataRenderer>

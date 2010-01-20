@@ -50,22 +50,20 @@
 				nativeWindow.bounds = localSetting.windowRect;
 			}
 			[DexterEvent]
-			public function quit():void{
-				close();
+			public function selectMe(data:UserVO):void{
+				list.selectedItem = data;
 			}
-
 		]]>
 	</fx:Script>
 	<s:Group horizontalCenter="0" bottom="10" top="0" width="174">
-		<s:List labelField="name" dataProvider="{userList}" itemRenderer="{new ClassFactory(localSetting.role > UserVO.GUEST? UserListItemAdmin:UserListItem)}" top="82" bottom="50" borderColor="#00A2FF" width="174" horizontalCenter="0"></s:List>
+		<s:List id="list" labelField="name" dataProvider="{userList}" itemRenderer="{new ClassFactory(localSetting.role > UserVO.GUEST? UserListItemAdmin:UserListItem)}" top="82" bottom="50" borderColor="#00A2FF" width="174" horizontalCenter="0"></s:List>
 		<mx:Image source="assets/MainTop.png" mouseDown="nativeWindow.startMove()" horizontalCenter="0"/>
 		<mx:Image source="assets/MainBottom.png" bottom="7" horizontalCenter="0"/>
-		<s:Label y="37" text="{UserVO.self.name}" horizontalCenter="0" mouseEnabled="false"/>
-		<s:Label x="95" y="53" text="{gospelModel.selectedRoom.@name}" horizontalCenter="0" mouseEnabled="false"/>
+		<s:Label y="37" text="{UserVO.self.name}" horizontalCenter="0" mouseEnabled="false" mouseChildren="false"/>
+		<s:Label x="95" y="53" text="{gospelModel.selectedRoom.@name}" horizontalCenter="0" mouseEnabled="false" mouseChildren="false"/>
 		<s:Border x="163" width="11" height="11" alpha="0" mouseDown="nativeWindow.startResize(NativeWindowResize.BOTTOM)" bottom="7">
 		</s:Border>
-		<views:ImageButton x="10" source="assets/television.png" bottom="20"/>
-		<views:ImageButton x="35" source="assets/sound_none.png" bottom="20"/>
+		<views:ImageButton id="receiveVideo" change="localSetting.receiveVideo = receiveVideo.selected" selected="{localSetting.receiveVideo}" x="10" source="assets/television.png" bottom="20" toolTip="允许接受视频"/>
 		<s:filters>
 			<s:DropShadowFilter angle="90" quality="3"/>
 		</s:filters>

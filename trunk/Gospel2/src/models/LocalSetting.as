@@ -104,5 +104,17 @@ package models
 		public function set windowRect(v:Rectangle):void{
 			setValue("windowRect",{x:v.x,y:v.y,width:v.width,height:v.height});
 		}
+		public function get receiveVideo():Boolean{
+			return so.data["receiveVideo"]==false?false:true;
+		}
+		public function set receiveVideo(v:Boolean):void{
+			setValue("receiveVideo",v);
+		}
+		public function get sendChatButtonKey():Boolean{
+			return so.data["sendChatButtonKey"];
+		}
+		public function set sendChatButtonKey(v:Boolean):void{
+			setValue("sendChatButtonKey",v);
+		}
 	}
 }
