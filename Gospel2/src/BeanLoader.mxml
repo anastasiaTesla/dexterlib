@@ -11,5 +11,6 @@
 		<controllers:UserListController id="userListController"/>
 		<controllers:CmdController id="cmdController"/>
 		<controllers:TrayIconController id="trayIconController"/>
+		<controllers:MessageController id="messageController"/>
 	</fx:Declarations>
 </DexterBeanLoader>

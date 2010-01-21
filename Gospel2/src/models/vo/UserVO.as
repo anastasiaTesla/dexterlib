@@ -26,11 +26,15 @@ package models.vo
 		public var role:int;
 		public var groupAddress:String;
 		public var av:String;
+		public var messages:Vector.<ChatMsgVO> = new Vector.<ChatMsgVO>();
 		public function UserVO(o:Object=null)
 		{
 			for(var i:String in o){
 				this[i] = o[i];
 			}
+		}
+		public function get toObject():Object{
+			return {id:id,name:name,ip:ip,role:role,av:av};
 		}
 		public function get isSelf():Boolean{
 			return id == self.id;
