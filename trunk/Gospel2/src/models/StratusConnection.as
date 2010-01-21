@@ -78,7 +78,7 @@ package models
 					}else{
 						hasConnected = true;
 						UserVO.self.groupAddress = netGroup.convertPeerIDToGroupAddress(UserVO.self.id);
-						sendToOthers2("userOnline",UserVO.self);
+						sendToOthers2("userOnline",UserVO.self.toObject);
 					}
 					break;
 				case "NetGroup.Neighbor.Disconnect":

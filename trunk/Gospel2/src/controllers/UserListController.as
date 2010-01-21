@@ -15,16 +15,18 @@ package controllers
 		[DexterEvent]
 		public function $userOnline(user:Object):void{
 			var u:UserVO = new UserVO(user);
+			u.groupAddress = stratus.netGroup.convertPeerIDToGroupAddress(u.id);
 			if(!userListMap[u.id]){
 				userListMap[u.id] = u;
 				userList.addItem(u);
 				sendDexterEvent("userOnline",u);
 			}
-			sendDexterEvent("sendToUser",u,"alreadyOnline",UserVO.self);
+			sendDexterEvent("sendToUserTrust",u,"alreadyOnline",UserVO.self.toObject);
 		}
 		[DexterEvent]
 		public function $alreadyOnline(userVO:Object):void{
 			var u:UserVO = new UserVO(userVO);
+			u.groupAddress = stratus.netGroup.convertPeerIDToGroupAddress(u.id);
 			if(!userListMap[u.id]){
 				userListMap[u.id] = u;
 				userList.addItem(u);

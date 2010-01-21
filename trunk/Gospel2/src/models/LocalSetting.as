@@ -116,5 +116,11 @@ package models
 		public function set sendChatButtonKey(v:Boolean):void{
 			setValue("sendChatButtonKey",v);
 		}
+		public function get autoPopUpChat():Boolean{
+			return so.data["autoPopUpChat"];
+		}
+		public function set autoPopUpChat(v:Boolean):void{
+			setValue("autoPopUpChat",v);
+		}
 	}
 }

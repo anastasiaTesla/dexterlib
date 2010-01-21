@@ -6,13 +6,21 @@
 		<![CDATA[
 			import flash.events.Event;
 			import flash.events.KeyboardEvent;
+			import flash.events.MouseEvent;
 			import flash.ui.Keyboard;
 			
+			import flashx.textLayout.elements.FlowElement;
+			import flashx.textLayout.elements.InlineGraphicElement;
+			import flashx.textLayout.elements.SpanElement;
+			
 			import models.LocalSetting;
+			import models.vo.ChatMsgVO;
 			import models.vo.UserVO;
 			private var _ID:String;
 			public static var windows:Object = {};
 			private var user:UserVO;
+			[Embed(source="assets/webcam.png")]
+			public var temp:Class;
 			[DexterBinding]
 			[Bindable]
 			public var localSetting:LocalSetting;
@@ -26,6 +34,10 @@
 				_ID = value;
 				user = sendDexterEvent("getUserByID",value);
 				title = user?user.name:"所有人";
+				while(user.messages.length){
+					addContent(user.messages.shift().toFlowElement());
+				}
+				input.setFocus();
 			}
 
 			protected function window1_closingHandler(event:Event):void
@@ -47,16 +59,38 @@
 			public static function GetWindow(id:String):ChatWindow{
 				return windows[id];
 			}
-
+			private function addContent(array:Array):void{
+				for each(var e:FlowElement in array){
+					output.addChild(e);
+				}
+				outputparent.verticalScrollPosition = outputparent.height;
+			}
 			protected function input_keyDownHandler(event:KeyboardEvent):void
 			{
-				if(event.keyCode == Keyboard.ENTER && (localSetting.sendChatButtonKey != event.ctrlKey))
-					trace(input.text);
-				else if(event.keyCode == Keyboard.C && event.altKey){
+				if(event.keyCode == Keyboard.ENTER && (localSetting.sendChatButtonKey != event.ctrlKey)){
+					button1_clickHandler(null);
+				}else if(event.keyCode == Keyboard.C && event.altKey){
 					close();
 				}
 			}
-
+			private function getTxtMsg():ChatMsgVO{
+				var msg:ChatMsgVO = new ChatMsgVO();
+				var str:String = "";
+				for each(var i:FlowElement in inputFlow.mxmlChildren){
+					if(i is InlineGraphicElement){
+						str+=ChatMsgVO.IMGSPLIT+(i as InlineGraphicElement).source+ChatMsgVO.IMGSPLIT;
+					}else if(i is SpanElement){
+						str+=(i as SpanElement).text;
+					}
+				}
+				msg.content = str;
+				msg.name = UserVO.self.name;
+				return msg;
+			}
+			private function clearInput():void{
+				while(inputFlow.numChildren)
+					inputFlow.removeChildAt(0);
+			}
 
 			protected function radiobutton1_changeHandler(event:Event):void
 			{
@@ -69,17 +103,38 @@
 				localSetting.sendChatButtonKey = !useCEnter.selected;
 			}
 
+			protected function button1_clickHandler(event:MouseEvent):void
+			{
+				if(input.text){
+					sendDexterEvent("sendChat",getTxtMsg(),user);
+					addContent(getTxtMsg().toFlowElement(true));
+				}
+				callLater(clearInput);
+			}
+
+
+			protected function imagebutton1_clickHandler(event:MouseEvent):void
+			{
+				var img:InlineGraphicElement = new InlineGraphicElement();
+				img.source = "app:/assets/webcam.png";
+				inputFlow.addChild(img);
+				input.selectRange(int.MAX_VALUE,int.MAX_VALUE);
+			}
+
 		]]>
 	</fx:Script>
-	<s:filters>
-		<s:GlowFilter inner="true" color="0x3184be" blurX="8" blurY="8" quality="3" strength="1"/>
-	</s:filters>
 	<fx:Declarations>
 		<local:DexterFramework id="df"/>
 	</fx:Declarations>
 	<s:Scroller left="0" right="0" bottom="158" top="0">
-		<s:Group width="100%" height="100%">
-			<s:RichText text="RichText" width="100%" height="100%"/>
+		<s:Group width="100%" height="100%" id="outputparent">
+			<s:RichText width="100%" height="100%" id="outputRichText">
+				<s:textFlow>
+					<s:TextFlow>
+						<s:p id="output"/>
+					</s:TextFlow>
+				</s:textFlow>
+			</s:RichText>
 		</s:Group>
 	</s:Scroller>
 	<s:Rect alpha="0.4" width="100%" height="25" bottom="133">
@@ -94,10 +149,16 @@
 		</s:stroke>
 	</s:Rect>
 	<s:HGroup width="100%" height="25" bottom="133" x="0">
-		<views:ImageButton source="assets/emoticon_grin.png"/>
+		<views:ImageButton source="assets/emoticon_grin.png" click="imagebutton1_clickHandler(event)"/>
 	</s:HGroup>
-	<s:RichEditableText id="input" keyDown="input_keyDownHandler(event)" height="95" left="0" right="0" bottom="39"/>
-	<s:Button label="发送" bottom="10" right="10"/>
+	<s:RichEditableText id="input" keyDown="input_keyDownHandler(event)" height="95" left="0" right="0" bottom="39">
+		<s:textFlow>
+			<s:TextFlow>
+				<s:p id="inputFlow"/>
+			</s:TextFlow>
+		</s:textFlow>
+	</s:RichEditableText>
+	<s:Button label="发送" bottom="10" right="10" click="button1_clickHandler(event)"/>
 	<s:Button label="关闭(C)" click="close()" bottom="10" right="89"/>
 	<s:RadioButton x="10" id="useEnter" label="Enter发送" change="radiobutton1_changeHandler(event)" selected="{localSetting.sendChatButtonKey}" groupName="radioGroup" bottom="10"/>
 	<s:RadioButton x="92" id="useCEnter" label="Ctrl+Enter发送" change="radiobutton2_changeHandler(event)" selected="{!localSetting.sendChatButtonKey}" groupName="radioGroup" bottom="10"/>
