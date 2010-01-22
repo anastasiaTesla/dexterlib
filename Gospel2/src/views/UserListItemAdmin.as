@@ -11,7 +11,7 @@ package views
 		override public function set data(value:Object):void
 		{
 			super.data = value;
-			if(value != UserVO.all){
+			if(value != UserVO.all && value){
 				contextMenu = new ContextMenu();
 				var addItem:Function = function(a:String,b:String):void{
 					var menuItem:ContextMenuItem = new ContextMenuItem(a);

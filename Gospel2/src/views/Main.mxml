@@ -71,6 +71,7 @@
 		<s:Border x="163" width="11" height="11" alpha="0" mouseDown="nativeWindow.startResize(NativeWindowResize.BOTTOM)" bottom="7">
 		</s:Border>
 		<views:ImageButton id="receiveVideo" change="localSetting.receiveVideo = receiveVideo.selected" selected="{localSetting.receiveVideo}" x="10" source="assets/television.png" bottom="20" toolTip="允许接受视频"/>
+		<views:ImageButton id="autoPopUpChat" change="localSetting.autoPopUpChat = autoPopUpChat.selected" selected="{localSetting.autoPopUpChat}" x="143" source="assets/application_cascade.png" bottom="20" toolTip="自动弹出聊天窗口"/>
 		<s:Button skinClass="views.CloseButtonSkin" x="160" y="17" buttonMode="true" click="button1_clickHandler(event)"/>
 		<s:filters>
 			<s:DropShadowFilter angle="90" quality="3"/>

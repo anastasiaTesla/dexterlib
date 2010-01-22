@@ -1,5 +1,7 @@
 package controllers
 {
+	import flash.events.Event;
+	
 	import models.LocalSetting;
 	import models.vo.ChatMsgVO;
 	import models.vo.UserVO;
@@ -8,7 +10,7 @@ package controllers
 
 	public class ChatController
 	{
-		[Bindable]
+		[DexterBinding]
 		public var localSetting:LocalSetting;
 		[DexterEvent]
 		public function sendChat(content:ChatMsgVO,user:UserVO):void{
@@ -40,18 +42,19 @@ package controllers
 				userVO.messages.push(chatVO);
 				if(localSetting.autoPopUpChat){
 					ChatWindow.Open(userVO.id);
+				}else{
+					var chatWindow:ChatWindow = ChatWindow.GetWindow(userVO.id);
+					if(chatWindow){
+						chatWindow.checkMessage();
+					}else{
+						userVO.dispatchEvent(new Event("msgLengthChange"));
+					}
 				}
 			}
 		}
 		[DexterEvent]
 		public function $chat(content:Object,from:String):void{
-			var chatVO:ChatMsgVO = new ChatMsgVO(content);
-			chatVO.time = new Date().toLocaleTimeString();
-			var userVO:UserVO = UserVO.all;
-			userVO.messages.push(chatVO);
-			if(localSetting.autoPopUpChat){
-				ChatWindow.Open(userVO.id);
-			}
+			$chatPrivate(content,UserVO.all.id);
 		}
 		[DexterEvent]
 		public function chatToUser(userVO:UserVO):void{

@@ -8,13 +8,19 @@
 	</fx:Declarations>
 	<fx:Script>
 		<![CDATA[
+			import flash.events.Event;
 			import flash.events.MouseEvent;
-			
-			import models.vo.UserVO;
 			
 			import mx.events.FlexEvent;
 			
 			import spark.components.IItemRenderer;
+			override public function set data(v:Object):void{
+				super.data = v;
+				data.addEventListener("msgLengthChange",msgLengthShow,false,0,true);
+			}
+			private function msgLengthShow(event:Event):void{
+				msgLength.text = data.messages.length?'('+data.getMsgLength()+')':'';
+			}
 			private var _selected:Boolean;
 			protected function datarenderer1_rollOverHandler(event:MouseEvent):void
 			{
@@ -89,11 +95,12 @@
 			</s:LinearGradient>
 		</s:fill>
 	</s:Rect>
-	<s:HGroup verticalCenter="0" x="10" verticalAlign="bottom">
-		<mx:Image source="{UserVO.icons[data.role]}"
+	<s:HGroup verticalCenter="0" x="10" verticalAlign="middle">
+		<mx:Image source="{data.getIcon()}"
 				  scaleContent="false" verticalCenter="0"/>
 		<s:Label verticalCenter="0" width="60" text="{data.name} {data.address}" id="labelDisplay"/>
-		<mx:Image source="assets/webcam.png" visible="{data.av.charAt(0)=='1'}"/>
-		<mx:Image source="assets/sound_none.png" visible="{data.av.charAt(1)=='1'}"/>
+		<mx:Image source="assets/webcam.png" alpha="{data.av.charAt(0)}"/>
+		<mx:Image source="assets/sound_none.png" alpha="{data.av.charAt(1)}"/>
+		<s:Label x="193" y="5" id="msgLength"/>
 	</s:HGroup>
 </s:DataRenderer>

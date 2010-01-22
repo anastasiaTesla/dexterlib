@@ -13,7 +13,19 @@
 		<![CDATA[
 			import flash.events.Event;
 			import flash.events.MouseEvent;
-			public var selected:Boolean;
+			private var _selected:Boolean;
+
+			public function get selected():Boolean
+			{
+				return _selected;
+			}
+
+			public function set selected(value:Boolean):void
+			{
+				_selected = value;
+				currentState = value?"select":"normal";
+			}
+
 			protected function group1_mouseOverHandler(event:MouseEvent):void
 			{
 				if(!selected)currentState = "hover";
