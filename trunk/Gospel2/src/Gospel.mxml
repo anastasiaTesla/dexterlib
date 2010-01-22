@@ -54,6 +54,7 @@
 		global {
 			modalTransparencyBlur: 0;
 			modalTransparency: 0;
+			font-family:"宋体";
 		}
 		mx|ToolTip{
 			font-size:12;

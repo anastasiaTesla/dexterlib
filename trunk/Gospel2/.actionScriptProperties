@@ -14,7 +14,15 @@
   </compiler>
   <applications>
     <application path="Gospel.mxml">
-      <airExcludes/>
+      <airExcludes>
+        <airExclude path="assets/title.psd"/>
+        <airExclude path="assets/face"/>
+        <airExclude path="assets/MainTop.psd"/>
+        <airExclude path="assets/test.gif"/>
+        <airExclude path="assets/VideoBack.fla"/>
+        <airExclude path="assets/MainBottom.psd"/>
+        <airExclude path="assets/VideoBack.swf"/>
+      </airExcludes>
     </application>
   </applications>
   <modules/>

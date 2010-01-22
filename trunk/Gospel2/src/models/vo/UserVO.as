@@ -1,10 +1,13 @@
 package models.vo
 {
+	import flash.events.EventDispatcher;
 	import flash.media.Camera;
 	import flash.media.Microphone;
-
+	
+	[Event(type="flash.events.Event",name="msgLengthChange")]
+	
 	[Bindable]
-	public class UserVO
+	public class UserVO extends EventDispatcher
 	{
 		public static var self:UserVO = new UserVO({av:(Camera.names.length?'1':'0')+(Microphone.names.length?'1':'0')});
 		public static var all:UserVO = new UserVO({id:"all",name:"所有人",role:ALL,av:"00"});
@@ -32,6 +35,12 @@ package models.vo
 			for(var i:String in o){
 				this[i] = o[i];
 			}
+		}
+		public function getMsgLength():int{
+			return messages.length;
+		}
+		public function getIcon():String{
+			return icons[role];
 		}
 		public function get toObject():Object{
 			return {id:id,name:name,ip:ip,role:role,av:av};
