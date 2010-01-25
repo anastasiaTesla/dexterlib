@@ -67,16 +67,17 @@
 	<fx:Declarations>
 		<!-- Place non-visual elements (e.g., services, value objects) here -->
 	</fx:Declarations>
-	<s:Rect width="{icon.width+4}" height="{icon.height+4}" visible.normal="false" radiusX="3" radiusY="3">
+	<s:Rect width="{icon.width+2}" height="{icon.height+2}" visible.normal="false" radiusX="2" radiusY="2">
 		<s:fill>
-			<s:LinearGradient rotation="90">
-				<s:GradientEntry color="#FFFFFF" alpha="0.5" ratio.hover="0" ratio.select="1"/>
-				<s:GradientEntry color="#FFFFFF" alpha="0" ratio.hover="1" ratio.select="0"/>
+			<s:LinearGradient rotation="90" rotation.select="-90">
+				<s:GradientEntry color="#64ddfa" ratio="0"/>
+				<s:GradientEntry color="#1099df" ratio="1"/>
 			</s:LinearGradient>
 		</s:fill>
 		<s:filters>
-			<s:GlowFilter quality="3" color="#FFFFFF"/>
+			<s:GlowFilter color="#FFFFFF" blurX="2" blurY="2" strength="2" quality="3"/>
+			<s:GlowFilter color="#2ca2e9" blurX="2" blurY="2" strength="3" quality="3"/>
 		</s:filters>
 	</s:Rect>
-	<mx:Image id="icon" x="2" y="2"/>
+	<mx:Image id="icon" x="1" y="1"/>
 </s:Group>

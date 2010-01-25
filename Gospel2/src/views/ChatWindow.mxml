@@ -4,7 +4,9 @@
 		  xmlns:mx="library://ns.adobe.com/flex/halo" width="480" height="468" xmlns:local="*" xmlns:views="views.*">
 	<fx:Script>
 		<![CDATA[
+			import flash.display.Screen;
 			import flash.events.Event;
+			import flash.geom.Point;
 			
 			import flashx.textLayout.elements.BreakElement;
 			import flashx.textLayout.elements.FlowElement;
@@ -24,6 +26,7 @@
 			}
 			private var _ID:String;
 			public static var windows:Object = {};
+			[Bindable]
 			private var user:UserVO;
 			[DexterBinding]
 			[Bindable]
@@ -40,6 +43,12 @@
 				title = user?user.name:"所有人";
 				checkMessage();
 				input.setFocus();
+				if(user.windowRect){
+					nativeWindow.bounds = user.windowRect;
+				}else{
+					nativeWindow.x = Screen.mainScreen.bounds.width - width >> 1;
+					nativeWindow.y = Screen.mainScreen.bounds.height - height >> 1;
+				}
 			}
 
 			public function checkMessage():void{
@@ -52,6 +61,7 @@
 			{
 				df.detach();
 				delete windows[ID];
+				user.windowRect = nativeWindow.bounds;
 			}
 			public static function Open(id:String):ChatWindow{
 				if(windows[id]){
@@ -127,29 +137,41 @@
 				callLater(clearInput);
 			}
 
+			private function onSelectFace(event:Event):void{
+				var selectFaceWindow:SelectFaceWindow = event.target as SelectFaceWindow;
+				selectFaceBn.selected = false;
+				if(selectFaceWindow.selectFace){
+					var index:int = -1;
+					if(!inputFlow.numChildren){
+						inputFlow.addChild(new ParagraphElement());
+					}
+					var theParagraphElement:ParagraphElement = inputFlow.getChildAt(0) as ParagraphElement;
+					if(input.selectionActivePosition != input.text.length){
+						index = inputFlow.findChildIndexAtPosition(input.selectionActivePosition);
+						theParagraphElement = inputFlow.getChildAt(index) as ParagraphElement;
+						index = theParagraphElement.findChildIndexAtPosition(input.selectionActivePosition - theParagraphElement.parentRelativeStart);
+						var span:FlowElement = theParagraphElement.getChildAt(index);
+						span.splitAtPosition(input.selectionActivePosition - span.parentRelativeStart - theParagraphElement.parentRelativeStart);
+					}
+					var img:InlineGraphicElement = new InlineGraphicElement();
+					img.source = selectFaceWindow.selectFace;
+					if(index != -1)
+						theParagraphElement.addChildAt(index+1,img);
+					else
+						theParagraphElement.addChild(img);
+					input.selectRange(int.MAX_VALUE,int.MAX_VALUE);
+					input.setFocus();
+				}
+			}
 
 			protected function imagebutton1_clickHandler(event:MouseEvent):void
 			{
-				var index:int = -1;
-				if(!inputFlow.numChildren){
-					inputFlow.addChild(new ParagraphElement());
-				}
-				var theParagraphElement:ParagraphElement = inputFlow.getChildAt(0) as ParagraphElement;
-				if(input.selectionActivePosition != input.text.length){
-					index = inputFlow.findChildIndexAtPosition(input.selectionActivePosition);
-					theParagraphElement = inputFlow.getChildAt(index) as ParagraphElement;
-					index = theParagraphElement.findChildIndexAtPosition(input.selectionActivePosition - theParagraphElement.parentRelativeStart);
-					var span:FlowElement = theParagraphElement.getChildAt(index);
-					span.splitAtPosition(input.selectionActivePosition - span.parentRelativeStart - theParagraphElement.parentRelativeStart);
-				}
-				var img:InlineGraphicElement = new InlineGraphicElement();
-				img.source = "app:/assets/webcam.png";
-				if(index != -1)
-					theParagraphElement.addChildAt(index+1,img);
-				else
-					theParagraphElement.addChild(img);
-				input.selectRange(int.MAX_VALUE,int.MAX_VALUE);
-				input.setFocus();
+				var selectFaceWindow:SelectFaceWindow = new SelectFaceWindow();
+				selectFaceWindow.open();
+				selectFaceWindow.nativeWindow.y = selectFaceBn.localToGlobal(new Point).y + nativeWindow.y - selectFaceWindow.height;
+				selectFaceWindow.nativeWindow.x = nativeWindow.x - 100;
+				if(selectFaceWindow.nativeWindow.x<0)selectFaceWindow.nativeWindow.x=0;
+				selectFaceWindow.addEventListener(Event.CLOSE,onSelectFace,false,0,true);
 			}
 
 
@@ -164,22 +186,25 @@
 		<local:DexterFramework id="df"/>
 	</fx:Declarations>
 	<s:Group x="10" y="0" width="458" height="433">
-		<s:Rect width="100%" height="100%" radiusX="5" radiusY="5" alpha="0.9">
+		<s:Rect width="100%" height="100%" radiusX="5" radiusY="5">
 			<s:fill>
-				<s:LinearGradient rotation="45">
-					<s:GradientEntry color="#789ae2" ratio="0"/>
-					<s:GradientEntry color="#5b80ce" ratio="0.2"/>
-					<s:GradientEntry color="#365fb7" ratio="1"/>
+				<s:LinearGradient rotation="90">
+					<s:GradientEntry color="#52d7f8" ratio="0"/>
+					<s:GradientEntry color="#0596e3" ratio="0.06"/>
+					<s:GradientEntry color="#6fcbff" ratio="0.2"/>
+					<s:GradientEntry color="#c8dff2" ratio="1"/>
 				</s:LinearGradient>
 			</s:fill>
+			<s:filters>
+				<s:GlowFilter color="#2ca2e9" blurX="2" blurY="2" strength="2" quality="3"/>
+				<s:DropShadowFilter quality="3" angle="90" blurX="8" blurY="8"/>
+			</s:filters>
 		</s:Rect>
-		<s:HGroup width="100%" height="30" mouseDown="nativeWindow.startMove()">
-			<s:Rect width="100%" height="100%" alpha="0">
-				<s:fill>
-					<s:SolidColor/>
-				</s:fill>
-			</s:Rect>
-		</s:HGroup>
+		<s:Border borderVisible="false" width="100%" height="30" left="10" backgroundAlpha="0" backgroundColor="0" mouseDown="nativeWindow.startMove()">
+			<s:layout><s:HorizontalLayout verticalAlign="middle"/></s:layout>
+			<mx:Image source="{user.getIcon()}"/>
+			<s:Label id="titleLabel" text="{user.name}" fontWeight="bold"/>
+		</s:Border>
 		<s:Group left="2" right="2" top="30" bottom="2">
 			<s:Rect width="100%" top="0" bottom="38">
 				<s:fill>
@@ -198,26 +223,24 @@
 			<s:Rect width="100%" height="25" bottom="133">
 				<s:fill>
 					<s:LinearGradient rotation="90">
-						<s:GradientEntry color="#2c72ad" alpha="0.5" ratio="0"/>
-						<s:GradientEntry color="#2c72ad" ratio="1"/>
+						<s:GradientEntry color="#c8dff2" alpha="0.5" ratio="0"/>
+						<s:GradientEntry color="#c8dff2" ratio="1"/>
 					</s:LinearGradient>
 				</s:fill>
 				<s:stroke>
-					<s:SolidColorStroke color="0" alpha="0.4"/>
+					<s:SolidColorStroke color="0" alpha="0.2"/>
 				</s:stroke>
 			</s:Rect>
-			<s:HGroup width="369" height="25" bottom="133" right="30">
-				<views:ImageButton source="assets/emoticon_grin.png" click="imagebutton1_clickHandler(event)"/>
+			<s:HGroup left="5" height="22" bottom="135" right="5" verticalAlign="middle">
+				<views:ImageButton id="selectFaceBn" source="assets/emoticon_grin.png" click="imagebutton1_clickHandler(event)"/>
 			</s:HGroup>
-			<views:ImageButton id="autoScroll" right="2" bottom="138" source="assets/bullet_arrow_bottom.png" selected="true"/>
 			<s:RichEditableText paddingLeft="5" paddingTop="5" paddingRight="5" paddingBottom="5" id="input" keyDown="input_keyDownHandler(event)" height="95" left="0" right="0" bottom="39"/>
 			<s:Button label="发送" bottom="10" right="10" click="button1_clickHandler(event)"/>
 			<s:Button label="关闭(C)" click="close()" bottom="10" right="89"/>
 			<s:RadioButton x="10" id="useEnter" label="Enter发送" change="radiobutton1_changeHandler(event)" selected="{localSetting.sendChatButtonKey}" groupName="radioGroup" bottom="10"/>
 			<s:RadioButton x="92" id="useCEnter" label="Ctrl+Enter发送" change="radiobutton2_changeHandler(event)" selected="{!localSetting.sendChatButtonKey}" groupName="radioGroup" bottom="10"/>
+			<s:CheckBox x="202" label="自动滚屏" bottom="10" id="autoScroll" selected="true"/>
 		</s:Group>
-	<s:filters>
-		<s:DropShadowFilter quality="3" angle="90" blurX="8" blurY="8"/>
-	</s:filters>
 	</s:Group>
+	<s:Button buttonMode="true" top="10" right="20" skinClass="views.CloseButtonSkin" click="close()"/>
 </s:Window>

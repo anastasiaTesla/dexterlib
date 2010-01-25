@@ -1,6 +1,7 @@
 package models.vo
 {
 	import flash.events.EventDispatcher;
+	import flash.geom.Rectangle;
 	import flash.media.Camera;
 	import flash.media.Microphone;
 	
@@ -30,6 +31,7 @@ package models.vo
 		public var groupAddress:String;
 		public var av:String;
 		public var messages:Vector.<ChatMsgVO> = new Vector.<ChatMsgVO>();
+		public var windowRect:Rectangle;
 		public function UserVO(o:Object=null)
 		{
 			for(var i:String in o){
