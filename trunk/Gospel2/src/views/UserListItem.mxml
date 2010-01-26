@@ -16,7 +16,7 @@
 			import spark.components.IItemRenderer;
 			override public function set data(v:Object):void{
 				super.data = v;
-				data.addEventListener("msgLengthChange",msgLengthShow,false,0,true);
+				if(data)data.addEventListener("msgLengthChange",msgLengthShow,false,0,true);
 			}
 			private function msgLengthShow(event:Event):void{
 				msgLength.text = data.messages.length?'('+data.getMsgLength()+')':'';
