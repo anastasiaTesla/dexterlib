@@ -14,7 +14,7 @@
 -->
 
 	<!-- The application identifier string, unique to this application. Required. -->
-	<id>Gospel</id>
+	<id>Gospel2</id>
 
 	<!-- Used as the filename for the application. Required. -->
 	<filename>Gospel</filename>

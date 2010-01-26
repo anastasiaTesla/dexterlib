@@ -16,7 +16,6 @@
     <application path="Gospel.mxml">
       <airExcludes>
         <airExclude path="assets/title.psd"/>
-        <airExclude path="assets/face"/>
         <airExclude path="assets/MainTop.psd"/>
         <airExclude path="assets/test.gif"/>
         <airExclude path="assets/VideoBack.fla"/>

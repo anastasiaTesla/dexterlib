@@ -15,14 +15,20 @@
 			import flashx.textLayout.elements.SpanElement;
 			import flashx.textLayout.elements.TabElement;
 			import flashx.textLayout.elements.TextFlow;
+			import flashx.textLayout.events.StatusChangeEvent;
 			
 			import models.LocalSetting;
 			import models.vo.ChatMsgVO;
 			import models.vo.UserVO;
 			private function get inputFlow():TextFlow{
-				if(!input.textFlow)
-					input.textFlow = new TextFlow();
+//				if(!input.textFlow){
+//					input.textFlow = new TextFlow();
+//				}
+				input.textFlow.addEventListener(StatusChangeEvent.INLINE_GRAPHIC_STATUS_CHANGE,output_inlineGraphicStatusChangedHandler,false,0,true);
 					return input.textFlow;
+			}
+			private function get output():TextFlow{
+				return outputRichText.textFlow;
 			}
 			private var _ID:String;
 			public static var windows:Object = {};
@@ -180,6 +186,12 @@
 				if(autoScroll.selected)outputRichText.verticalScrollPosition = int.MAX_VALUE;
 			}
 
+
+			protected function output_inlineGraphicStatusChangedHandler(event:StatusChangeEvent):void
+			{
+				(event.target as TextFlow).flowComposer.updateAllControllers();
+			}
+
 		]]>
 	</fx:Script>
 	<fx:Declarations>
@@ -214,10 +226,11 @@
 			<s:Scroller left="0" right="0" bottom="158" top="0">
 				<s:RichEditableText
 					paddingLeft="5" paddingTop="5" paddingRight="5" paddingBottom="5" editable="false" width="100%" id="outputRichText">
-					<s:textFlow>
-						<s:TextFlow id="output">
-						</s:TextFlow>
-					</s:textFlow>
+					<s:creationComplete>
+						<![CDATA[
+						outputRichText.textFlow.addEventListener(StatusChangeEvent.INLINE_GRAPHIC_STATUS_CHANGE,output_inlineGraphicStatusChangedHandler,false,0,true);
+						]]>
+					</s:creationComplete>
 				</s:RichEditableText>
 			</s:Scroller>
 			<s:Rect width="100%" height="25" bottom="133">
@@ -234,7 +247,8 @@
 			<s:HGroup left="5" height="22" bottom="135" right="5" verticalAlign="middle">
 				<views:ImageButton id="selectFaceBn" source="assets/emoticon_grin.png" click="imagebutton1_clickHandler(event)"/>
 			</s:HGroup>
-			<s:RichEditableText paddingLeft="5" paddingTop="5" paddingRight="5" paddingBottom="5" id="input" keyDown="input_keyDownHandler(event)" height="95" left="0" right="0" bottom="39"/>
+			<s:RichEditableText paddingLeft="5" paddingTop="5" paddingRight="5" paddingBottom="5" id="input" keyDown="input_keyDownHandler(event)" height="95" left="0" right="0" bottom="39">
+			</s:RichEditableText>
 			<s:Button label="发送" bottom="10" right="10" click="button1_clickHandler(event)"/>
 			<s:Button label="关闭(C)" click="close()" bottom="10" right="89"/>
 			<s:RadioButton x="10" id="useEnter" label="Enter发送" change="radiobutton1_changeHandler(event)" selected="{localSetting.sendChatButtonKey}" groupName="radioGroup" bottom="10"/>

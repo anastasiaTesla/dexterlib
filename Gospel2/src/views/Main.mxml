@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <s:Window title="福音天使" xmlns:fx="http://ns.adobe.com/mxml/2009" showStatusBar="false" windowComplete="window1_windowCompleteHandler(event)" alwaysInFront="true"
-		  xmlns:s="library://ns.adobe.com/flex/spark" closing="window1_closingHandler(event)" systemChrome="{NativeWindowSystemChrome.NONE}" transparent="true"
+		  xmlns:s="library://ns.adobe.com/flex/spark" systemChrome="{NativeWindowSystemChrome.NONE}" transparent="true"
 		  xmlns:mx="library://ns.adobe.com/flex/halo" width="216" height="710" xmlns:local="*" backgroundColor="#2C72AD" backgroundAlpha="0" xmlns:views="views.*">
 	<s:layout>
 		<s:BasicLayout/>
@@ -40,10 +40,6 @@
 			public function trayClick():void{
 				nativeWindow.activate();
 			}
-			protected function window1_closingHandler(event:Event):void
-			{
-				localSetting.windowRect = nativeWindow.bounds;
-			}
 
 			protected function window1_windowCompleteHandler(event:AIREvent):void
 			{
@@ -57,6 +53,7 @@
 
 			protected function button1_clickHandler(event:MouseEvent):void
 			{
+				localSetting.windowRect = nativeWindow.bounds;
 				sendDexterEvent("quit");
 			}
 

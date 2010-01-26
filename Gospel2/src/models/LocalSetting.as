@@ -82,7 +82,7 @@ package models
 		}
 		public function initCamera():void{
 			setMode();
-			cam.setQuality(0,camQuality);
+//			cam.setQuality(0,camQuality);
 		}
 		public function get camQuality():Number{
 			return so.data["camQuality"]?so.data["camQuality"]:cam.quality;
