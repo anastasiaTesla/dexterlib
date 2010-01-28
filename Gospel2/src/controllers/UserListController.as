@@ -51,7 +51,7 @@ package controllers
 		}
 		[DexterEvent]
 		public function getUserByID(id:String):UserVO{
-			return userListMap[id];
+			return id?userListMap[id]:null;
 		}
 		[DexterEvent]
 		public function getUserByGroupAddress(groupAddress:String):UserVO{

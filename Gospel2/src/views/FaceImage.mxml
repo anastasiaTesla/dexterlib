@@ -1,26 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
-<mx:Image xmlns:fx="http://ns.adobe.com/mxml/2009" rollOut="image1_rollOutHandler(event)"
+<mx:Image xmlns:fx="http://ns.adobe.com/mxml/2009" rollOut="image1_rollOutHandler(event)" scaleContent="false"
 		  rollOver="image1_rollOverHandler(event)" buttonMode="true"
 		  xmlns:s="library://ns.adobe.com/flex/spark" 
 		  xmlns:mx="library://ns.adobe.com/flex/halo">
 	<fx:Script>
 		<![CDATA[
 			import flash.events.MouseEvent;
-
+				
 			protected function image1_rollOverHandler(event:MouseEvent):void
 			{
-				alpha = 0.5;
+				filters = [filter];
 			}
-
 
 			protected function image1_rollOutHandler(event:MouseEvent):void
 			{
-				alpha = 1;
+				filters = [];
 			}
 
 		]]>
 	</fx:Script>
 	<fx:Declarations>
-		<mx:GlowFilter id="filter" quality="3" strength="3" blurX="2" blurY="2" color="#2ca2e9"/>
+		<mx:DropShadowFilter id="filter" quality="3"/>
+		<!--<s:ColorMatrixFilter matrix="{matrix}" id="filter"/>-->
+		<!--<mx:GlowFilter id="filter" quality="3" strength="3" blurX="2" blurY="2" color="#2ca2e9"/>-->
 	</fx:Declarations>
 </mx:Image>

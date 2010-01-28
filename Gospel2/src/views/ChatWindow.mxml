@@ -197,21 +197,19 @@
 	<fx:Declarations>
 		<local:DexterFramework id="df"/>
 	</fx:Declarations>
-	<s:Group x="10" y="0" width="458" height="433">
-		<s:Rect width="100%" height="100%" radiusX="5" radiusY="5">
-			<s:fill>
+	<s:Border x="10" y="0" width="458" height="433" cornerRadius="5">
+			<s:backgroundFill>
 				<s:LinearGradient rotation="90">
 					<s:GradientEntry color="#52d7f8" ratio="0"/>
 					<s:GradientEntry color="#0596e3" ratio="0.06"/>
 					<s:GradientEntry color="#6fcbff" ratio="0.2"/>
 					<s:GradientEntry color="#c8dff2" ratio="1"/>
 				</s:LinearGradient>
-			</s:fill>
+			</s:backgroundFill>
 			<s:filters>
 				<s:GlowFilter color="#2ca2e9" blurX="2" blurY="2" strength="2" quality="3"/>
 				<s:DropShadowFilter quality="3" angle="90" blurX="8" blurY="8"/>
 			</s:filters>
-		</s:Rect>
 		<s:Border borderVisible="false" width="100%" height="30" left="10" backgroundAlpha="0" backgroundColor="0" mouseDown="nativeWindow.startMove()">
 			<s:layout><s:HorizontalLayout verticalAlign="middle"/></s:layout>
 			<mx:Image source="{user.getIcon()}"/>
@@ -233,20 +231,19 @@
 					</s:creationComplete>
 				</s:RichEditableText>
 			</s:Scroller>
-			<s:Rect width="100%" height="25" bottom="133">
-				<s:fill>
+			<s:Border width="100%" height="25" bottom="133">
+				<s:backgroundFill>
 					<s:LinearGradient rotation="90">
 						<s:GradientEntry color="#c8dff2" alpha="0.5" ratio="0"/>
 						<s:GradientEntry color="#c8dff2" ratio="1"/>
 					</s:LinearGradient>
-				</s:fill>
-				<s:stroke>
+				</s:backgroundFill>
+				<s:borderStroke>
 					<s:SolidColorStroke color="0" alpha="0.2"/>
-				</s:stroke>
-			</s:Rect>
-			<s:HGroup left="5" height="22" bottom="135" right="5" verticalAlign="middle">
+				</s:borderStroke>
+				<s:layout><s:HorizontalLayout verticalAlign="middle" paddingLeft="10"/></s:layout>
 				<views:ImageButton id="selectFaceBn" source="assets/emoticon_grin.png" click="imagebutton1_clickHandler(event)"/>
-			</s:HGroup>
+			</s:Border>
 			<s:RichEditableText paddingLeft="5" paddingTop="5" paddingRight="5" paddingBottom="5" id="input" keyDown="input_keyDownHandler(event)" height="95" left="0" right="0" bottom="39">
 			</s:RichEditableText>
 			<s:Button label="发送" bottom="10" right="10" click="button1_clickHandler(event)"/>
@@ -255,6 +252,6 @@
 			<s:RadioButton x="92" id="useCEnter" label="Ctrl+Enter发送" change="radiobutton2_changeHandler(event)" selected="{!localSetting.sendChatButtonKey}" groupName="radioGroup" bottom="10"/>
 			<s:CheckBox x="202" label="自动滚屏" bottom="10" id="autoScroll" selected="true"/>
 		</s:Group>
-	</s:Group>
+	</s:Border>
 	<s:Button buttonMode="true" top="10" right="20" skinClass="views.CloseButtonSkin" click="close()"/>
 </s:Window>

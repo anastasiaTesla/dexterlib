@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <s:Window xmlns:fx="http://ns.adobe.com/mxml/2009" showStatusBar="false" windowDeactivate="window1_windowDeactivateHandler(event)"
 		  xmlns:s="library://ns.adobe.com/flex/spark" creationComplete="window1_creationCompleteHandler(event)" systemChrome="none"
-		  xmlns:mx="library://ns.adobe.com/flex/halo" width="460" height="300">
+		  xmlns:mx="library://ns.adobe.com/flex/halo" width="470" height="300">
 	<s:Group left="5" top="5" right="5" id="content">
 		<s:layout>
-			<s:TileLayout columnWidth="24" rowHeight="24"/>
+			<s:TileLayout/>
 		</s:layout>
 	</s:Group>
 	<fx:Declarations>

@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:Window xmlns:fx="http://ns.adobe.com/mxml/2009" showStatusBar="false" transparent="true" systemChrome="none" backgroundAlpha="0"
+		  xmlns:s="library://ns.adobe.com/flex/spark" close="window1_closeHandler(event)" windowComplete="window1_windowCompleteHandler(event)"
+		  xmlns:mx="library://ns.adobe.com/flex/halo" width="674" height="611" xmlns:views="views.*" xmlns:local="*">
+	<s:layout>
+		<s:BasicLayout/>
+	</s:layout>
+	<fx:Declarations>
+		<local:DexterFramework id="df"/>
+	</fx:Declarations>
+	<s:Border y="10" height="568" width="647" x="10" borderColor="0x5380D0" cornerRadius="5" mouseDown="nativeWindow.startMove()">
+		<s:backgroundFill>
+			<s:LinearGradient rotation="90">
+				<s:GradientEntry color="#52d7f8" ratio="0"/>
+				<s:GradientEntry color="#0596e3" ratio="0.06"/>
+				<s:GradientEntry color="#6fcbff" ratio="0.2"/>
+				<s:GradientEntry color="#c8dff2" ratio="1"/>
+			</s:LinearGradient>
+		</s:backgroundFill>
+		<s:filters>
+			<s:DropShadowFilter blurX="12" hideObject="false" distance="6" blurY="12" inner="false" color="0x000000" strength="1" alpha="1.0" quality="3" knockout="false" angle="90"/>
+		</s:filters>
+		<s:Border y="40" height="479" width="639" horizontalCenter="0" backgroundColor="0" borderColor="0x5380D0">
+			<views:GVideo id="video" width="100%" height="100%"/>
+		</s:Border>
+		<s:HGroup width="100%" height="30" left="10" y="5" verticalAlign="middle">
+			<mx:Image id="icon"/>
+			<s:Label id="titleLabel" text="{user.name}" fontWeight="bold"/>
+		</s:HGroup>
+	</s:Border>
+	<fx:Script>
+		<![CDATA[
+			import controllers.VideoController;
+			
+			import flash.display.Screen;
+			import flash.events.Event;
+			import flash.media.Video;
+			
+			import models.LocalSetting;
+			import models.vo.UserVO;
+			
+			import mx.events.AIREvent;
+			[DexterBinding]
+			public var localSetting:LocalSetting;
+			[DexterBinding]
+			public var videoController:VideoController;
+			[Bindable]
+			private var user:UserVO;
+			public function get innerVideo():Video{
+				return video.video;
+			}
+			public function setUser(_user:UserVO):void{
+				user = _user;
+				if(user){
+					icon.source = user.getIcon();
+					if(user.isSelf)
+						innerVideo.attachCamera(localSetting.cam);
+					else
+						innerVideo.attachNetStream(videoController.inStream);
+				}else{
+					icon.source = null;
+				}
+			}
+			[DexterEvent]
+			public function getMainVideoWindow():MainVideoWindow{
+				return this;
+			}
+			[DexterEvent]
+			public function closeVideoWindow():void{
+				close();
+			}
+			protected function window1_closeHandler(event:Event):void
+			{
+				df.detach();
+			}
+
+			protected function window1_windowCompleteHandler(event:AIREvent):void
+			{
+				nativeWindow.x = Screen.mainScreen.bounds.width - width >> 1;
+				nativeWindow.y = Screen.mainScreen.bounds.height - height >> 1;
+			}
+
+		]]>
+	</fx:Script>
+</s:Window>
