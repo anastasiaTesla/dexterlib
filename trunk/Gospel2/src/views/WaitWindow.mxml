@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<s:Group xmlns:fx="http://ns.adobe.com/mxml/2009"
+<s:Border xmlns:fx="http://ns.adobe.com/mxml/2009"  backgroundColor="#FFFFFF" cornerRadius="5" backgroundAlpha=".8"
 		 xmlns:s="library://ns.adobe.com/flex/spark" 
 		 xmlns:mx="library://ns.adobe.com/flex/halo" width="256" height="60" xmlns:local="*">
 	<s:creationCompleteEffect>
@@ -41,13 +41,6 @@
 			}
 		]]>
 	</fx:Script>
-	<s:Rect width="100%" height="100%" alpha="0.8" radiusX="5" radiusY="5">
-		<s:fill>
-			<s:LinearGradient>
-				<s:GradientEntry color="#FFFFFF"/>
-			</s:LinearGradient>
-		</s:fill>
-	</s:Rect>
 	<s:Group horizontalCenter="0" verticalCenter="0">
 		<s:layout>
 			<s:VerticalLayout horizontalAlign="center" paddingTop="5"/>
@@ -60,4 +53,4 @@
 	<s:filters>
 		<s:DropShadowFilter angle="90" quality="3" strength="0.5"/>
 	</s:filters>
-</s:Group>
+</s:Border>

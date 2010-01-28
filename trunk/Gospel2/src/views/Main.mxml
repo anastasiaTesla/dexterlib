@@ -40,7 +40,10 @@
 			public function trayClick():void{
 				nativeWindow.activate();
 			}
-
+			[DexterEvent]
+			public function getMainWindow():Main{
+				return this;
+			}
 			protected function window1_windowCompleteHandler(event:AIREvent):void
 			{
 				if(localSetting.windowRect)

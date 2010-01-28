@@ -12,5 +12,6 @@
 		<controllers:CmdController id="cmdController"/>
 		<controllers:TrayIconController id="trayIconController"/>
 		<controllers:MessageController id="messageController"/>
+		<controllers:VideoController id="videoController"/>
 	</fx:Declarations>
 </DexterBeanLoader>
