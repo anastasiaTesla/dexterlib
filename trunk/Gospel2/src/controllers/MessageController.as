@@ -67,7 +67,7 @@ package controllers
 			arg.unshift(user);
 		}
 		[DexterEvent]
-		public function trustAnswer(str:String):void{
+		public function $trustAnswer(str:String):void{
 			if(timers[str])
 				clearInterval(timers[str]);
 		}

@@ -197,7 +197,8 @@
 	<fx:Declarations>
 		<local:DexterFramework id="df"/>
 	</fx:Declarations>
-	<s:Border x="10" y="0" width="458" height="433" cornerRadius="5">
+	<s:RectangularDropShadow angle="90" blurX="8" blurY="8" x="10" width="458" height="433" tlRadius="5" trRadius="5" blRadius="5" brRadius="5"/>
+	<s:Border x="10" y="0" width="458" height="433" cornerRadius="5" borderColor="#2ca2e9">
 			<s:backgroundFill>
 				<s:LinearGradient rotation="90">
 					<s:GradientEntry color="#52d7f8" ratio="0"/>
@@ -206,10 +207,10 @@
 					<s:GradientEntry color="#c8dff2" ratio="1"/>
 				</s:LinearGradient>
 			</s:backgroundFill>
-			<s:filters>
+			<!--<s:filters>
 				<s:GlowFilter color="#2ca2e9" blurX="2" blurY="2" strength="2" quality="3"/>
 				<s:DropShadowFilter quality="3" angle="90" blurX="8" blurY="8"/>
-			</s:filters>
+			</s:filters>-->
 		<s:Border borderVisible="false" width="100%" height="30" left="10" backgroundAlpha="0" backgroundColor="0" mouseDown="nativeWindow.startMove()">
 			<s:layout><s:HorizontalLayout verticalAlign="middle"/></s:layout>
 			<mx:Image source="{user.getIcon()}"/>

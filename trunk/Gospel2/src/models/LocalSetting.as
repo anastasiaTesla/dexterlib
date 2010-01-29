@@ -100,14 +100,14 @@ package models
 //			cam.setQuality(0,camQuality);
 		}
 		public function get camQuality():Number{
-			return so.data["camQuality"]?so.data["camQuality"]:cam.quality;
+			return "camQuality" in so.data?so.data["camQuality"]:cam.quality;
 		}
 		public function set camQuality(v:Number):void{
 			cam.setQuality(0,v);
 			so.data["camQuality"] = v;
 		}
 		public function get bufferTime():Number{
-			return so.data["bufferTime"]?so.data["bufferTime"]:1.0;
+			return "bufferTime" in so.data?so.data["bufferTime"]:1.0;
 		}
 		public function set bufferTime(v:Number):void{
 			setValue("bufferTime",v);
