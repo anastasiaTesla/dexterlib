@@ -27,6 +27,7 @@
 			<mx:Image id="icon"/>
 			<s:Label id="titleLabel" text="{user.name}" fontWeight="bold"/>
 		</s:HGroup>
+		<s:HSlider x="426" y="547" maximum="100" minimum="0" liveDragging="false" value="{localSetting.bufferTime}" change="localSetting.bufferTime = bufferTime.value" id="bufferTime"/>
 	</s:Border>
 	<fx:Script>
 		<![CDATA[
@@ -40,7 +41,7 @@
 			import models.vo.UserVO;
 			
 			import mx.events.AIREvent;
-			[DexterBinding]
+			[DexterBinding][Bindable]
 			public var localSetting:LocalSetting;
 			[DexterBinding]
 			public var videoController:VideoController;

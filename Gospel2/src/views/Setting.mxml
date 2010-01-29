@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <s:Window xmlns:fx="http://ns.adobe.com/mxml/2009" showStatusBar="false"
 		  xmlns:views="views.*" maximizable="false" resizable="false"
-		  xmlns:s="library://ns.adobe.com/flex/spark" title="系统设置"
+		  xmlns:s="library://ns.adobe.com/flex/spark" title="系统设置" close="window1_closeHandler(event)"
 		  xmlns:mx="library://ns.adobe.com/flex/halo" width="550" height="400" xmlns:settings="views.settings.*">
 	<s:layout>
 		<s:BasicLayout/>
@@ -11,7 +11,6 @@
 	</fx:Declarations>
 	<fx:Script>
 		<![CDATA[
-			import flash.display.NativeWindowType;
 			import flash.events.Event;
 			
 			import spark.events.IndexChangeEvent;
@@ -27,6 +26,12 @@
 			protected function list1_changeHandler(event:IndexChangeEvent):void
 			{
 				viewstack.selectedIndex = event.newIndex;
+			}
+
+
+			protected function window1_closeHandler(event:Event):void
+			{
+				sendDexterEvent("saveSettings");
 			}
 
 		]]>
@@ -48,9 +53,7 @@
 		</s:dataProvider>
 	</s:List>
 	<mx:ViewStack x="122" y="10" id="viewstack" width="419" height="382">
-		<s:NavigatorContent label="视图 1" width="100%" height="100%">
-			
-		</s:NavigatorContent>
+		<settings:GeneralSetting/>
 		<settings:AVSetting/>
 	</mx:ViewStack>
 </s:Window>

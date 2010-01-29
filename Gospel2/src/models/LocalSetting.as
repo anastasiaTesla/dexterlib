@@ -2,6 +2,7 @@ package models
 {
 	import flash.geom.Rectangle;
 	import flash.media.Camera;
+	import flash.media.Microphone;
 	import flash.net.SharedObject;
 
 	[Bindable]
@@ -38,6 +39,7 @@ package models
 		public function set role(v:int):void{
 			setValue("role",v);
 		}
+		
 		public function get camera():int{
 			return so.data["camera"];
 		}
@@ -57,6 +59,19 @@ package models
 				so.flush();
 			}catch(e:Error){
 				
+			}
+		}
+		public function get microphone():int{
+			return so.data["microphone"];
+		}
+		public function set microphone(v:int):void{
+			setValue("microphone",v);
+		}
+		public function get mic():Microphone{
+			if(microphone< Microphone.names.length){
+				return Microphone.getMicrophone(microphone);
+			}else{
+				return Microphone.getMicrophone();
 			}
 		}
 		public function get cam():Camera{
