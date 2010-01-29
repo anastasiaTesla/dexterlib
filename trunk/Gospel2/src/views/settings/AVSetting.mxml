@@ -38,23 +38,27 @@
 				localSetting.cameraSize = event.newIndex;
 			}
 			
+			protected function dropdownlist3_changeHandler(event:IndexChangeEvent):void
+			{
+				localSetting.microphone = event.newIndex;
+			}
 		]]>
 	</fx:Script>
 	<mx:Form x="10" y="6" width="399" height="366" color="#133463">
 		<mx:FormItem label="选择摄像头">
-			<s:DropDownList change="dropdownlist1_changeHandler(event)" dataProvider="{cameras}" width="227" color="#133463"></s:DropDownList>
+			<s:DropDownList change="dropdownlist1_changeHandler(event)" dataProvider="{cameras}" selectedIndex="{localSetting.camera}" width="227" color="#133463"></s:DropDownList>
 		</mx:FormItem>
 		<mx:FormItem label="选择麦克风">
-			<s:DropDownList dataProvider="{mics}" width="227" color="#133463"></s:DropDownList>
+			<s:DropDownList change="dropdownlist3_changeHandler(event)" dataProvider="{mics}" selectedIndex="{localSetting.microphone}" width="227" color="#133463"></s:DropDownList>
 		</mx:FormItem>
 		<mx:FormItem label="摄像头捕获尺寸">
 			<s:DropDownList selectedIndex="{localSetting.cameraSize}" change="callLater(dropdownlist2_changeHandler,[event])" dataProvider="{cameraSize}"/>
 		</mx:FormItem>
 		<mx:FormItem label="视频质量" width="307">
-			<s:HSlider stepSize="1" value="{localSetting.camQuality}" maximum="100" minimum="1" liveDragging="false" change="localSetting.camQuality = event.target.value" width="180"/>
+			<s:HSlider stepSize="1" value="{localSetting.camQuality}" maximum="100" minimum="0" liveDragging="false" change="localSetting.camQuality = event.target.value" width="180"/>
 		</mx:FormItem>
 		<mx:FormItem label="视频缓冲时间" width="307">
-			<s:HSlider stepSize="1" value="{localSetting.bufferTime}" maximum="100" minimum="1" liveDragging="false" change="localSetting.bufferTime = event.target.value" width="180"/>
+			<s:HSlider stepSize="1" value="{localSetting.bufferTime}" maximum="100" minimum="0" liveDragging="false" change="localSetting.bufferTime = event.target.value" width="180"/>
 		</mx:FormItem>
 	</mx:Form>
 </s:NavigatorContent>
