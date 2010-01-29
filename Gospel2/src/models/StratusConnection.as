@@ -42,11 +42,11 @@ package models
 				case "NetGroup.Posting.Notify":
 				case "NetGroup.SendTo.Notify":
 					var array:Array = event.info.message as Array;
-					if(array["trust"]){
+					if("trust" in array){
 						var answer:Array = ["trustAnswer",array["trust"]];
 						answer["t"] = getTimer();
 						netGroup.sendToNearest(answer,event.info.from);
-						if(messageCache.indexOf(array["trust"]) != -1){
+						if(messageCache.indexOf(array["trust"]) == -1){
 							messageCache.push(array["trust"]);
 							array[0] = "$"+array[0];
 							DexterEvent.SendEvent.apply(DexterEvent,array);

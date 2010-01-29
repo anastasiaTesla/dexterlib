@@ -47,7 +47,7 @@
 	<s:List x="10" y="10" contentBackgroundColor="0xe1f1ff" top="10" bottom="10" selectedIndex="0" borderVisible="false" change="list1_changeHandler(event)" itemRenderer="{new ClassFactory(SettingTitleRenderer)}">
 		<s:dataProvider>
 			<s:ArrayCollection>
-				<fx:Object icon="assets/cog.png" label="常规设置"/>
+				<fx:Object icon="assets/wrench.png" label="常规设置"/>
 				<fx:Object icon="assets/webcam.png" label="视频音频"/>
 			</s:ArrayCollection>
 		</s:dataProvider>
