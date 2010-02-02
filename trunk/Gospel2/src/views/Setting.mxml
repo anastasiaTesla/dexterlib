@@ -15,12 +15,11 @@
 			
 			import spark.events.IndexChangeEvent;
 			public static var instance:Setting;
-			public static function show():void{
+			public static function show():Setting{
 				if(!instance)instance = new Setting();
 				instance.addEventListener(Event.CLOSE,function(event:Event):void{instance = null;},false,0,true);
 				instance.open();
-				instance.nativeWindow.x = NativeApplication.nativeApplication.activeWindow.x;
-				instance.nativeWindow.y = NativeApplication.nativeApplication.activeWindow.y;
+				return instance;
 			}
 
 			protected function list1_changeHandler(event:IndexChangeEvent):void

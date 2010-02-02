@@ -71,7 +71,7 @@ package controllers
 				case "NetStream.Connect.Success":
 					if(event.info.stream == outStream){
 						outStream.attachCamera(localSetting.cam);
-						outStream.attachAudio(Microphone.getMicrophone());
+						outStream.attachAudio(localSetting.mic);
 						outStream.publish(UserVO.self.id);
 					}
 					break;

@@ -12,6 +12,7 @@
 		<![CDATA[
 			import flash.display.NativeWindowResize;
 			import flash.display.NativeWindowSystemChrome;
+			import flash.display.Screen;
 			import flash.events.Event;
 			import flash.events.MouseEvent;
 			
@@ -60,6 +61,14 @@
 				sendDexterEvent("quit");
 			}
 
+
+			protected function settings_changeHandler(event:Event):void
+			{
+				var settingwindow:Setting = Setting.show();
+				settingwindow.nativeWindow.x = Screen.mainScreen.bounds.width - width >> 1;
+				settingwindow.nativeWindow.y = Screen.mainScreen.bounds.height - height >> 1;
+			}
+
 		]]>
 	</fx:Script>
 	<s:Group horizontalCenter="0" bottom="10" top="0" width="174">
@@ -71,6 +80,7 @@
 		<s:Border x="163" width="11" height="11" alpha="0" mouseDown="nativeWindow.startResize(NativeWindowResize.BOTTOM)" bottom="7">
 		</s:Border>
 		<views:ImageButton id="receiveVideo" change="localSetting.receiveVideo = receiveVideo.selected" selected="{localSetting.receiveVideo}" x="10" source="assets/television.png" bottom="20" toolTip="允许接受视频"/>
+		<views:ImageButton id="settings" x="40" toggled="false" change="settings_changeHandler(event)" source="assets/cog.png" bottom="20" toolTip="系统设置"/>
 		<views:ImageButton id="autoPopUpChat" change="localSetting.autoPopUpChat = autoPopUpChat.selected" selected="{localSetting.autoPopUpChat}" x="143" source="assets/application_cascade.png" bottom="20" toolTip="自动弹出聊天窗口"/>
 		<s:Button skinClass="views.CloseButtonSkin" x="160" y="17" buttonMode="true" click="button1_clickHandler(event)"/>
 	</s:Group>
