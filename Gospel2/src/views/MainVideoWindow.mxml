@@ -27,7 +27,10 @@
 			<mx:Image id="icon"/>
 			<s:Label id="titleLabel" text="{user.name}" fontWeight="bold"/>
 		</s:HGroup>
-		<s:HSlider x="426" y="547" maximum="100" minimum="0" liveDragging="false" value="{localSetting.bufferTime}" change="localSetting.bufferTime = bufferTime.value" id="bufferTime"/>
+		<mx:ProgressBar x="364" y="527" label="缓冲 %3%%"/>
+		<s:HSlider x="462" y="547" maximum="100" minimum="0" liveDragging="false" value="{localSetting.bufferTime}" change="localSetting.bufferTime = bufferTime.value" id="bufferTime"/>
+		<views:ImageButton x="604" y="525" source="assets/arrow_out.png">
+		</views:ImageButton>
 	</s:Border>
 	<fx:Script>
 		<![CDATA[

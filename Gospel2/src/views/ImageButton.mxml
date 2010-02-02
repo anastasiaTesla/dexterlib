@@ -3,7 +3,7 @@
 <s:Group xmlns:fx="http://ns.adobe.com/mxml/2009" mouseOver="group1_mouseOverHandler(event)"
 			   xmlns:s="library://ns.adobe.com/flex/spark" mouseOut="group1_mouseOutHandler(event)" mouseUp="group1_mouseUpHandler(event)"
 			   mouseDown="group1_mouseDownHandler(event)" useHandCursor="true" buttonMode="true"
-			   xmlns:mx="library://ns.adobe.com/flex/halo">
+			   xmlns:mx="library://ns.adobe.com/flex/halo" width="20" height="20">
 	<s:states>
 		<s:State name="normal"/>
 		<s:State name="hover"/>
@@ -14,6 +14,11 @@
 			import flash.events.Event;
 			import flash.events.MouseEvent;
 			private var _selected:Boolean;
+
+			public function set source(value:Object):void
+			{
+				icon.source = value;
+			}
 
 			public function get selected():Boolean
 			{
@@ -43,13 +48,9 @@
 				if(!selected)currentState = "select";
 			}
 			
-			public function set source(v:Object):void{
-				icon.source = v;
-			}
-
 			protected function group1_mouseUpHandler(event:MouseEvent):void
 			{
-				if(!selected){
+				if(!selected && toggled){
 					currentState = "select";
 					selected = true;
 				}else{
@@ -65,9 +66,9 @@
 		[Event(type="flash.events.Event",name="change")]
 	</fx:Metadata>
 	<fx:Declarations>
-		<!-- Place non-visual elements (e.g., services, value objects) here -->
+		<fx:Boolean id="toggled">true</fx:Boolean>
 	</fx:Declarations>
-	<s:Rect width="{icon.width+2}" height="{icon.height+2}" visible.normal="false" radiusX="2" radiusY="2">
+	<s:Rect width="100%" height="100%" visible.normal="false" radiusX="2" radiusY="2">
 		<s:fill>
 			<s:LinearGradient rotation="90" rotation.select="-90">
 				<s:GradientEntry color="#64ddfa" ratio="0"/>
@@ -79,5 +80,5 @@
 			<s:GlowFilter color="#2ca2e9" blurX="2" blurY="2" strength="3" quality="3"/>
 		</s:filters>
 	</s:Rect>
-	<mx:Image id="icon" x="1" y="1"/>
+	<s:BitmapImage verticalCenter="0" horizontalCenter="0" id="icon" />
 </s:Group>

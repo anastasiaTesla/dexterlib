@@ -51,6 +51,14 @@
 			{
 				if(rooms.selectedItem)sendDexterEvent("enterRoom",rooms.selectedItem,userName.text);
 			}
+
+			protected function button2_clickHandler(event:MouseEvent):void
+			{
+				var settingwindow:Setting = Setting.show();
+				settingwindow.nativeWindow.x = nativeWindow.x;
+				settingwindow.nativeWindow.y = nativeWindow.y;
+			}
+
 		]]>
 	</fx:Script>
 	<fx:Style>
@@ -77,7 +85,7 @@
 		</mx:filters>
 	</mx:Image>
 	<s:TextInput x="75" y="93" id="userName" focusIn="if(userName.text=='请输入你的昵称')userName.text=''" text="{localSetting.userName?localSetting.userName:'请输入你的昵称'}"/>
-	<s:Button x="211" y="93" label="个人设置" click="Setting.show()"/>
+	<s:Button x="211" y="93" label="个人设置" click="button2_clickHandler(event)"/>
 	<s:Label x="31" y="98" text="昵称：" color="#FFFFFF"/>
 	<s:Button x="211" y="167" label="登录" click="button1_clickHandler(event)"/>
 	<s:DropDownList x="75" y="128" width="206" labelField="@name" dataProvider="{roomList}" selectedItem="{selectedRoom}" id="rooms"/>
