@@ -9,19 +9,20 @@
 		<s:State name="down"/>
 		<s:State name="disabled"/>
 	</s:states>
-	<s:Rect alpha="0" width="7" height="7">
+	<s:Ellipse alpha.up="0" x="-2" y="-2" width="11" height="11">
 		<s:fill>
-			<s:SolidColor/>
+			<s:SolidColor color="0xdd0000" color.down="0x555555"/>
 		</s:fill>
-	</s:Rect>
+	</s:Ellipse>
+	
 	<s:Line id="line1" x="1" xTo="5" y="1" yTo="5">
 		<s:stroke>
-			<s:SolidColorStroke caps="round" color="#FFFFFF" joints="miter" miterLimit="4" weight="2" color.over="#666666" color.down="#333333"/>
+			<s:SolidColorStroke caps="round" color="#FFFFFF" joints="miter" miterLimit="4" weight="2"/>
 		</s:stroke>
 	</s:Line>
 	<s:Line id="line0" x="1" xTo="5" y="1" yFrom="5">
 		<s:stroke>
-			<s:SolidColorStroke caps="round" color="#FFFFFF" joints="miter" miterLimit="4" weight="2" color.over="#666666" color.down="#333333"/>
+			<s:SolidColorStroke caps="round" color="#FFFFFF" joints="miter" miterLimit="4" weight="2"/>
 		</s:stroke>
 	</s:Line>
 	<s:filters>
