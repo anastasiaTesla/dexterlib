@@ -15,13 +15,7 @@ package
 		public static var bindings:Dictionary = new Dictionary(true);
 		private var _document:Object;
 		public function detach():void{
-			DexterEvent.DetachDexterEvent(_document);
-			if(bindings[_document]){
-				while(bindings[_document].length){
-					bindings[_document].pop().unwatch();
-				}
-				delete 	bindings[_document];
-			}
+			unRegister(_document);
 			_document = null;
 		}
 		public static function unRegister(document:Object):void{
