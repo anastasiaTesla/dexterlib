@@ -34,7 +34,7 @@ package controllers
 		[DexterEvent]
 		public function $userOffline(id:String):void{
 			var userVO:UserVO = getUserByGroupAddress(id);
-			userOffline(userVO.id);
+			if(userVO)userOffline(userVO.id);
 		}
 		private function userOffline(id:String):void{
 			sendDexterEvent("userOffline",userListMap[id]);

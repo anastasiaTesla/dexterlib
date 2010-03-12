@@ -26,6 +26,10 @@ package models
 		private var groupSpecifier:GroupSpecifier;
 		private var publishName:String;
 		private var hasConnected:Boolean;
+		[DexterBinding(model="localSetting",property="bufferTime")]
+		public function setBufferTime(v:Number):void{
+			if(inStream)inStream.bufferTime = v;
+		}
 		public function StratusConnection()
 		{
 			super();
@@ -97,7 +101,8 @@ package models
 			groupSpecifier.ipMulticastMemberUpdatesEnabled = true;
 			groupSpecifier.objectReplicationEnabled = true;
 			groupSpecifier.routingEnabled = true;
-			inStream = new InStream(this,groupSpecifier.groupspecWithAuthorizations());
+			inStream = new NetStream(this,groupSpecifier.groupspecWithAuthorizations());
+			inStream.bufferTime = localSetting.bufferTime;
 			inStream.client = this;
 			inStream.addEventListener(NetStatusEvent.NET_STATUS,onNetStatus);
 			netGroup = new NetGroup(this,groupSpecifier.groupspecWithAuthorizations());
@@ -141,7 +146,7 @@ package models
 		}
 		public function publishStream():void{
 			if(outStream)outStream.close();
-			outStream = new GospelNetStream(this,groupSpecifier.groupspecWithAuthorizations());
+			outStream = new NetStream(this,groupSpecifier.groupspecWithAuthorizations());
 			outStream.client = this;
 			outStream.addEventListener(NetStatusEvent.NET_STATUS,onNetStatus);
 		}

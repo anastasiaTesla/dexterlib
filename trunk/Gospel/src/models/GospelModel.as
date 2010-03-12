@@ -5,9 +5,9 @@ package models
 	
 	import flash.desktop.NativeApplication;
 	import flash.events.Event;
+	import flash.html.HTMLLoader;
 	import flash.net.URLLoader;
 	import flash.net.URLRequest;
-	import flash.net.URLStream;
 	
 	import models.vo.UserVO;
 	
@@ -29,6 +29,7 @@ package models
 		public var selectedRoom:XML;
 		public var serverAddr:String;
 		public var helpURL:String;
+		private var html:HTMLLoader = new HTMLLoader();
 		public function getVersion():String{
 			return appDesc.children()[3];
 		}
@@ -46,19 +47,12 @@ package models
 		}
 		public function lookIp():void{
 			WaitWindow.wait("获取IP地址");
-			var stream:URLStream = new URLStream();
-			stream.addEventListener(Event.COMPLETE, onLoadIP);
-			stream.load(new URLRequest("http://www.123cha.com"));
+			html.addEventListener(Event.COMPLETE,onLoadIP);
+			html.load(new URLRequest("http://www.ip.cn"));
 		}
 		private function onLoadIP(evt:Event):void{
-			var loader:URLStream = evt.target as URLStream;
-			var data:String = loader.readMultiByte(loader.bytesAvailable,"gb2312");
-			var p:int = data.indexOf("++ 您的ip:[<a");
-			var ip:String = data.substring(data.indexOf(">",p)+1,data.indexOf("</a>",p));
-			data = data.substr(p);
-			var address:String = data.substring(data.indexOf("来自:")+3,data.indexOf(" ++"));
-			UserVO.self.ip = ip;
-			UserVO.self.address = address.replace(/&nbsp;/g,"");
+			UserVO.self.ip = html.window.document.getElementById("locaIp").firstChild.innerHTML;
+			UserVO.self.address = html.window.document.getElementById("locaIp").lastChild.data.substr(5);
 			WaitWindow.waitThingDone("获取IP地址");
 		}
 	}
