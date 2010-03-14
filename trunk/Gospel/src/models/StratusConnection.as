@@ -106,6 +106,8 @@ package models
 		public function ipDone():void{
 			if(hasConnected){
 				sendDexterEvent("broadcast2","updateIp",UserVO.self);
+			}else{
+				sendDexterEvent("updateIp",UserVO.self);
 			}
 		}
 		[DexterEvent]
