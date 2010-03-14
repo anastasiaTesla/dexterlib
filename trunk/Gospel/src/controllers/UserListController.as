@@ -4,6 +4,7 @@ package controllers
 	import models.vo.UserVO;
 	
 	import mx.collections.ArrayCollection;
+	import mx.events.CollectionEvent;
 
 	public class UserListController
 	{
@@ -21,6 +22,12 @@ package controllers
 				sendDexterEvent("userOnline",u);
 			}
 			sendDexterEvent("sendToUser",u,"alreadyOnline",UserVO.self);
+		}
+		[DexterEvent]
+		public function $updateIp(user:Object):void{
+			userListMap[user.id].ip = user.ip;
+			userListMap[user.id].address = user.address;
+			userList.refresh();
 		}
 		[DexterEvent]
 		public function $alreadyOnline(userVO:Object):void{

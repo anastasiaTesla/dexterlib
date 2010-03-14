@@ -46,14 +46,15 @@ package models
 			WaitWindow.waitThingDone("加载配置文件");
 		}
 		public function lookIp():void{
-			WaitWindow.wait("获取IP地址");
 			html.addEventListener(Event.COMPLETE,onLoadIP);
 			html.load(new URLRequest("http://www.ip.cn"));
 		}
 		private function onLoadIP(evt:Event):void{
+			html.removeEventListener(Event.COMPLETE,onLoadIP);
 			UserVO.self.ip = html.window.document.getElementById("locaIp").firstChild.innerHTML;
 			UserVO.self.address = html.window.document.getElementById("locaIp").lastChild.data.substr(5);
-			WaitWindow.waitThingDone("获取IP地址");
+			html = null;
+			sendDexterEvent("ipDone");
 		}
 	}
 }

@@ -11,5 +11,6 @@
 		<controllers:ChatController id="chatController"/>
 		<controllers:UserListController id="userListController"/>
 		<controllers:CmdController id="cmdController"/>
+		<controllers:MessageController id="messageController"/>
 	</fx:Declarations>
 </DexterBeanLoader>

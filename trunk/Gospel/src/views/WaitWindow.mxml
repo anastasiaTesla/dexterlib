@@ -17,7 +17,6 @@
 			
 			import mx.collections.ArrayCollection;
 			import mx.controls.ProgressBar;
-			import mx.effects.easing.Back;
 			import mx.managers.PopUpManager;
 			[Bindable]
 			public var things:ArrayCollection = new ArrayCollection();
@@ -30,13 +29,18 @@
 				instance.addThing(name);
 			}
 			public function addThing(name:String):void{
+				title = things.toArray().join("、");
 				things.addItem(name);
 			}
-			public static function waitThingDone(name:String):void{
-				instance.things.removeItemAt(instance.things.getItemIndex(name));
-				if(!instance.things.length){
-					instance.close();
+			public function removeThing(name:String):void{
+				things.removeItemAt(things.getItemIndex(name));
+				title = things.toArray().join("、");
+				if(!things.length){
+					close();
 				}
+			}
+			public static function waitThingDone(name:String):void{
+				instance.removeThing(name);
 			}
 			public function close():void{
 				PopUpManager.removePopUp(this);

@@ -54,7 +54,7 @@
 			<s:HSlider stepSize="1" value="{localSetting.camQuality}" maximum="100" minimum="0" liveDragging="false" change="localSetting.camQuality = event.target.value" width="180"/>
 		</mx:FormItem>
 		<mx:FormItem label="视频缓冲时间" width="307">
-			<s:HSlider stepSize="0.1" value="{localSetting.bufferTime}" maximum="100" minimum="0" liveDragging="false" change="localSetting.bufferTime = event.target.value" width="180"/>
+			<s:HSlider stepSize="0.01" snapInterval="0.01" value="{localSetting.bufferTime}" maximum="60" minimum="0.1" liveDragging="false" change="localSetting.bufferTime = event.target.value" width="180"/>
 		</mx:FormItem>
 		<s:CheckBox label="multicastAvailabilitySendToAll" selected="{localSetting.multicastAvailabilitySendToAll}" change="localSetting.multicastAvailabilitySendToAll = event.target.selected"/>
 		<mx:FormItem label="组播更新周期" width="309">

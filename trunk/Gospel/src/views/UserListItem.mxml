@@ -51,10 +51,11 @@
 		</s:fill>
 	</s:Rect>
 	<s:HGroup verticalCenter="0" x="10">
-		<mx:Image source="{data.role == UserVO.ADMIN?'assets/user_suit.png':'assets/user.png'}"
+		<mx:Image source="{data.getIcon()}"
 				  toolTip="{data.role == UserVO.ADMIN?'管理员':'普通访客'}"
 				  scaleContent="false" verticalCenter="0"/>
-		<mx:Image source="{data.isSelf?'assets/user_green.png':null}" toolTip="自己"/>
+		<mx:Image source="{data.hasVideo()?'assets/webcam.png':null}" toolTip="视频"/>
+		<mx:Image source="{data.hasAudio()?'assets/sound_none.png':null}" toolTip="音频"/>
 		<s:Label verticalCenter="0" text="{data.name} {data.address}" id="userName" color.normal="0" color.over="0xFFFFFF"/>
 	</s:HGroup>
 </s:DataRenderer>

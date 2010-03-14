@@ -8,8 +8,6 @@ package models
 	import flash.net.NetStream;
 	import flash.utils.getTimer;
 	
-	import models.vo.GospelNetStream;
-	import models.vo.InStream;
 	import models.vo.UserVO;
 
 	[Bindable]
@@ -26,6 +24,7 @@ package models
 		private var groupSpecifier:GroupSpecifier;
 		private var publishName:String;
 		private var hasConnected:Boolean;
+		private var messageCache:Vector.<int> = new Vector.<int>();
 		[DexterBinding(model="localSetting",property="bufferTime")]
 		public function setBufferTime(v:Number):void{
 			if(inStream)inStream.bufferTime = v;
@@ -61,8 +60,22 @@ package models
 				case "NetGroup.Posting.Notify":
 				case "NetGroup.SendTo.Notify":
 					var array:Array = event.info.message as Array;
-					array[0] = "$"+array[0];
-					DexterEvent.SendEvent.apply(DexterEvent,array);
+					if("trust" in array){
+						var answer:Array = ["trustAnswer",array["trust"]];
+						answer["t"] = getTimer();
+						netGroup.sendToNearest(answer,event.info.from);
+						if(messageCache.indexOf(array["trust"]) == -1){
+							messageCache.push(array["trust"]);
+							array[0] = "$"+array[0];
+							DexterEvent.SendEvent.apply(DexterEvent,array);
+							if(messageCache.length>10){
+								messageCache.shift();
+							}
+						}
+					}else{
+						array[0] = "$"+array[0];
+						DexterEvent.SendEvent.apply(DexterEvent,array);
+					}
 					break;
 				case "NetGroup.Neighbor.Connect":
 					if(hasConnected){
@@ -75,11 +88,11 @@ package models
 					}else{
 						hasConnected = true;
 						UserVO.self.groupAddress = netGroup.convertPeerIDToGroupAddress(UserVO.self.id);
-						sendToOthers2("userOnline",UserVO.self);
+						sendDexterEvent("sendToOthers2","userOnline",UserVO.self);
 					}
 					break;
 				case "NetGroup.Neighbor.Disconnect":
-					broadcast2("userOffline",event.info.neighbor);
+					sendDexterEvent("broadcast2","userOffline",event.info.neighbor);
 					break;
 				case "NetGroup.MulticastStream.PublishNotify":
 					if(sendDexterEvent("getUserByID",event.info.name))
@@ -87,6 +100,12 @@ package models
 					else
 						publishName = event.info.name;
 					break;
+			}
+		}
+		[DexterEvent]
+		public function ipDone():void{
+			if(hasConnected){
+				sendDexterEvent("broadcast2","updateIp",UserVO.self);
 			}
 		}
 		[DexterEvent]
@@ -149,46 +168,6 @@ package models
 			outStream = new NetStream(this,groupSpecifier.groupspecWithAuthorizations());
 			outStream.client = this;
 			outStream.addEventListener(NetStatusEvent.NET_STATUS,onNetStatus);
-		}
-		[DexterEvent]
-		public function broadcast2(...arg):void{
-			try{
-				netGroup.post(arg);
-			}catch(e:Error){
-			}
-			arg[0] = "$"+arg[0];
-			DexterEvent.SendEvent.apply(DexterEvent,arg);
-		}
-		[DexterEvent]
-		public function sendToOthers2(...arg):void{
-			try{
-				netGroup.post(arg);
-			}catch(e:Error){
-			}
-		}
-		[DexterEvent]
-		public function broadcast(...arg):void{
-			arg["t"] = getTimer();
-			try{
-				netGroup.post(arg);
-			}catch(e:Error){
-			}
-			arg[0] = "$"+arg[0];
-			DexterEvent.SendEvent.apply(DexterEvent,arg);
-		}
-		[DexterEvent]
-		public function sendToOthers(...arg):void{
-			arg["t"] = getTimer();
-			try{
-				netGroup.post(arg);
-			}catch(e:Error){
-			}
-		}
-		[DexterEvent]
-		public function sendToUser(...arg):void{
-			var user:UserVO = arg.shift() as UserVO;
-			arg["t"] = getTimer();
-			netGroup.sendToNearest(arg,user.groupAddress);
 		}
 	}
 }
