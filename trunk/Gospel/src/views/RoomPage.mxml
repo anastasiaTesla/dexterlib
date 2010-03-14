@@ -13,7 +13,11 @@
 			import models.LocalSetting;
 			import models.vo.UserVO;
 			[DexterBinding]
+			[Bindable]
 			public var localSetting:LocalSetting;
+			[DexterBinding(model="stratus",property="inStream")]
+			[Bindable]
+			public var inStream:NetStream;
 			private var video:Video;
 			[DexterEvent]
 			public function setVideo(userId:String):void{
@@ -53,4 +57,5 @@
 	<s:Button x="130" y="138" buttonMode="true" alpha=".5" color="0" id="fullscreenbn" rollOver="fullscreenbn.visible = true" rollOut="fullscreenbn.visible=false" label="全屏显示" visible="false" baseColor="#999999" height="31" click="button1_clickHandler(event)" fontWeight="bold"/>
 	<views:ChatArea left="336" right="10" top="0" bottom="10">
 	</views:ChatArea>
+	<s:Label x="286" y="10" text="{inStream.bufferLength/localSetting.bufferTime>>0}%" alpha=".5"/>
 </s:NavigatorContent>

@@ -29,8 +29,8 @@
 				instance.addThing(name);
 			}
 			public function addThing(name:String):void{
-				title = things.toArray().join("、");
 				things.addItem(name);
+				title = things.toArray().join("、");
 			}
 			public function removeThing(name:String):void{
 				things.removeItemAt(things.getItemIndex(name));
