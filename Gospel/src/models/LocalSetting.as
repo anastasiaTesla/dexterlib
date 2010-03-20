@@ -55,7 +55,7 @@ package models
 			try{
 				so.flush();
 			}catch(e:Error){
-				
+				trace(name,e);
 			}
 		}
 		public function get cam():Camera{

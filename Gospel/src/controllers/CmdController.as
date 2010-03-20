@@ -1,13 +1,11 @@
 package controllers
 {
-	import flash.display.BitmapData;
-	import flash.utils.ByteArray;
-	
 	import models.LocalSetting;
 	import models.vo.UserVO;
 	
 	import mx.collections.ArrayCollection;
-	import mx.core.FlexGlobals;
+	import mx.controls.Alert;
+	import mx.events.CloseEvent;
 
 	public class CmdController
 	{
@@ -40,14 +38,11 @@ package controllers
 					}
 				}
 			}else{
-				o.multicastAvailabilitySendToAll = localSetting.multicastAvailabilitySendToAll;
-				o.multicastAvailabilityUpdatePeriod = localSetting.multicastAvailabilityUpdatePeriod;
-				o.multicastFetchPeriod = localSetting.multicastFetchPeriod;
-				o.multicastPushNeighborLimit = localSetting.multicastPushNeighborLimit;
-				o.multicastRelayMarginDuration = localSetting.multicastRelayMarginDuration;
-				o.multicastWindowDuration = localSetting.multicastWindowDuration;
 			}
 			sendDexterEvent("sendToOthers","cmdNsConfig",o);
+		}
+		private function updateClient():void{
+			sendDexterEvent("sendToOthers","updateClient");
 		}
 		private function listUser(u:String = null):void{
 			for(var i:int;i<userList.length;i++){
@@ -62,6 +57,13 @@ package controllers
 			for(var i:String in o){
 				localSetting[i] = o[i];
 			}
+		}
+		[DexterEvent]
+		public function $updateClient():void{
+			var closeHandler:Function = function(event:CloseEvent):void{
+				sendDexterEvent("update");
+			}
+			Alert.show("客户端即将更新","管理员要求你更新客户端",4,null,closeHandler);
 		}
 	}
 }
