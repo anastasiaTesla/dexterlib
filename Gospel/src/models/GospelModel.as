@@ -12,6 +12,7 @@ package models
 	import models.vo.UserVO;
 	
 	import mx.collections.XMLListCollection;
+	import mx.controls.ProgressBarMode;
 	
 	import views.WaitWindow;
 
@@ -35,8 +36,10 @@ package models
 			return appDesc.children()[3];
 		}
 		public function loadConfig():void{
-			WaitWindow.wait("加载配置文件");
-			new URLLoader(new URLRequest(configURL)).addEventListener(Event.COMPLETE,onConfigLoaded,false,0,true);
+			var loader:URLLoader = new URLLoader();
+			WaitWindow.wait("加载配置文件",ProgressBarMode.EVENT,loader);
+			loader.addEventListener(Event.COMPLETE,onConfigLoaded,false,0,true);
+			loader.load(new URLRequest(configURL));
 		}
 		private function onConfigLoaded(event:Event):void{
 			var config:XML = new XML(event.target.data);
