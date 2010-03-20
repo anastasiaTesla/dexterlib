@@ -53,23 +53,23 @@
 		<mx:FormItem label="视频质量" width="307">
 			<s:HSlider stepSize="1" value="{localSetting.camQuality}" maximum="100" minimum="0" liveDragging="false" change="localSetting.camQuality = event.target.value" width="180"/>
 		</mx:FormItem>
-		<mx:FormItem label="视频缓冲时间" width="307">
+		<mx:FormItem enabled="false" label="视频缓冲时间" width="307">
 			<s:HSlider stepSize="0.01" snapInterval="0.01" value="{localSetting.bufferTime}" maximum="60" minimum="0" liveDragging="false" change="localSetting.bufferTime = event.target.value" width="180"/>
 		</mx:FormItem>
-		<s:CheckBox label="multicastAvailabilitySendToAll" selected="{localSetting.multicastAvailabilitySendToAll}" change="localSetting.multicastAvailabilitySendToAll = event.target.selected"/>
-		<mx:FormItem label="组播更新周期" width="309">
+		<s:CheckBox enabled="false" label="multicastAvailabilitySendToAll" selected="{localSetting.multicastAvailabilitySendToAll}" change="localSetting.multicastAvailabilitySendToAll = event.target.selected"/>
+		<mx:FormItem  enabled="false" label="组播更新周期" width="309">
 			<s:HSlider stepSize="1" value="{localSetting.multicastAvailabilityUpdatePeriod}" maximum="100" minimum="0" liveDragging="false" change="localSetting.multicastAvailabilityUpdatePeriod = event.target.value" width="180"/>
 		</mx:FormItem>
-		<mx:FormItem label="组播撷取周期" width="309">
+		<mx:FormItem enabled="false" label="组播撷取周期" width="309">
 			<s:HSlider stepSize="1" value="{localSetting.multicastFetchPeriod}" maximum="100" minimum="0" liveDragging="false" change="localSetting.multicastFetchPeriod = event.target.value" width="180"/>
 		</mx:FormItem>
-		<mx:FormItem label="组播窗口时间" width="309">
+		<mx:FormItem enabled="false" label="组播窗口时间" width="309">
 			<s:HSlider stepSize="1" value="{localSetting.multicastWindowDuration}" maximum="100" minimum="0" liveDragging="false" change="localSetting.multicastWindowDuration = event.target.value" width="180"/>
 		</mx:FormItem>
-		<mx:FormItem label="组播推送邻居限制" width="309">
+		<mx:FormItem enabled="false" label="组播推送邻居限制" width="309">
 			<s:HSlider stepSize="1" value="{localSetting.multicastPushNeighborLimit}" maximum="100" minimum="0" liveDragging="false" change="localSetting.multicastPushNeighborLimit = event.target.value" width="180"/>
 		</mx:FormItem>
-		<mx:FormItem label="组播保证时间" width="309">
+		<mx:FormItem enabled="false" label="组播保证时间" width="309">
 			<s:HSlider stepSize="1" value="{localSetting.multicastRelayMarginDuration}" maximum="100" minimum="0" liveDragging="false" change="localSetting.multicastRelayMarginDuration = event.target.value" width="180"/>
 		</mx:FormItem>
 	</mx:Form>

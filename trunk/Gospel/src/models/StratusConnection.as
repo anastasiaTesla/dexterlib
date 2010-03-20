@@ -25,10 +25,6 @@ package models
 		private var publishName:String;
 		private var hasConnected:Boolean;
 		private var messageCache:Vector.<int> = new Vector.<int>();
-		[DexterBinding(model="localSetting",property="bufferTime")]
-		public function setBufferTime(v:Number):void{
-			if(inStream)inStream.bufferTime = v;
-		}
 		public function StratusConnection()
 		{
 			super();
@@ -123,7 +119,7 @@ package models
 			groupSpecifier.objectReplicationEnabled = true;
 			groupSpecifier.routingEnabled = true;
 			inStream = new NetStream(this,groupSpecifier.groupspecWithAuthorizations());
-			inStream.bufferTime = localSetting.bufferTime;
+			inStream.bufferTime = 0.1;
 			inStream.client = this;
 			inStream.addEventListener(NetStatusEvent.NET_STATUS,onNetStatus);
 			netGroup = new NetGroup(this,groupSpecifier.groupspecWithAuthorizations());

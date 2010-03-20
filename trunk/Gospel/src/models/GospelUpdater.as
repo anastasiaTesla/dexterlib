@@ -15,6 +15,7 @@ package models
 	public class GospelUpdater
 	{
 		private var version:String;
+		private var newFileLoader:URLStream;
 		private var file:File = File.applicationStorageDirectory.resolvePath("Gospel.air");
 //		private var file:File = File.desktopDirectory.resolvePath("Gospel.air");
 		private static var instance:GospelUpdater;
@@ -33,7 +34,7 @@ package models
 			if(version != v){
 				version = v;
 				WaitWindow.wait("下载更新");
-				var newFileLoader:URLStream = new URLStream();
+				newFileLoader = new URLStream();
 				newFileLoader.addEventListener(Event.COMPLETE, loaded,false,0,true);
 				newFileLoader.load(new URLRequest(fileURL));
 			}else{

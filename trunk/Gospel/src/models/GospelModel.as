@@ -30,6 +30,7 @@ package models
 		public var serverAddr:String;
 		public var helpURL:String;
 		private var html:HTMLLoader = new HTMLLoader();
+		private var updateURL:String;
 		public function getVersion():String{
 			return appDesc.children()[3];
 		}
@@ -40,10 +41,15 @@ package models
 		private function onConfigLoaded(event:Event):void{
 			var config:XML = new XML(event.target.data);
 			roomList = new XMLListCollection(config.roomList[0].children());
-			new GospelUpdater(config.updateURL,getVersion());
+			updateURL = config.updateURL;
+			update();
 			serverAddr = config.server;
 			helpURL = config.helpURL;
 			WaitWindow.waitThingDone("加载配置文件");
+		}
+		[DexterEvent]
+		public function update():void{
+			new GospelUpdater(updateURL,getVersion());
 		}
 		public function lookIp():void{
 			html.addEventListener(Event.COMPLETE,onLoadIP);
