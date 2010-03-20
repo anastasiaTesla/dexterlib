@@ -21,7 +21,7 @@ package controllers
 				userList.addItem(u);
 				sendDexterEvent("userOnline",u);
 			}
-			sendDexterEvent("sendToUser",u,"alreadyOnline",UserVO.self);
+			sendDexterEvent("sendToUserTrust",u,"alreadyOnline",UserVO.self);
 		}
 		[DexterEvent]
 		public function $updateIp(user:Object):void{

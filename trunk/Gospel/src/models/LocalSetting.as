@@ -91,7 +91,7 @@ package models
 			so.data["camQuality"] = v;
 		}
 		public function get bufferTime():Number{
-			return so.data["bufferTime"]?so.data["bufferTime"]:1.0;
+			return so.data["bufferTime"]?so.data["bufferTime"]:0;
 		}
 		public function set bufferTime(v:Number):void{
 			setValue("bufferTime",v);
