@@ -30,12 +30,16 @@ package models.vo
 		public var role:int;
 		public var groupAddress:String;
 		public var av:String;
-		public var messages:Vector.<ChatMsgVO> = new Vector.<ChatMsgVO>();
+//		public var messages:Vector.<ChatMsgVO> = new Vector.<ChatMsgVO>();
 		public var windowRect:Rectangle;
 		public function UserVO(o:Object=null)
 		{
 			for(var i:String in o){
-				this[i] = o[i];
+				try{
+					this[i] = o[i];
+				}catch(e:Error){
+					
+				}
 			}
 		}
 		public function hasVideo():Boolean{
@@ -44,9 +48,9 @@ package models.vo
 		public function hasAudio():Boolean{
 			return av.charAt(1) == "1";
 		}
-		public function getMsgLength():int{
-			return messages.length;
-		}
+//		public function getMsgLength():int{
+//			return messages.length;
+//		}
 		public function getIcon():String{
 			return icons[role];
 		}
