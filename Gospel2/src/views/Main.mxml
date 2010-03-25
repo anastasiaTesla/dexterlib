@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <s:Window title="福音天使" xmlns:fx="http://ns.adobe.com/mxml/2009" showStatusBar="false" windowComplete="window1_windowCompleteHandler(event)" alwaysInFront="true"
 		  xmlns:s="library://ns.adobe.com/flex/spark" systemChrome="{NativeWindowSystemChrome.NONE}" transparent="true"
-		  xmlns:mx="library://ns.adobe.com/flex/halo" width="216" height="710" xmlns:local="*" backgroundColor="#2C72AD" backgroundAlpha="0" xmlns:views="views.*">
+		  xmlns:mx="library://ns.adobe.com/flex/mx" width="216" height="710" xmlns:local="*" backgroundColor="#2C72AD" backgroundAlpha="0" xmlns:views="views.*">
 	<s:layout>
 		<s:BasicLayout/>
 	</s:layout>
@@ -77,8 +77,8 @@
 		<mx:Image source="assets/MainBottom.png" bottom="7" horizontalCenter="0"/>
 		<s:Label y="37" text="{UserVO.self.name}" horizontalCenter="0" mouseEnabled="false" mouseChildren="false"/>
 		<s:Label x="95" y="53" text="{gospelModel.selectedRoom.@name}" horizontalCenter="0" mouseEnabled="false" mouseChildren="false"/>
-		<s:Border x="163" width="11" height="11" alpha="0" mouseDown="nativeWindow.startResize(NativeWindowResize.BOTTOM)" bottom="7">
-		</s:Border>
+		<s:BorderContainer x="163" width="11" height="11" alpha="0" mouseDown="nativeWindow.startResize(NativeWindowResize.BOTTOM)" bottom="7">
+		</s:BorderContainer>
 		<views:ImageButton id="receiveVideo" change="localSetting.receiveVideo = receiveVideo.selected" selected="{localSetting.receiveVideo}" x="10" source="assets/television.png" bottom="20" toolTip="允许接受视频"/>
 		<views:ImageButton id="settings" x="40" toggled="false" change="settings_changeHandler(event)" source="assets/cog.png" bottom="20" toolTip="系统设置"/>
 		<views:ImageButton id="autoPopUpChat" change="localSetting.autoPopUpChat = autoPopUpChat.selected" selected="{localSetting.autoPopUpChat}" x="143" source="assets/application_cascade.png" bottom="20" toolTip="自动弹出聊天窗口"/>

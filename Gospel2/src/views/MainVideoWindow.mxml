@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <s:Window xmlns:fx="http://ns.adobe.com/mxml/2009" showStatusBar="false" transparent="true" systemChrome="none" backgroundAlpha="0"
 		  xmlns:s="library://ns.adobe.com/flex/spark" close="window1_closeHandler(event)" windowComplete="window1_windowCompleteHandler(event)"
-		  xmlns:mx="library://ns.adobe.com/flex/halo" width="674" height="611" xmlns:views="views.*" xmlns:local="*">
+		  xmlns:mx="library://ns.adobe.com/flex/mx" width="674" height="611" xmlns:views="views.*" xmlns:local="*">
 	<s:layout>
 		<s:BasicLayout/>
 	</s:layout>
 	<fx:Declarations>
 		<local:DexterFramework id="df"/>
 	</fx:Declarations>
-	<s:Border y="10" height="568" width="647" x="10" borderColor="0x5380D0" cornerRadius="5" mouseDown="nativeWindow.startMove()">
+	<s:BorderContainer y="10" height="568" width="647" x="10" borderColor="0x5380D0" cornerRadius="5" mouseDown="nativeWindow.startMove()">
 		<s:backgroundFill>
 			<s:LinearGradient rotation="90">
 				<s:GradientEntry color="#52d7f8" ratio="0"/>
@@ -20,9 +20,9 @@
 		<s:filters>
 			<s:DropShadowFilter blurX="12" hideObject="false" distance="6" blurY="12" inner="false" color="0x000000" strength="1" alpha="1.0" quality="3" knockout="false" angle="90"/>
 		</s:filters>
-		<s:Border y="40" height="479" width="639" horizontalCenter="0" backgroundColor="0" borderColor="0x5380D0">
+		<s:BorderContainer y="40" height="479" width="639" horizontalCenter="0" backgroundColor="0" borderColor="0x5380D0">
 			<views:GVideo id="video" width="100%" height="100%"/>
-		</s:Border>
+		</s:BorderContainer>
 		<s:HGroup width="100%" height="30" left="10" y="5" verticalAlign="middle">
 			<mx:Image id="icon"/>
 			<s:Label id="titleLabel" text="{user.name}" fontWeight="bold"/>
@@ -31,7 +31,7 @@
 		<s:HSlider x="462" y="547" maximum="100" minimum="0" liveDragging="false" value="{localSetting.bufferTime}" change="localSetting.bufferTime = bufferTime.value" id="bufferTime"/>
 		<views:ImageButton x="604" y="525" source="assets/arrow_out.png">
 		</views:ImageButton>
-	</s:Border>
+	</s:BorderContainer>
 	<fx:Script>
 		<![CDATA[
 			import controllers.VideoController;

@@ -2,7 +2,7 @@
 <s:WindowedApplication xmlns:fx="http://ns.adobe.com/mxml/2009" backgroundFrameRate="-1" frameRate="12"
 					   creationComplete="windowedapplication1_creationCompleteHandler(event)"
 					   xmlns:s="library://ns.adobe.com/flex/spark" showStatusBar="false"
-					   xmlns:mx="library://ns.adobe.com/flex/halo" width="312" height="218" xmlns:local="*" backgroundAlpha="0.0">
+					   xmlns:mx="library://ns.adobe.com/flex/mx" width="312" height="218" xmlns:local="*" backgroundAlpha="0.0">
 	<fx:Script>
 		<![CDATA[
 			import flash.display.Screen;

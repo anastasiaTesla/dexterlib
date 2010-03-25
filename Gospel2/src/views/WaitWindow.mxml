@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<s:Border xmlns:fx="http://ns.adobe.com/mxml/2009"  backgroundColor="#FFFFFF" cornerRadius="5" backgroundAlpha=".8"
+<s:BorderContainer xmlns:fx="http://ns.adobe.com/mxml/2009"  backgroundColor="#FFFFFF" cornerRadius="5" backgroundAlpha=".8"
 		 xmlns:s="library://ns.adobe.com/flex/spark" 
-		 xmlns:mx="library://ns.adobe.com/flex/halo" width="256" height="60" xmlns:local="*">
+		 xmlns:mx="library://ns.adobe.com/flex/mx" width="256" height="60" xmlns:local="*">
 	<s:creationCompleteEffect>
 		<mx:Fade duration="200"/>
 	</s:creationCompleteEffect>
@@ -53,4 +53,4 @@
 	<s:filters>
 		<s:DropShadowFilter angle="90" quality="3" strength="0.5"/>
 	</s:filters>
-</s:Border>
+</s:BorderContainer>

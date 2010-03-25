@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <s:Window xmlns:fx="http://ns.adobe.com/mxml/2009" closing="window1_closingHandler(event)" systemChrome="none" backgroundAlpha="0" contentBackgroundAlpha="0"
 		  xmlns:s="library://ns.adobe.com/flex/spark" showStatusBar="false" enterFrame="window1_enterFrameHandler(event)" transparent="true"
-		  xmlns:mx="library://ns.adobe.com/flex/halo" width="480" height="468" xmlns:local="*" xmlns:views="views.*">
+		  xmlns:mx="library://ns.adobe.com/flex/mx" width="480" height="468" xmlns:local="*" xmlns:views="views.*">
 	<fx:Script>
 		<![CDATA[
 			import flash.display.Screen;
@@ -198,7 +198,7 @@
 		<local:DexterFramework id="df"/>
 	</fx:Declarations>
 	<s:RectangularDropShadow angle="90" blurX="8" blurY="8" x="10" width="458" height="433" tlRadius="5" trRadius="5" blRadius="5" brRadius="5"/>
-	<s:Border x="10" y="0" width="458" height="433" cornerRadius="5" borderColor="#2ca2e9">
+	<s:BorderContainer x="10" y="0" width="458" height="433" cornerRadius="5" borderColor="#2ca2e9">
 			<s:backgroundFill>
 				<s:LinearGradient rotation="90">
 					<s:GradientEntry color="#52d7f8" ratio="0"/>
@@ -211,11 +211,11 @@
 				<s:GlowFilter color="#2ca2e9" blurX="2" blurY="2" strength="2" quality="3"/>
 				<s:DropShadowFilter quality="3" angle="90" blurX="8" blurY="8"/>
 			</s:filters>-->
-		<s:Border borderVisible="false" width="100%" height="30" left="10" backgroundAlpha="0" backgroundColor="0" mouseDown="nativeWindow.startMove()">
+		<s:BorderContainer borderVisible="false" width="100%" height="30" left="10" backgroundAlpha="0" backgroundColor="0" mouseDown="nativeWindow.startMove()">
 			<s:layout><s:HorizontalLayout verticalAlign="middle"/></s:layout>
 			<mx:Image source="{user.getIcon()}"/>
 			<s:Label id="titleLabel" text="{user.name}" fontWeight="bold"/>
-		</s:Border>
+		</s:BorderContainer>
 		<s:Group left="2" right="2" top="30" bottom="2">
 			<s:Rect width="100%" top="0" bottom="38">
 				<s:fill>
@@ -232,7 +232,7 @@
 					</s:creationComplete>
 				</s:RichEditableText>
 			</s:Scroller>
-			<s:Border width="100%" height="25" bottom="133">
+			<s:BorderContainer width="100%" height="25" bottom="133">
 				<s:backgroundFill>
 					<s:LinearGradient rotation="90">
 						<s:GradientEntry color="#c8dff2" alpha="0.5" ratio="0"/>
@@ -244,7 +244,7 @@
 				</s:borderStroke>
 				<s:layout><s:HorizontalLayout verticalAlign="middle" paddingLeft="10"/></s:layout>
 				<views:ImageButton id="selectFaceBn" source="assets/emoticon_grin.png" click="imagebutton1_clickHandler(event)"/>
-			</s:Border>
+			</s:BorderContainer>
 			<s:RichEditableText paddingLeft="5" paddingTop="5" paddingRight="5" paddingBottom="5" id="input" keyDown="input_keyDownHandler(event)" height="95" left="0" right="0" bottom="39">
 			</s:RichEditableText>
 			<s:Button label="发送" bottom="10" right="10" click="button1_clickHandler(event)"/>
@@ -253,6 +253,6 @@
 			<s:RadioButton x="92" id="useCEnter" label="Ctrl+Enter发送" change="radiobutton2_changeHandler(event)" selected="{!localSetting.sendChatButtonKey}" groupName="radioGroup" bottom="10"/>
 			<s:CheckBox x="202" label="自动滚屏" bottom="10" id="autoScroll" selected="true"/>
 		</s:Group>
-	</s:Border>
+	</s:BorderContainer>
 	<s:Button buttonMode="true" top="10" right="20" skinClass="views.CloseButtonSkin" click="close()"/>
 </s:Window>
