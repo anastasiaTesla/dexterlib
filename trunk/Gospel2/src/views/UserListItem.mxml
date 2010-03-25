@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<s:DataRenderer xmlns:fx="http://ns.adobe.com/mxml/2009" implements="spark.components.IItemRenderer" mouseChildren="false"
+<s:DataRenderer xmlns:fx="http://ns.adobe.com/mxml/2009" implements="mx.core.IDataRenderer" mouseChildren="false"
 				xmlns:s="library://ns.adobe.com/flex/spark" rollOver="datarenderer1_rollOverHandler(event)"
 				rollOut="datarenderer1_rollOutHandler(event)" rightMouseDown="sendDexterEvent('selectMe',data)" doubleClickEnabled="true" doubleClick="datarenderer1_doubleClickHandler(event)"
-				xmlns:mx="library://ns.adobe.com/flex/halo" width="100%" height="22">
+				xmlns:mx="library://ns.adobe.com/flex/mx" width="100%" height="22">
 	<fx:Declarations>
 		<!-- Place non-visual elements (e.g., services, value objects) here -->
 	</fx:Declarations>
@@ -13,7 +13,6 @@
 			
 			import mx.events.FlexEvent;
 			
-			import spark.components.IItemRenderer;
 			override public function set data(v:Object):void{
 				super.data = v;
 				if(data)data.addEventListener("msgLengthChange",msgLengthShow,false,0,true);
